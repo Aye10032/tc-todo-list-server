@@ -14,7 +14,7 @@ import org.apache.ibatis.annotations.Update;
 public interface ITodoDao {
 
     @Select("SELECT count(*) FROM sqlite_master WHERE type=\"table\" AND name = \"todo_list\"")
-    Integer TableExist();
+    Integer TodoTableExist();
 
     @Update("create table todo_list\n" +
             "(\n" +
