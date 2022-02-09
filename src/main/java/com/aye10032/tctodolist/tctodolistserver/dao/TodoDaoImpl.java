@@ -1,3 +1,4 @@
+/*
 package com.aye10032.tctodolist.tctodolistserver.dao;
 
 import org.apache.ibatis.io.Resources;
@@ -8,6 +9,7 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import java.io.IOException;
 import java.io.InputStream;
 
+*/
 /**
  * @program: tc-todo-list-server
  * @className: ITodoDaoImpl
@@ -15,7 +17,8 @@ import java.io.InputStream;
  * @version: v1.0
  * @author: Aye10032
  * @date: 2022/2/9 下午 6:31
- */
+ *//*
+
 public class TodoDaoImpl implements ITodoDao{
 
     private InputStream in;
@@ -64,3 +67,4 @@ public class TodoDaoImpl implements ITodoDao{
         closeAll();
     }
 }
+*/

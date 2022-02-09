@@ -1,3 +1,4 @@
+/*
 package com.aye10032.tctodolist.tctodolistserver.util;
 
 import com.aye10032.tctodolist.tctodolistserver.dao.TodoDaoImpl;
@@ -6,6 +7,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.File;
 
+*/
 /**
  * @program: tc-todo-list-server
  * @className: ServerInit
@@ -13,7 +15,8 @@ import java.io.File;
  * @version: v1.0
  * @author: Aye10032
  * @date: 2022/2/9 下午 6:11
- */
+ *//*
+
 public class ServerInit {
 
     public static void init(){
@@ -28,3 +31,4 @@ public class ServerInit {
     }
 
 }
+*/
