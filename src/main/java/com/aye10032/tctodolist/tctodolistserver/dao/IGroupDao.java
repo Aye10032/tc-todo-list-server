@@ -1,5 +1,6 @@
 package com.aye10032.tctodolist.tctodolistserver.dao;
 
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
@@ -11,6 +12,7 @@ import org.apache.ibatis.annotations.Update;
  * @author: Aye10032
  * @date: 2022/2/9 下午 10:54
  */
+@Mapper
 public interface IGroupDao {
 
     @Select("SELECT count(*) FROM sqlite_master WHERE type=\"table\" AND name = \"group_list\"")
