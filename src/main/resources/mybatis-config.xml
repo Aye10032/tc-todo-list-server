@@ -17,6 +17,10 @@
     </environments>
 
     <mappers>
+        <mapper class="com.aye10032.tctodolist.tctodolistserver.dao.IGroupDao"/>
+        <mapper class="com.aye10032.tctodolist.tctodolistserver.dao.IMessageDao"/>
+        <mapper class="com.aye10032.tctodolist.tctodolistserver.dao.IPlayerDao"/>
         <mapper class="com.aye10032.tctodolist.tctodolistserver.dao.ITodoDao"/>
+        <mapper class="com.aye10032.tctodolist.tctodolistserver.dao.IUndertakeDao"/>
     </mappers>
 </configuration>
