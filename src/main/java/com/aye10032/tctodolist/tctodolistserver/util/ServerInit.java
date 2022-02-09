@@ -1,12 +1,10 @@
 package com.aye10032.tctodolist.tctodolistserver.util;
 
-import com.aye10032.tctodolist.tctodolistserver.TcTodoListServerApplication;
-import com.aye10032.tctodolist.tctodolistserver.dao.ITodoDaoImpl;
+import com.aye10032.tctodolist.tctodolistserver.dao.TodoDaoImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
-import java.io.IOException;
 
 /**
  * @program: tc-todo-list-server
@@ -21,7 +19,7 @@ public class ServerInit {
     public static void init(){
         Logger logger = LoggerFactory.getLogger("tc-todo-list-server");
         File database = new File("todo.db");
-        ITodoDaoImpl todoDao = new ITodoDaoImpl();
+        TodoDaoImpl todoDao = new TodoDaoImpl();
 
         if (!database.exists()){
             logger.info("database created");

@@ -16,7 +16,7 @@ import java.io.InputStream;
  * @author: Aye10032
  * @date: 2022/2/9 下午 6:31
  */
-public class ITodoDaoImpl implements ITodoDao{
+public class TodoDaoImpl implements ITodoDao{
 
     private InputStream in;
     private SqlSession session;
@@ -44,11 +44,11 @@ public class ITodoDaoImpl implements ITodoDao{
     }
 
     @Override
-    public Integer TableExist() {
+    public Integer TodoTableExist() {
         Integer result = null;
         initSession();
 
-        result = dao.TableExist();
+        result = dao.TodoTableExist();
 
         closeAll();
         return result;
