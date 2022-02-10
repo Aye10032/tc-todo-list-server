@@ -3,6 +3,8 @@ package com.aye10032.tctodolist.tctodolistserver.dao;
 import com.aye10032.tctodolist.tctodolistserver.pojo.PlayerPojo;
 import org.apache.ibatis.annotations.*;
 
+import java.util.List;
+
 /**
  * @program: tc-todo-list-server
  * @className: IPlayerDao
@@ -34,5 +36,22 @@ public interface IPlayerDao {
             "(#{name}, #{uuid}, #{op}, #{groups});")
     @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id")
     Integer insertPlayer(PlayerPojo player);
+
+    @Select("SELECT * FROM player_list WHERE id=#{id}")
+    List<PlayerPojo> selectPlayerByID(Integer id);
+
+    @Select("SELECT * FROM player_list WHERE name=#{name}")
+    List<PlayerPojo> selectPlayerByName(String name);
+
+    @Select("SELECT * FROM player_list WHERE uuid=#{uuid}")
+    List<PlayerPojo> selectPlayerByUUID(String uuid);
+
+    @Update("UPDATE player_list SET " +
+            "name=#{name}, op=#{op}, groups=#{groups} WHERE uuid=#{uuid}")
+    void updatePlayerByUUID(PlayerPojo player);
+
+    @Update("UPDATE player_list SET " +
+            "name=#{name}, op=#{op}, groups=#{groups} WHERE id=#{id}")
+    void updatePlayerByID(PlayerPojo player);
 
 }

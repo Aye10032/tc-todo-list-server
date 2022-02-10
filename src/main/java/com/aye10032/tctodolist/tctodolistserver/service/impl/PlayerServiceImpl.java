@@ -1,15 +1,17 @@
 package com.aye10032.tctodolist.tctodolistserver.service.impl;
 
 import com.aye10032.tctodolist.tctodolistserver.dao.IPlayerDao;
+import com.aye10032.tctodolist.tctodolistserver.data.APIException;
 import com.aye10032.tctodolist.tctodolistserver.pojo.PlayerPojo;
 import com.aye10032.tctodolist.tctodolistserver.service.PlayerService;
 import com.aye10032.tctodolist.tctodolistserver.util.MinecraftUtil;
-import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -21,6 +23,8 @@ import java.util.List;
  * @date: 2022/2/10 上午 10:52
  */
 @Service
+@Slf4j
+@Validated
 public class PlayerServiceImpl implements PlayerService {
 
     @Autowired
@@ -31,20 +35,46 @@ public class PlayerServiceImpl implements PlayerService {
         return playerDao.PlayerTableExist() == 1;
     }
 
-    @SneakyThrows
     @Override
     public int insertPlayer(String name) {
-        PlayerPojo player = new PlayerPojo();
-        player.setName(name);
-        player.setUuid(MinecraftUtil.getUUID(name));
-        player.setOp(false);
+        try {
+            PlayerPojo player = new PlayerPojo();
+            player.setName(name);
+            player.setUuid(MinecraftUtil.getUUID(name));
+            player.setOp(false);
 
-        //默认加入服务器组
-        List<Integer> group = new ArrayList<>();
-        group.add(1);
-        player.setGroups(group);
+            //默认加入服务器组
+            List<Integer> group = new ArrayList<>();
+            group.add(1);
+            player.setGroups(group);
 
-        return playerDao.insertPlayer(player);
+            return playerDao.insertPlayer(player);
+        } catch (IOException | APIException e) {
+            log.error("insert fail, player doesn't exist");
+        }
+        return -1;
     }
+
+    @Override
+    public void setPlayerAdmin(String name) {
+        try {
+            String uuid = MinecraftUtil.getUUID(name);
+            List<PlayerPojo> players = playerDao.selectPlayerByUUID(uuid);
+
+            if (!players.isEmpty()) {
+                PlayerPojo player = players.get(0);
+                player.setName(name);
+                player.setOp(true);
+                playerDao.updatePlayerByUUID(player);
+            } else {
+                PlayerPojo player = new PlayerPojo(name, uuid, true);
+
+                playerDao.insertPlayer(player);
+            }
+        } catch (IOException | APIException e) {
+            log.error("update fail, player doesn't exist");
+        }
+    }
+
 
 }
