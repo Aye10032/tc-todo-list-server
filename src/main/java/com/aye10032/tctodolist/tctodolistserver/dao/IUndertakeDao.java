@@ -26,7 +26,7 @@ public interface IUndertakeDao {
             "\tplayer_id INTEGER not null,\n" +
             "\tmsg TEXT,\n" +
             "\ttime BLOB not null,\n" +
-            "\tlast_update_time BLOB,\n" +
+            "\tlast_update_time BLOB\n" +
             ");")
     void CreateUndertakeTable();
 
