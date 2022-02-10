@@ -20,4 +20,6 @@ public interface PlayerService {
 
     boolean isPlayerAdmin(String name);
 
+    int updatePlayerName(String name);
+
 }

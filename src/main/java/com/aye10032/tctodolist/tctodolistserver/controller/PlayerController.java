@@ -49,4 +49,12 @@ public class PlayerController {
         }
     }
 
+    @ApiOperation("更新玩家ID（改名时）")
+    @PostMapping("updatePlayerName")
+    public Integer updatePlayerName(
+            @ApiParam("玩家现在的ID") @RequestParam(value = "name") String name
+    ) {
+        return playerService.updatePlayerName(name);
+    }
+
 }
