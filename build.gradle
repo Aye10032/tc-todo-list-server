@@ -34,6 +34,9 @@ dependencies {
 
 // https://mvnrepository.com/artifact/org.mybatis.spring.boot/mybatis-spring-boot-starter
     implementation group: 'org.mybatis.spring.boot', name: 'mybatis-spring-boot-starter', version: '2.2.2'
+    // https://mvnrepository.com/artifact/com.baomidou/mybatis-plus-boot-starter
+    implementation group: 'com.baomidou', name: 'mybatis-plus-boot-starter', version: '3.4.2'
+
 
     // https://mvnrepository.com/artifact/org.xerial/sqlite-jdbc
     implementation group: 'org.xerial', name: 'sqlite-jdbc', version: '3.34.0'
