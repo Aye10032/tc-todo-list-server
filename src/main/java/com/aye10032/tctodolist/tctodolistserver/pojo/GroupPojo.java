@@ -1,6 +1,5 @@
 package com.aye10032.tctodolist.tctodolistserver.pojo;
 
-import com.baomidou.mybatisplus.annotation.TableField;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -30,7 +29,7 @@ public class GroupPojo {
     private Integer owner;
 
     @ApiModelProperty("组管理员")
-    @TableField(value = "admins", typeHandler = com.aye10032.tctodolist.tctodolistserver.handler.ListToVarcharTypeHandler.class)
+    //@TableField(value = "admins", typeHandler = com.aye10032.tctodolist.tctodolistserver.handler.ListToVarcharTypeHandler.class)
     private List<Integer> admins;
 
 }

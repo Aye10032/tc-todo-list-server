@@ -33,7 +33,7 @@ public class SwaggerConfig {
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.aye10032.tctodolist.tctodolistserver.controller"))    // 为当前包路径
                 .paths(PathSelectors.any())
-                .paths(Predicate.not(PathSelectors.regex("/error.*")))
+                .paths(PathSelectors.regex("/error.*").negate())
                 .build();
     }
 

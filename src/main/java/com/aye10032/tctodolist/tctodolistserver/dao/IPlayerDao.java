@@ -31,11 +31,11 @@ public interface IPlayerDao {
             ");")
     void createPlayerTable();
 
-/*    @Insert("INSERT INTO player_list" +
+    @Insert("INSERT INTO player_list" +
             "('name','uuid','op','groups') VALUES " +
             "(#{name}, #{uuid}, #{op}, #{groups});")
     @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id")
-    Integer insertPlayer(PlayerPojo player);*/
+    Integer insertPlayer(PlayerPojo player);
 
     @Select("SELECT * FROM player_list WHERE id=#{id}")
     List<PlayerPojo> selectPlayerByID(Integer id);

@@ -36,10 +36,6 @@ public class PlayerServiceImpl implements PlayerService {
     @Autowired
     private PlayerListMapper playerListMapper;
 
-    @Override
-    public boolean doesTableExist() {
-        return playerDao.PlayerTableExist() == 1;
-    }
 
     @SneakyThrows
     @Override
@@ -53,7 +49,17 @@ public class PlayerServiceImpl implements PlayerService {
         group.add(0);
         player.setGroups(group);
 
-        return playerDao.insertPlayer(player);
+        return playerListMapper.insert(player);
+    }
+
+    @Override
+    public void setPlayerAdmin(String name, String from_player) {
+
+    }
+
+    @Override
+    public boolean isPlayerAdmin(String name) {
+        return false;
     }
 
     @Override
