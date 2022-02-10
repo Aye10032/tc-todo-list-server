@@ -18,6 +18,8 @@ public interface PlayerService {
 
     int insertPlayer(String name);
 
-    void setPlayerAdmin(String name);
+    void setPlayerAdmin(String name, String from_player);
+
+    boolean isPlayerAdmin(String name);
 
 }

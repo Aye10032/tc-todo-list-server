@@ -56,7 +56,7 @@ public class PlayerServiceImpl implements PlayerService {
     }
 
     @Override
-    public void setPlayerAdmin(String name) {
+    public void setPlayerAdmin(String name, String from_player) {
         try {
             String uuid = MinecraftUtil.getUUID(name);
             List<PlayerPojo> players = playerDao.selectPlayerByUUID(uuid);
@@ -74,6 +74,35 @@ public class PlayerServiceImpl implements PlayerService {
         } catch (IOException | APIException e) {
             log.error("update fail, player doesn't exist");
         }
+    }
+
+    @Override
+    public boolean isPlayerAdmin(String name) {
+        List<PlayerPojo> players = playerDao.selectPlayerByName(name);
+        PlayerPojo player;
+        if (players.isEmpty()){
+            try {
+                String uuid = MinecraftUtil.getUUID(name);
+                players = playerDao.selectPlayerByUUID(uuid);
+
+                if (players.isEmpty()) {
+                    log.error("wrong player ID");
+                    return false;
+                } else {
+                    player = players.get(0);
+                    player.setName(name);
+                    playerDao.insertPlayer(player);
+
+                    return player.getOp();
+                }
+            } catch (IOException | APIException e) {
+                log.error("update fail, player doesn't exist");
+            }
+        }else {
+            player = players.get(0);
+            return player.getOp();
+        }
+        return false;
     }
 
 

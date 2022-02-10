@@ -38,4 +38,15 @@ public class PlayerController {
         return playerService.insertPlayer(name);
     }
 
+    @ApiOperation("设置玩家管理员权限")
+    @PostMapping("setPlayerAdmin")
+    public void setPlayerAdmin(
+            @ApiParam("更改权限对象") @RequestParam(value = "name") String name,
+            @ApiParam("请求来源玩家") @RequestParam(value = "from_player") String from_player
+    ) {
+        if (playerService.isPlayerAdmin(from_player)) {
+            playerService.setPlayerAdmin(name, from_player);
+        }
+    }
+
 }
