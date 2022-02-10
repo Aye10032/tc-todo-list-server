@@ -1,5 +1,6 @@
 package com.aye10032.tctodolist.tctodolistserver.service;
 
+import com.aye10032.tctodolist.tctodolistserver.pojo.PlayerList;
 import com.aye10032.tctodolist.tctodolistserver.pojo.PlayerPojo;
 
 /**
@@ -15,5 +16,7 @@ public interface PlayerService {
     boolean doesTableExist();
 
     int insertPlayer(String name, boolean op);
+
+    PlayerList getPlayByName(String name);
 
 }

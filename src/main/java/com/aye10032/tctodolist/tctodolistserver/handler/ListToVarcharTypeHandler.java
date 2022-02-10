@@ -5,6 +5,7 @@ import org.apache.ibatis.type.JdbcType;
 import org.apache.ibatis.type.MappedJdbcTypes;
 import org.apache.ibatis.type.MappedTypes;
 import org.apache.ibatis.type.TypeHandler;
+import org.mybatis.generator.internal.types.JavaTypeResolverDefaultImpl;
 
 import java.sql.CallableStatement;
 import java.sql.PreparedStatement;

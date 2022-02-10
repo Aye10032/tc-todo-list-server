@@ -10,9 +10,7 @@
     <!-- targetRuntime：设置生成的文件适用于那个 mybatis 版本 -->
     <context id="default" targetRuntime="MyBatis3">
 
-        <!--覆盖生成XML文件-->
-        <plugin type="org.mybatis.generator.plugins.UnmergeableXmlMappersPlugin" />
-
+        <plugin type="org.mybatis.generator.plugins.MapperAnnotationPlugin"/>
         <commentGenerator type="com.dazo66.mybatis.generator.generator.MySQLCommentGenerator">
             <!-- 取消掉注释 -->
             <property name="suppressAllComments" value="false" />
@@ -27,7 +25,7 @@
         <!-- targetPackage：生成的实体类所在的包 -->
         <!-- targetProject：生成的实体类所在的硬盘位置 -->
         <!-- DataObject 类存放位置 -->
-        <javaModelGenerator targetPackage="com.aye10032.tctodolist.tctodolistserver.dao"
+        <javaModelGenerator targetPackage="com.aye10032.tctodolist.tctodolistserver.pojo"
                             targetProject=".\src\main\java">
             <!-- 是否允许子包 -->
             <property name="enableSubPackages" value="false" />
@@ -47,7 +45,7 @@
             <property name="enableSubPackages" value="false" />
         </sqlMapGenerator>
         <!-- targetPackage 和 targetProject：生成的 interface 文件的包和位置 -->
-        <javaClientGenerator type="XMLMAPPER"
+        <javaClientGenerator type="ANNOTATEDMAPPER"
                              targetPackage="com.aye10032.tctodolist.tctodolistserver.dao"
                              targetProject=".\src\main\java">
             <!-- 针对 oracle 数据库的一个配置，是否把 schema 作为字包名 -->
@@ -57,7 +55,16 @@
         <!--生成对应表及类名-->
         <table tableName="todo_list" domainObjectName="TodoList"
                mapperName="TodoListMapper">
-            <generatedKey column="id" sqlStatement="sqlite" identity="true"/>
+            <generatedKey column="id" sqlStatement="select last_insert_rowid()" identity="true"/>
+        </table>
+        <!--生成对应表及类名-->
+        <table tableName="player_list" domainObjectName="PlayerList"
+               mapperName="PlayerListMapper">
+            <generatedKey column="id" sqlStatement="select last_insert_rowid()" identity="true"/>
+            <columnOverride column="groups"
+                            jdbcType="VARCHAR"
+                            javaType="java.util.List"
+                            typeHandler="com.aye10032.tctodolist.tctodolistserver.handler.ListToVarcharTypeHandler"/>
         </table>
 
 

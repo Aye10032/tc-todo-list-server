@@ -2,15 +2,13 @@ package com.aye10032.tctodolist.tctodolistserver.controller;
 
 import com.aye10032.tctodolist.tctodolistserver.dao.IPlayerDao;
 import com.aye10032.tctodolist.tctodolistserver.data.ResultVO;
+import com.aye10032.tctodolist.tctodolistserver.pojo.PlayerList;
 import com.aye10032.tctodolist.tctodolistserver.service.PlayerService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @program: tc-todo-list-server
@@ -29,12 +27,20 @@ public class PlayerController {
     private PlayerService playerService;
 
     @ApiOperation("添加玩家")
-    @PostMapping("insertPlayer")
+    @GetMapping("insertPlayer")
     public ResultVO<Integer> insertPlayer(
             @ApiParam("玩家昵称") @RequestParam(value = "name") String name,
             @ApiParam("是否为管理员") @RequestParam(value = "op") boolean op
     ) {
         return new ResultVO<>(playerService.insertPlayer(name, op));
     }
+
+    @GetMapping("getPlayer")
+    public ResultVO<PlayerList> getPlayer(
+            @ApiParam("玩家昵称") @RequestParam(value = "name") String name
+    ) {
+        return new ResultVO<>(playerService.getPlayByName(name));
+    }
+
 
 }

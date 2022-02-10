@@ -38,7 +38,6 @@ public class MySQLCommentGenerator implements CommentGenerator {
 
     @Override
     public void addModelClassComment(TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
-
         String author = "dazo66";
         String dateFormat = properties.getProperty("dateFormat", "yyyy-MM-dd");
         SimpleDateFormat dateFormatter = new SimpleDateFormat(dateFormat);
@@ -54,6 +53,7 @@ public class MySQLCommentGenerator implements CommentGenerator {
         topLevelClass.addJavaDocLine(" * @author " + author);
         topLevelClass.addJavaDocLine(" * @date " + dateFormatter.format(new Date()));
         topLevelClass.addJavaDocLine(" */");
+
     }
 
     @Override

@@ -1,8 +1,8 @@
 package com.aye10032.tctodolist.tctodolistserver.service.impl;
 
 import com.aye10032.tctodolist.tctodolistserver.dao.ITodoDao;
-import com.aye10032.tctodolist.tctodolistserver.dao.TodoListExample;
 import com.aye10032.tctodolist.tctodolistserver.dao.TodoListMapper;
+import com.aye10032.tctodolist.tctodolistserver.pojo.TodoListExample;
 import com.aye10032.tctodolist.tctodolistserver.service.TodoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
