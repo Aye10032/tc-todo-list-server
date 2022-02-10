@@ -30,11 +30,15 @@ public class ListToVarcharTypeHandler implements TypeHandler<List<Integer>> {
     @Override
     public void setParameter(PreparedStatement ps, int i, List<Integer> parameter, JdbcType jdbcType) throws SQLException {
         StringBuffer sb = new StringBuffer();
-        for (Integer integer : parameter) {
-            sb.append(integer).append(",");
+        if (!parameter.isEmpty()) {
+            for (Integer integer : parameter) {
+                sb.append(integer).append(",");
+            }
+            String substring = sb.substring(0, sb.length() - 1);
+            ps.setString(i, substring);
+        } else {
+            ps.setString(i, "");
         }
-        String substring = sb.substring(0, sb.length() - 1);
-        ps.setString(i, substring);
     }
 
     @Override
