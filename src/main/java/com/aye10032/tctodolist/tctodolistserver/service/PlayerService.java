@@ -14,6 +14,6 @@ public interface PlayerService {
 
     boolean doesTableExist();
 
-    int insertPlayer(String name, boolean op);
+    int insertPlayer(String name);
 
 }

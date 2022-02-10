@@ -33,11 +33,11 @@ public class PlayerServiceImpl implements PlayerService {
 
     @SneakyThrows
     @Override
-    public int insertPlayer(String name, boolean op) {
+    public int insertPlayer(String name) {
         PlayerPojo player = new PlayerPojo();
         player.setName(name);
         player.setUuid(MinecraftUtil.getUUID(name));
-        player.setOp(op);
+        player.setOp(false);
 
         //默认加入服务器组
         List<Integer> group = new ArrayList<>();
