@@ -30,11 +30,11 @@ public class PlayerController {
 
     @ApiOperation("添加玩家")
     @PostMapping("insertPlayer")
-    public ResultVO<Integer> insertPlayer(
+    public Integer insertPlayer(
             @ApiParam("玩家昵称") @RequestParam(value = "name") String name,
             @ApiParam("是否为管理员") @RequestParam(value = "op") boolean op
     ) {
-        return new ResultVO<>(playerService.insertPlayer(name, op));
+        return playerService.insertPlayer(name, op);
     }
 
 }
