@@ -1,9 +1,12 @@
 package com.aye10032.tctodolist.tctodolistserver.pojo;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.apache.ibatis.type.JdbcType;
+import org.apache.ibatis.type.TypeHandler;
 
 import javax.validation.constraints.NotNull;
 import java.util.List;
@@ -37,6 +40,7 @@ public class PlayerPojo {
     private Boolean op;
 
     @ApiModelProperty("玩家所属组")
+    @TableField(value = "groups", typeHandler = com.aye10032.tctodolist.tctodolistserver.handler.ListToVarcharTypeHandler.class)
     private List<Integer> groups;
 
 }
