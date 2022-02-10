@@ -24,7 +24,7 @@ public interface IGroupDao {
             "\t\tconstraint todo_list_pk\n" +
             "\t\t\tprimary key autoincrement,\n" +
             "\towner INTEGER not null,\n" +
-            "\tadmins BLOB,\n" +
+            "\tadmins BLOB\n" +
             ");")
     void CreateGroupTable();
 

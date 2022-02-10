@@ -29,7 +29,7 @@ public interface IMessageDao {
             "\tlast_update_time BLOB not null,\n" +
             "\tmsg TEXT not null,\n" +
             "\thas_read BLOB not null,\n" +
-            "\tfrom_todo INTEGER,\n" +
+            "\tfrom_todo INTEGER\n" +
             ");")
     void CreateMessageTable();
 

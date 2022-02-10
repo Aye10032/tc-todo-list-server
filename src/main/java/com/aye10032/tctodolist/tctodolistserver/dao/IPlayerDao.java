@@ -1,8 +1,7 @@
 package com.aye10032.tctodolist.tctodolistserver.dao;
 
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import com.aye10032.tctodolist.tctodolistserver.pojo.PlayerPojo;
+import org.apache.ibatis.annotations.*;
 
 /**
  * @program: tc-todo-list-server
@@ -26,8 +25,14 @@ public interface IPlayerDao {
             "\tname TEXT not null,\n" +
             "\tuuid TEXT not null,\n" +
             "\top BLOB not null,\n" +
-            "\tgroups BLOB,\n" +
+            "\tgroups BLOB\n" +
             ");")
-    void CreatePlayerTable();
+    void createPlayerTable();
+
+    @Insert("INSERT INTO player_list" +
+            "('name','uuid','op','groups') VALUES " +
+            "(#{name}, #{uuid}, #{op}, #{groups});")
+    @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id")
+    Integer insertPlayer(PlayerPojo player);
 
 }
