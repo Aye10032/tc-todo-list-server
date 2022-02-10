@@ -6,7 +6,7 @@ plugins {
 
 group = 'com.aye10032.tctodolist'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '8'
+sourceCompatibility = "17"
 
 configurations {
     compileOnly {

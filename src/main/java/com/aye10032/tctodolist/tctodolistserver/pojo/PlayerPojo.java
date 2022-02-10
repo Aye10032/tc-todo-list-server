@@ -4,10 +4,14 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.type.JdbcType;
 import org.apache.ibatis.type.TypeHandler;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -31,7 +35,7 @@ public class PlayerPojo {
     private String name;
 
     @ApiModelProperty("玩家UUID")
-    @NotNull(message = "player must have uuid")
+    @NotBlank(message = "player must have correct uuid")
     private String uuid;
 
     @ApiModelProperty("玩家是否是管理员")
@@ -41,5 +45,15 @@ public class PlayerPojo {
     @ApiModelProperty("玩家所属组")
     // @TableField(value = "groups", typeHandler = com.aye10032.tctodolist.tctodolistserver.handler.ListToVarcharTypeHandler.class)
     private List<Integer> groups;
+
+    public PlayerPojo(String name, String uuid, boolean op){
+        setName(name);
+        setUuid(uuid);
+        setOp(op);
+
+        List<Integer> group = new ArrayList<>();
+        group.add(1);
+        setGroups(group);
+    }
 
 }

@@ -2,6 +2,7 @@ package com.aye10032.tctodolist.tctodolistserver.service;
 
 import com.aye10032.tctodolist.tctodolistserver.pojo.PlayerList;
 import com.aye10032.tctodolist.tctodolistserver.pojo.PlayerPojo;
+import org.springframework.validation.annotation.Validated;
 
 /**
  * @program: tc-todo-list-server
@@ -11,11 +12,14 @@ import com.aye10032.tctodolist.tctodolistserver.pojo.PlayerPojo;
  * @author: Aye10032
  * @date: 2022/2/10 上午 10:50
  */
+@Validated
 public interface PlayerService {
 
-    boolean doesTableExist();
+    int insertPlayer(String name);
 
-    int insertPlayer(String name, boolean op);
+    void setPlayerAdmin(String name, String from_player);
+
+    boolean isPlayerAdmin(String name);
 
     PlayerList getPlayByName(String name);
 

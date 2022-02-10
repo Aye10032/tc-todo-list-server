@@ -8,7 +8,11 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @program: tc-todo-list-server
@@ -21,18 +25,29 @@ import org.springframework.web.bind.annotation.*;
 @Api(tags = "玩家管理")
 @RestController
 @RequestMapping("player")
+@Validated
 public class PlayerController {
 
     @Autowired
     private PlayerService playerService;
 
     @ApiOperation("添加玩家")
-    @GetMapping("insertPlayer")
-    public ResultVO<Integer> insertPlayer(
-            @ApiParam("玩家昵称") @RequestParam(value = "name") String name,
-            @ApiParam("是否为管理员") @RequestParam(value = "op") boolean op
+    @PostMapping("insertPlayer")
+    public Integer insertPlayer(
+            @ApiParam("玩家昵称") @RequestParam(value = "name") String name
     ) {
-        return new ResultVO<>(playerService.insertPlayer(name, op));
+        return playerService.insertPlayer(name);
+    }
+
+    @ApiOperation("设置玩家管理员权限")
+    @PostMapping("setPlayerAdmin")
+    public void setPlayerAdmin(
+            @ApiParam("更改权限对象") @RequestParam(value = "name") String name,
+            @ApiParam("请求来源玩家") @RequestParam(value = "from_player") String from_player
+    ) {
+        if (playerService.isPlayerAdmin(from_player)) {
+            playerService.setPlayerAdmin(name, from_player);
+        }
     }
 
     @GetMapping("getPlayer")

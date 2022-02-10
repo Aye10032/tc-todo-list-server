@@ -19,8 +19,8 @@ public class TodoController {
     private TodoService todoService;
 
     @GetMapping("exist")
-    public ResultVO<Boolean> doesTableExist() {
-        return new ResultVO<>(todoService.doesTableExist());
+    public Boolean doesTableExist() {
+        return todoService.doesTableExist();
     }
 
     @GetMapping("count")
