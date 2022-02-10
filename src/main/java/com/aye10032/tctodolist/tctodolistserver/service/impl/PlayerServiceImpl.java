@@ -41,7 +41,7 @@ public class PlayerServiceImpl implements PlayerService {
 
         //默认加入服务器组
         List<Integer> group = new ArrayList<>();
-        group.add(0);
+        group.add(1);
         player.setGroups(group);
 
         return playerDao.insertPlayer(player);
