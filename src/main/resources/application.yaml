@@ -1,0 +1,7 @@
+spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  datasource:
+    driver-class-name: org.sqlite.JDBC
+    url: jdbc:sqlite:todo.db
