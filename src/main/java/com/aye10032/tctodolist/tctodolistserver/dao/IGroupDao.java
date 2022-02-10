@@ -1,8 +1,8 @@
 package com.aye10032.tctodolist.tctodolistserver.dao;
 
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import com.aye10032.tctodolist.tctodolistserver.pojo.GroupPojo;
+import com.aye10032.tctodolist.tctodolistserver.pojo.PlayerPojo;
+import org.apache.ibatis.annotations.*;
 
 /**
  * @program: tc-todo-list-server
@@ -27,5 +27,11 @@ public interface IGroupDao {
             "\tadmins BLOB\n" +
             ");")
     void CreateGroupTable();
+
+    @Insert("INSERT INTO group_list" +
+            "('owner','admins') VALUES " +
+            "(#{owner}, #{admins});")
+    @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id")
+    Integer insertGroup(GroupPojo group);
 
 }
