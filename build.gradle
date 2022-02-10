@@ -48,6 +48,8 @@ dependencies {
     // https://mvnrepository.com/artifact/commons-io/commons-io
     implementation group: 'commons-io', name: 'commons-io', version: '2.11.0'
 
+    // https://mvnrepository.com/artifact/org.mybatis.generator/mybatis-generator-maven-plugin
+    implementation group: 'org.mybatis.generator', name: 'mybatis-generator-maven-plugin', version: '1.4.0'
 
     // https://mvnrepository.com/artifact/io.springfox/springfox-boot-starter
     implementation group: 'io.springfox', name: 'springfox-boot-starter', version: '3.0.0'

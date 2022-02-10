@@ -23,4 +23,9 @@ public class TodoController {
         return new ResultVO<>(todoService.doesTableExist());
     }
 
+    @GetMapping("count")
+    public ResultVO<Integer> getTodoCount() {
+        return new ResultVO<>(todoService.getTodoListCount());
+    }
+
 }
