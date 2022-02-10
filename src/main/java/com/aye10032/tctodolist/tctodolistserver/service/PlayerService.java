@@ -14,8 +14,6 @@ import org.springframework.validation.annotation.Validated;
 @Validated
 public interface PlayerService {
 
-    boolean doesTableExist();
-
     int insertPlayer(String name);
 
     void setPlayerAdmin(String name, String from_player);

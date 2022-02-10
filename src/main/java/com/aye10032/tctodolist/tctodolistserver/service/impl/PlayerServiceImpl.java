@@ -31,11 +31,6 @@ public class PlayerServiceImpl implements PlayerService {
     private IPlayerDao playerDao;
 
     @Override
-    public boolean doesTableExist() {
-        return playerDao.PlayerTableExist() == 1;
-    }
-
-    @Override
     public int insertPlayer(String name) {
         try {
             PlayerPojo player = new PlayerPojo();
