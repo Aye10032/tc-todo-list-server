@@ -22,5 +22,5 @@ public interface PlayerService {
     boolean isPlayerAdmin(String name);
 
     PlayerList getPlayByName(String name);
-
+    int updatePlayerName(String name);
 }

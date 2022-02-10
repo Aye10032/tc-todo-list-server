@@ -2,12 +2,16 @@ package com.aye10032.tctodolist.tctodolistserver.service.impl;
 
 import com.aye10032.tctodolist.tctodolistserver.dao.IPlayerDao;
 import com.aye10032.tctodolist.tctodolistserver.dao.PlayerListMapper;
+import com.aye10032.tctodolist.tctodolistserver.dao.PlayerListMapper;
 import com.aye10032.tctodolist.tctodolistserver.data.APIException;
+import com.aye10032.tctodolist.tctodolistserver.pojo.PlayerList;
+import com.aye10032.tctodolist.tctodolistserver.pojo.PlayerListExample;
 import com.aye10032.tctodolist.tctodolistserver.pojo.PlayerList;
 import com.aye10032.tctodolist.tctodolistserver.pojo.PlayerListExample;
 import com.aye10032.tctodolist.tctodolistserver.pojo.PlayerPojo;
 import com.aye10032.tctodolist.tctodolistserver.service.PlayerService;
 import com.aye10032.tctodolist.tctodolistserver.util.MinecraftUtil;
+import lombok.SneakyThrows;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,11 +58,51 @@ public class PlayerServiceImpl implements PlayerService {
 
     @Override
     public void setPlayerAdmin(String name, String from_player) {
+        try {
+            String uuid = MinecraftUtil.getUUID(name);
+            List<PlayerPojo> players = playerDao.selectPlayerByUUID(uuid);
 
+            if (!players.isEmpty()) {
+                PlayerPojo player = players.get(0);
+                player.setName(name);
+                player.setOp(true);
+                playerDao.updatePlayerByUUID(player);
+            } else {
+                PlayerPojo player = new PlayerPojo(name, uuid, true);
+
+                playerDao.insertPlayer(player);
+            }
+        } catch (IOException | APIException e) {
+            log.error("update fail, player doesn't exist");
+        }
     }
 
     @Override
     public boolean isPlayerAdmin(String name) {
+        List<PlayerPojo> players = playerDao.selectPlayerByName(name);
+        PlayerPojo player;
+        if (players.isEmpty()) {
+            try {
+                String uuid = MinecraftUtil.getUUID(name);
+                players = playerDao.selectPlayerByUUID(uuid);
+
+                if (players.isEmpty()) {
+                    log.error("wrong player ID");
+                    return false;
+                } else {
+                    player = players.get(0);
+                    player.setName(name);
+                    playerDao.insertPlayer(player);
+
+                    return player.getOp();
+                }
+            } catch (IOException | APIException e) {
+                log.error("update fail, player doesn't exist");
+            }
+        } else {
+            player = players.get(0);
+            return player.getOp();
+        }
         return false;
     }
 
@@ -68,6 +112,20 @@ public class PlayerServiceImpl implements PlayerService {
         example.createCriteria().andNameEqualTo(name);
         List<PlayerList> playerLists = playerListMapper.selectByExample(example);
         return playerLists.isEmpty() ? null : playerLists.get(0);
+    }
+
+    @Override
+    public int updatePlayerName(String name) {
+        try {
+            String uuid = MinecraftUtil.getUUID(name);
+            PlayerPojo player = playerDao.selectPlayerByUUID(uuid).get(0);
+            player.setName(name);
+            playerDao.updatePlayerByUUID(player);
+            return player.getId();
+        } catch (IOException | APIException e) {
+            log.error("update fail, player doesn't exist");
+        }
+        return -1;
     }
 
 

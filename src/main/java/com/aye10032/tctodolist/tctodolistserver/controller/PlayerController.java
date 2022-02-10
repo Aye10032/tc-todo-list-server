@@ -47,6 +47,14 @@ public class PlayerController {
         }
     }
 
+    @ApiOperation("更新玩家ID（改名时）")
+    @PostMapping("updatePlayerName")
+    public Integer updatePlayerName(
+            @ApiParam("玩家现在的ID") @RequestParam(value = "name") String name
+    ) {
+        return playerService.updatePlayerName(name);
+    }
+
     @GetMapping("getPlayer")
     public ResultVO<PlayerList> getPlayer(
             @ApiParam("玩家昵称") @RequestParam(value = "name") String name
