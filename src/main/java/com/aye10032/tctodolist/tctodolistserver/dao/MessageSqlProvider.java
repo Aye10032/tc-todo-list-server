@@ -27,35 +27,35 @@ public class MessageSqlProvider {
     public String insertSelective(Message record) {
         SQL sql = new SQL();
         sql.INSERT_INTO("todo_message");
-        
+
         if (record.getFromPlayer() != null) {
             sql.VALUES("from_player", "#{fromPlayer,jdbcType=INTEGER}");
         }
-        
+
         if (record.getTargetPlayer() != null) {
             sql.VALUES("target_player", "#{targetPlayer,jdbcType=INTEGER}");
         }
-        
+
         if (record.getSendTime() != null) {
             sql.VALUES("send_time", "#{sendTime,jdbcType=NUMERIC}");
         }
-        
+
         if (record.getLastUpdateTime() != null) {
             sql.VALUES("last_update_time", "#{lastUpdateTime,jdbcType=NUMERIC}");
         }
-        
+
         if (record.getMsg() != null) {
             sql.VALUES("msg", "#{msg,jdbcType=VARCHAR}");
         }
-        
+
         if (record.getHasRead() != null) {
             sql.VALUES("has_read", "#{hasRead,jdbcType=BOOLEAN}");
         }
-        
+
         if (record.getFromTodo() != null) {
             sql.VALUES("from_todo", "#{fromTodo,jdbcType=INTEGER}");
         }
-        
+
         return sql.toString();
     }
 
@@ -75,53 +75,53 @@ public class MessageSqlProvider {
         sql.SELECT("from_todo");
         sql.FROM("todo_message");
         applyWhere(sql, example, false);
-        
+
         if (example != null && example.getOrderByClause() != null) {
             sql.ORDER_BY(example.getOrderByClause());
         }
-        
+
         return sql.toString();
     }
 
     public String updateByExampleSelective(Map<String, Object> parameter) {
         Message record = (Message) parameter.get("record");
         MessageExample example = (MessageExample) parameter.get("example");
-        
+
         SQL sql = new SQL();
         sql.UPDATE("todo_message");
-        
+
         if (record.getId() != null) {
             sql.SET("id = #{record.id,jdbcType=INTEGER}");
         }
-        
+
         if (record.getFromPlayer() != null) {
             sql.SET("from_player = #{record.fromPlayer,jdbcType=INTEGER}");
         }
-        
+
         if (record.getTargetPlayer() != null) {
             sql.SET("target_player = #{record.targetPlayer,jdbcType=INTEGER}");
         }
-        
+
         if (record.getSendTime() != null) {
             sql.SET("send_time = #{record.sendTime,jdbcType=NUMERIC}");
         }
-        
+
         if (record.getLastUpdateTime() != null) {
             sql.SET("last_update_time = #{record.lastUpdateTime,jdbcType=NUMERIC}");
         }
-        
+
         if (record.getMsg() != null) {
             sql.SET("msg = #{record.msg,jdbcType=VARCHAR}");
         }
-        
+
         if (record.getHasRead() != null) {
             sql.SET("has_read = #{record.hasRead,jdbcType=BOOLEAN}");
         }
-        
+
         if (record.getFromTodo() != null) {
             sql.SET("from_todo = #{record.fromTodo,jdbcType=INTEGER}");
         }
-        
+
         applyWhere(sql, example, true);
         return sql.toString();
     }
@@ -129,7 +129,7 @@ public class MessageSqlProvider {
     public String updateByExample(Map<String, Object> parameter) {
         SQL sql = new SQL();
         sql.UPDATE("todo_message");
-        
+
         sql.SET("id = #{record.id,jdbcType=INTEGER}");
         sql.SET("from_player = #{record.fromPlayer,jdbcType=INTEGER}");
         sql.SET("target_player = #{record.targetPlayer,jdbcType=INTEGER}");
@@ -138,7 +138,7 @@ public class MessageSqlProvider {
         sql.SET("msg = #{record.msg,jdbcType=VARCHAR}");
         sql.SET("has_read = #{record.hasRead,jdbcType=BOOLEAN}");
         sql.SET("from_todo = #{record.fromTodo,jdbcType=INTEGER}");
-        
+
         MessageExample example = (MessageExample) parameter.get("example");
         applyWhere(sql, example, true);
         return sql.toString();
@@ -147,37 +147,37 @@ public class MessageSqlProvider {
     public String updateByPrimaryKeySelective(Message record) {
         SQL sql = new SQL();
         sql.UPDATE("todo_message");
-        
+
         if (record.getFromPlayer() != null) {
             sql.SET("from_player = #{fromPlayer,jdbcType=INTEGER}");
         }
-        
+
         if (record.getTargetPlayer() != null) {
             sql.SET("target_player = #{targetPlayer,jdbcType=INTEGER}");
         }
-        
+
         if (record.getSendTime() != null) {
             sql.SET("send_time = #{sendTime,jdbcType=NUMERIC}");
         }
-        
+
         if (record.getLastUpdateTime() != null) {
             sql.SET("last_update_time = #{lastUpdateTime,jdbcType=NUMERIC}");
         }
-        
+
         if (record.getMsg() != null) {
             sql.SET("msg = #{msg,jdbcType=VARCHAR}");
         }
-        
+
         if (record.getHasRead() != null) {
             sql.SET("has_read = #{hasRead,jdbcType=BOOLEAN}");
         }
-        
+
         if (record.getFromTodo() != null) {
             sql.SET("from_todo = #{fromTodo,jdbcType=INTEGER}");
         }
-        
+
         sql.WHERE("id = #{id,jdbcType=INTEGER}");
-        
+
         return sql.toString();
     }
 
@@ -185,7 +185,7 @@ public class MessageSqlProvider {
         if (example == null) {
             return;
         }
-        
+
         String parmPhrase1;
         String parmPhrase1_th;
         String parmPhrase2;
@@ -207,7 +207,7 @@ public class MessageSqlProvider {
             parmPhrase3 = "#{oredCriteria[%d].allCriteria[%d].value[%d]}";
             parmPhrase3_th = "#{oredCriteria[%d].allCriteria[%d].value[%d],typeHandler=%s}";
         }
-        
+
         StringBuilder sb = new StringBuilder();
         List<Criteria> oredCriteria = example.getOredCriteria();
         boolean firstCriteria = true;
@@ -219,7 +219,7 @@ public class MessageSqlProvider {
                 } else {
                     sb.append(" or ");
                 }
-                
+
                 sb.append('(');
                 List<Criterion> criterions = criteria.getAllCriteria();
                 boolean firstCriterion = true;
@@ -230,14 +230,14 @@ public class MessageSqlProvider {
                     } else {
                         sb.append(" and ");
                     }
-                    
+
                     if (criterion.isNoValue()) {
                         sb.append(criterion.getCondition());
                     } else if (criterion.isSingleValue()) {
                         if (criterion.getTypeHandler() == null) {
                             sb.append(String.format(parmPhrase1, criterion.getCondition(), i, j));
                         } else {
-                            sb.append(String.format(parmPhrase1_th, criterion.getCondition(), i, j,criterion.getTypeHandler()));
+                            sb.append(String.format(parmPhrase1_th, criterion.getCondition(), i, j, criterion.getTypeHandler()));
                         }
                     } else if (criterion.isBetweenValue()) {
                         if (criterion.getTypeHandler() == null) {
@@ -268,7 +268,7 @@ public class MessageSqlProvider {
                 sb.append(')');
             }
         }
-        
+
         if (sb.length() > 0) {
             sql.WHERE(sb.toString());
         }

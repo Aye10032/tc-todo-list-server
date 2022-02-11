@@ -27,23 +27,23 @@ public class PlayerSqlProvider {
     public String insertSelective(Player record) {
         SQL sql = new SQL();
         sql.INSERT_INTO("todo_player");
-        
+
         if (record.getName() != null) {
             sql.VALUES("name", "#{name,jdbcType=VARCHAR}");
         }
-        
+
         if (record.getUuid() != null) {
             sql.VALUES("uuid", "#{uuid,jdbcType=VARCHAR}");
         }
-        
+
         if (record.getAdmin() != null) {
             sql.VALUES("admin", "#{admin,jdbcType=BOOLEAN}");
         }
-        
+
         if (record.getGroups() != null) {
             sql.VALUES("groups", "#{groups,jdbcType=VARCHAR,typeHandler=com.aye10032.tctodolist.tctodolistserver.handler.ListToVarcharTypeHandler}");
         }
-        
+
         return sql.toString();
     }
 
@@ -60,41 +60,41 @@ public class PlayerSqlProvider {
         sql.SELECT("groups");
         sql.FROM("todo_player");
         applyWhere(sql, example, false);
-        
+
         if (example != null && example.getOrderByClause() != null) {
             sql.ORDER_BY(example.getOrderByClause());
         }
-        
+
         return sql.toString();
     }
 
     public String updateByExampleSelective(Map<String, Object> parameter) {
         Player record = (Player) parameter.get("record");
         PlayerExample example = (PlayerExample) parameter.get("example");
-        
+
         SQL sql = new SQL();
         sql.UPDATE("todo_player");
-        
+
         if (record.getId() != null) {
             sql.SET("id = #{record.id,jdbcType=INTEGER}");
         }
-        
+
         if (record.getName() != null) {
             sql.SET("name = #{record.name,jdbcType=VARCHAR}");
         }
-        
+
         if (record.getUuid() != null) {
             sql.SET("uuid = #{record.uuid,jdbcType=VARCHAR}");
         }
-        
+
         if (record.getAdmin() != null) {
             sql.SET("admin = #{record.admin,jdbcType=BOOLEAN}");
         }
-        
+
         if (record.getGroups() != null) {
             sql.SET("groups = #{record.groups,jdbcType=VARCHAR,typeHandler=com.aye10032.tctodolist.tctodolistserver.handler.ListToVarcharTypeHandler}");
         }
-        
+
         applyWhere(sql, example, true);
         return sql.toString();
     }
@@ -102,13 +102,13 @@ public class PlayerSqlProvider {
     public String updateByExample(Map<String, Object> parameter) {
         SQL sql = new SQL();
         sql.UPDATE("todo_player");
-        
+
         sql.SET("id = #{record.id,jdbcType=INTEGER}");
         sql.SET("name = #{record.name,jdbcType=VARCHAR}");
         sql.SET("uuid = #{record.uuid,jdbcType=VARCHAR}");
         sql.SET("admin = #{record.admin,jdbcType=BOOLEAN}");
         sql.SET("groups = #{record.groups,jdbcType=VARCHAR,typeHandler=com.aye10032.tctodolist.tctodolistserver.handler.ListToVarcharTypeHandler}");
-        
+
         PlayerExample example = (PlayerExample) parameter.get("example");
         applyWhere(sql, example, true);
         return sql.toString();
@@ -117,25 +117,25 @@ public class PlayerSqlProvider {
     public String updateByPrimaryKeySelective(Player record) {
         SQL sql = new SQL();
         sql.UPDATE("todo_player");
-        
+
         if (record.getName() != null) {
             sql.SET("name = #{name,jdbcType=VARCHAR}");
         }
-        
+
         if (record.getUuid() != null) {
             sql.SET("uuid = #{uuid,jdbcType=VARCHAR}");
         }
-        
+
         if (record.getAdmin() != null) {
             sql.SET("admin = #{admin,jdbcType=BOOLEAN}");
         }
-        
+
         if (record.getGroups() != null) {
             sql.SET("groups = #{groups,jdbcType=VARCHAR,typeHandler=com.aye10032.tctodolist.tctodolistserver.handler.ListToVarcharTypeHandler}");
         }
-        
+
         sql.WHERE("id = #{id,jdbcType=INTEGER}");
-        
+
         return sql.toString();
     }
 
@@ -143,7 +143,7 @@ public class PlayerSqlProvider {
         if (example == null) {
             return;
         }
-        
+
         String parmPhrase1;
         String parmPhrase1_th;
         String parmPhrase2;
@@ -165,7 +165,7 @@ public class PlayerSqlProvider {
             parmPhrase3 = "#{oredCriteria[%d].allCriteria[%d].value[%d]}";
             parmPhrase3_th = "#{oredCriteria[%d].allCriteria[%d].value[%d],typeHandler=%s}";
         }
-        
+
         StringBuilder sb = new StringBuilder();
         List<Criteria> oredCriteria = example.getOredCriteria();
         boolean firstCriteria = true;
@@ -177,7 +177,7 @@ public class PlayerSqlProvider {
                 } else {
                     sb.append(" or ");
                 }
-                
+
                 sb.append('(');
                 List<Criterion> criterions = criteria.getAllCriteria();
                 boolean firstCriterion = true;
@@ -188,14 +188,14 @@ public class PlayerSqlProvider {
                     } else {
                         sb.append(" and ");
                     }
-                    
+
                     if (criterion.isNoValue()) {
                         sb.append(criterion.getCondition());
                     } else if (criterion.isSingleValue()) {
                         if (criterion.getTypeHandler() == null) {
                             sb.append(String.format(parmPhrase1, criterion.getCondition(), i, j));
                         } else {
-                            sb.append(String.format(parmPhrase1_th, criterion.getCondition(), i, j,criterion.getTypeHandler()));
+                            sb.append(String.format(parmPhrase1_th, criterion.getCondition(), i, j, criterion.getTypeHandler()));
                         }
                     } else if (criterion.isBetweenValue()) {
                         if (criterion.getTypeHandler() == null) {
@@ -226,7 +226,7 @@ public class PlayerSqlProvider {
                 sb.append(')');
             }
         }
-        
+
         if (sb.length() > 0) {
             sql.WHERE(sb.toString());
         }

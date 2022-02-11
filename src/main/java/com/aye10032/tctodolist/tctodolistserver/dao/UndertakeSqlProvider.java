@@ -27,23 +27,23 @@ public class UndertakeSqlProvider {
     public String insertSelective(Undertake record) {
         SQL sql = new SQL();
         sql.INSERT_INTO("todo_undertake");
-        
+
         if (record.getPlayerId() != null) {
             sql.VALUES("player_id", "#{playerId,jdbcType=INTEGER}");
         }
-        
+
         if (record.getMsg() != null) {
             sql.VALUES("msg", "#{msg,jdbcType=VARCHAR}");
         }
-        
+
         if (record.getTime() != null) {
             sql.VALUES("time", "#{time,jdbcType=NUMERIC}");
         }
-        
+
         if (record.getLastUpdateTime() != null) {
             sql.VALUES("last_update_time", "#{lastUpdateTime,jdbcType=NUMERIC}");
         }
-        
+
         return sql.toString();
     }
 
@@ -60,41 +60,41 @@ public class UndertakeSqlProvider {
         sql.SELECT("last_update_time");
         sql.FROM("todo_undertake");
         applyWhere(sql, example, false);
-        
+
         if (example != null && example.getOrderByClause() != null) {
             sql.ORDER_BY(example.getOrderByClause());
         }
-        
+
         return sql.toString();
     }
 
     public String updateByExampleSelective(Map<String, Object> parameter) {
         Undertake record = (Undertake) parameter.get("record");
         UndertakeExample example = (UndertakeExample) parameter.get("example");
-        
+
         SQL sql = new SQL();
         sql.UPDATE("todo_undertake");
-        
+
         if (record.getId() != null) {
             sql.SET("id = #{record.id,jdbcType=INTEGER}");
         }
-        
+
         if (record.getPlayerId() != null) {
             sql.SET("player_id = #{record.playerId,jdbcType=INTEGER}");
         }
-        
+
         if (record.getMsg() != null) {
             sql.SET("msg = #{record.msg,jdbcType=VARCHAR}");
         }
-        
+
         if (record.getTime() != null) {
             sql.SET("time = #{record.time,jdbcType=NUMERIC}");
         }
-        
+
         if (record.getLastUpdateTime() != null) {
             sql.SET("last_update_time = #{record.lastUpdateTime,jdbcType=NUMERIC}");
         }
-        
+
         applyWhere(sql, example, true);
         return sql.toString();
     }
@@ -102,13 +102,13 @@ public class UndertakeSqlProvider {
     public String updateByExample(Map<String, Object> parameter) {
         SQL sql = new SQL();
         sql.UPDATE("todo_undertake");
-        
+
         sql.SET("id = #{record.id,jdbcType=INTEGER}");
         sql.SET("player_id = #{record.playerId,jdbcType=INTEGER}");
         sql.SET("msg = #{record.msg,jdbcType=VARCHAR}");
         sql.SET("time = #{record.time,jdbcType=NUMERIC}");
         sql.SET("last_update_time = #{record.lastUpdateTime,jdbcType=NUMERIC}");
-        
+
         UndertakeExample example = (UndertakeExample) parameter.get("example");
         applyWhere(sql, example, true);
         return sql.toString();
@@ -117,25 +117,25 @@ public class UndertakeSqlProvider {
     public String updateByPrimaryKeySelective(Undertake record) {
         SQL sql = new SQL();
         sql.UPDATE("todo_undertake");
-        
+
         if (record.getPlayerId() != null) {
             sql.SET("player_id = #{playerId,jdbcType=INTEGER}");
         }
-        
+
         if (record.getMsg() != null) {
             sql.SET("msg = #{msg,jdbcType=VARCHAR}");
         }
-        
+
         if (record.getTime() != null) {
             sql.SET("time = #{time,jdbcType=NUMERIC}");
         }
-        
+
         if (record.getLastUpdateTime() != null) {
             sql.SET("last_update_time = #{lastUpdateTime,jdbcType=NUMERIC}");
         }
-        
+
         sql.WHERE("id = #{id,jdbcType=INTEGER}");
-        
+
         return sql.toString();
     }
 
@@ -143,7 +143,7 @@ public class UndertakeSqlProvider {
         if (example == null) {
             return;
         }
-        
+
         String parmPhrase1;
         String parmPhrase1_th;
         String parmPhrase2;
@@ -165,7 +165,7 @@ public class UndertakeSqlProvider {
             parmPhrase3 = "#{oredCriteria[%d].allCriteria[%d].value[%d]}";
             parmPhrase3_th = "#{oredCriteria[%d].allCriteria[%d].value[%d],typeHandler=%s}";
         }
-        
+
         StringBuilder sb = new StringBuilder();
         List<Criteria> oredCriteria = example.getOredCriteria();
         boolean firstCriteria = true;
@@ -177,7 +177,7 @@ public class UndertakeSqlProvider {
                 } else {
                     sb.append(" or ");
                 }
-                
+
                 sb.append('(');
                 List<Criterion> criterions = criteria.getAllCriteria();
                 boolean firstCriterion = true;
@@ -188,14 +188,14 @@ public class UndertakeSqlProvider {
                     } else {
                         sb.append(" and ");
                     }
-                    
+
                     if (criterion.isNoValue()) {
                         sb.append(criterion.getCondition());
                     } else if (criterion.isSingleValue()) {
                         if (criterion.getTypeHandler() == null) {
                             sb.append(String.format(parmPhrase1, criterion.getCondition(), i, j));
                         } else {
-                            sb.append(String.format(parmPhrase1_th, criterion.getCondition(), i, j,criterion.getTypeHandler()));
+                            sb.append(String.format(parmPhrase1_th, criterion.getCondition(), i, j, criterion.getTypeHandler()));
                         }
                     } else if (criterion.isBetweenValue()) {
                         if (criterion.getTypeHandler() == null) {
@@ -226,7 +226,7 @@ public class UndertakeSqlProvider {
                 sb.append(')');
             }
         }
-        
+
         if (sb.length() > 0) {
             sql.WHERE(sb.toString());
         }

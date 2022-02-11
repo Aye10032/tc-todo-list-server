@@ -1,11 +1,7 @@
 package com.aye10032.tctodolist.tctodolistserver.service;
 
 import com.aye10032.tctodolist.tctodolistserver.pojo.Player;
-import com.aye10032.tctodolist.tctodolistserver.pojo.PlayerList;
-import com.aye10032.tctodolist.tctodolistserver.pojo.PlayerPojo;
 import org.springframework.validation.annotation.Validated;
-
-import java.io.IOException;
 
 /**
  * @program: tc-todo-list-server

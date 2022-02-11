@@ -11,7 +11,7 @@ import lombok.Getter;
  * @date: 2022/2/9 下午 11:28
  */
 @Getter
-public class APIException extends RuntimeException{
+public class APIException extends RuntimeException {
 
     private int code;
     private String msg;

@@ -102,7 +102,7 @@ public class PlayerExample {
 
         public boolean isValid() {
             return criteria.size() > 0
-                || groupsCriteria.size() > 0;
+                    || groupsCriteria.size() > 0;
         }
 
         public List<Criterion> getAllCriteria() {

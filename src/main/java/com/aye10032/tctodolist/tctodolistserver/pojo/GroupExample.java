@@ -102,7 +102,7 @@ public class GroupExample {
 
         public boolean isValid() {
             return criteria.size() > 0
-                || adminsCriteria.size() > 0;
+                    || adminsCriteria.size() > 0;
         }
 
         public List<Criterion> getAllCriteria() {
