@@ -97,6 +97,8 @@ public class SqliteConfig {
 
         //没有创建者
         group.setOwner(-1);
+        group.setName("server");
+        group.setInformation("this is server group");
 
         List<Integer> admins = new ArrayList<>();
         group.setAdmins(admins);

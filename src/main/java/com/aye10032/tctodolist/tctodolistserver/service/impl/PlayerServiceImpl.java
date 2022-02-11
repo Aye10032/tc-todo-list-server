@@ -9,7 +9,6 @@ import com.aye10032.tctodolist.tctodolistserver.util.MinecraftUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.annotation.Validated;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +23,6 @@ import java.util.List;
  */
 @Service
 @Slf4j
-@Validated
 public class PlayerServiceImpl implements PlayerService {
 
     @Autowired
@@ -42,6 +40,8 @@ public class PlayerServiceImpl implements PlayerService {
         List<Integer> group = new ArrayList<>();
         group.add(1);
         player.setGroups(group);
+
+        playerMapper.insert(player);
 
         return player.getId();
     }
@@ -97,6 +97,26 @@ public class PlayerServiceImpl implements PlayerService {
             playerMapper.updateByExample(player, example);
             return player.getId();
         } else {
+            throw new APIException("player doesn't exist");
+        }
+    }
+
+    @Override
+    public void addPlayerGroup(String name, Integer group_id) {
+        PlayerExample example = new PlayerExample();
+        example.createCriteria().andNameEqualTo(name);
+        List<Player> playerList = playerMapper.selectByExample(example);
+        if (!playerList.isEmpty()){
+            Player player = playerList.get(0);
+            List<Integer> groups = player.getGroups();
+            if (!groups.contains(group_id)){
+                groups.add(group_id);
+                player.setGroups(groups);
+                playerMapper.updateByExample(player, example);
+            }else {
+                throw new APIException("player already in group");
+            }
+        }else {
             throw new APIException("player doesn't exist");
         }
     }

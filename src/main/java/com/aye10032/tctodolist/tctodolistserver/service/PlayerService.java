@@ -23,4 +23,6 @@ public interface PlayerService {
     Player getPlayerByUuid(String uuid);
 
     int updatePlayerName(String name);
+
+    void addPlayerGroup(String name, Integer group_id);
 }
