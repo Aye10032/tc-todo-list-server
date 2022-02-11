@@ -20,4 +20,6 @@ public interface GroupService {
 
     void insertAdmin(Integer group_id, Integer admin_id);
 
+    void deleteAdmin(Integer group_id, Integer admin_id);
+
 }

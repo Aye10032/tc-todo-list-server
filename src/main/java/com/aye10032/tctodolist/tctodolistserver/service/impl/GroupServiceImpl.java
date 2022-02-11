@@ -79,4 +79,17 @@ public class GroupServiceImpl implements GroupService {
             throw new APIException("player is already an administrator");
         }
     }
+
+    @Override
+    public void deleteAdmin(Integer group_id, Integer admin_id) {
+        Group group = getGroupById(group_id);
+        List<Integer> admins = group.getAdmins();
+        if (admins.contains(admin_id)) {
+            admins.remove(admin_id);
+            group.setAdmins(admins);
+            GroupExample example = new GroupExample();
+            example.createCriteria().andIdEqualTo(group_id);
+            groupMapper.updateByExample(group, example);
+        }
+    }
 }

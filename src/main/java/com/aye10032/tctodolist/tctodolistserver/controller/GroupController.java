@@ -94,7 +94,28 @@ public class GroupController {
         } else {
             throw new APIException("no access");
         }
+    }
 
+    @ApiOperation("删除组管理员")
+    @PostMapping("deleteGroupAdmin")
+    public void deleteGroupAdmin(
+            @ApiParam("组名称") @RequestParam(value = "group_name") String group_name,
+            @ApiParam("玩家ID") @RequestParam(value = "player_name") String player_name,
+            @ApiParam("请求来源玩家ID") @RequestParam(value = "from_player") String from_player
+    ) {
+        if (hasGroupAccess(group_name, from_player)) {
+            Group group = groupService.getGroupByName(group_name);
+            Player target = playerService.getPlayByName(player_name);
+            int target_id;
+            if (target == null) {
+                target_id = playerService.insertPlayer(player_name);
+            } else {
+                target_id = target.getId();
+            }
+            groupService.deleteAdmin(group.getId(), target_id);
+        } else {
+            throw new APIException("no access");
+        }
     }
 
     private Boolean hasGroupAccess(String group_name, String player_name) {
