@@ -1,8 +1,7 @@
 package com.aye10032.tctodolist.tctodolistserver.controller;
 
-import com.aye10032.tctodolist.tctodolistserver.dao.IPlayerDao;
 import com.aye10032.tctodolist.tctodolistserver.data.ResultVO;
-import com.aye10032.tctodolist.tctodolistserver.pojo.PlayerList;
+import com.aye10032.tctodolist.tctodolistserver.pojo.Player;
 import com.aye10032.tctodolist.tctodolistserver.service.PlayerService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -10,6 +9,8 @@ import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.io.IOException;
 
 /**
  * @program: tc-todo-list-server
@@ -22,7 +23,6 @@ import org.springframework.web.bind.annotation.*;
 @Api(tags = "玩家管理")
 @RestController
 @RequestMapping("player")
-@Validated
 public class PlayerController {
 
     @Autowired
@@ -56,7 +56,7 @@ public class PlayerController {
     }
 
     @GetMapping("getPlayer")
-    public ResultVO<PlayerList> getPlayer(
+    public ResultVO<Player> getPlayer(
             @ApiParam("玩家昵称") @RequestParam(value = "name") String name
     ) {
         return new ResultVO<>(playerService.getPlayByName(name));

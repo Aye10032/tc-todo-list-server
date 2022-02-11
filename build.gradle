@@ -27,12 +27,11 @@ repositories {
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.springframework.boot:spring-boot-starter-validation'
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
-// https://mvnrepository.com/artifact/org.mybatis.spring.boot/mybatis-spring-boot-starter
+    // https://mvnrepository.com/artifact/org.mybatis.spring.boot/mybatis-spring-boot-starter
     implementation group: 'org.mybatis.spring.boot', name: 'mybatis-spring-boot-starter', version: '2.2.2'
 
     // https://mvnrepository.com/artifact/org.xerial/sqlite-jdbc
@@ -45,8 +44,6 @@ dependencies {
     // https://mvnrepository.com/artifact/commons-io/commons-io
     implementation group: 'commons-io', name: 'commons-io', version: '2.11.0'
 
-    // https://mvnrepository.com/artifact/org.mybatis.generator/mybatis-generator-maven-plugin
-    implementation group: 'org.mybatis.generator', name: 'mybatis-generator-maven-plugin', version: '1.4.0'
     // https://mvnrepository.com/artifact/com.squareup.okhttp3/okhttp
     implementation group: 'com.squareup.okhttp3', name: 'okhttp', version: '4.8.1'
 
