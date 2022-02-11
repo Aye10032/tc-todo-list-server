@@ -6,6 +6,7 @@ import com.aye10032.tctodolist.tctodolistserver.data.ResultVO;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 /**
  * @program: tc-todo-list-server
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
  * @author: Aye10032
  * @date: 2022/2/9 下午 11:26
  */
+@RestControllerAdvice
 public class ExceptionControllerAdvice {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -28,6 +30,11 @@ public class ExceptionControllerAdvice {
     @ExceptionHandler(APIException.class)
     public ResultVO<String> APIExceptionHandler(APIException e) {
         return new ResultVO<>(ResultCode.FAILED, e.getMsg());
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResultVO<String> ExceptionHandler(Exception e) {
+        return new ResultVO<>(ResultCode.FAILED, e.getMessage());
     }
 
 }
