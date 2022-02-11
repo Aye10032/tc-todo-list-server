@@ -37,7 +37,7 @@ public class GroupController {
     @PostMapping("insertGroup")
     public void insertGroup(
             @ApiParam("玩家ID") @RequestParam(value = "player_name") String player_name,
-            @ApiParam("组名称") @RequestParam(value = "group_name") String group_name,
+            @ApiParam("组名称(唯一)") @RequestParam(value = "group_name") String group_name,
             @ApiParam("相关信息") @RequestParam(value = "information", required = false) String information
     ) {
         Player player = playerService.getPlayByName(player_name);
@@ -90,7 +90,7 @@ public class GroupController {
                     playerService.addPlayerGroup(player_name, group.getId());
                 }
             }
-            groupService.insertAdmin(group.getId(), target_id);
+            groupService.insertAdminById(group.getId(), target_id);
         } else {
             throw new APIException("no access");
         }
@@ -112,7 +112,35 @@ public class GroupController {
             } else {
                 target_id = target.getId();
             }
-            groupService.deleteAdmin(group.getId(), target_id);
+            groupService.deleteAdminById(group.getId(), target_id);
+        } else {
+            throw new APIException("no access");
+        }
+    }
+
+    @ApiOperation("修改组名称")
+    @PostMapping("updateGroupName")
+    public void updateGroupName(
+            @ApiParam("原组名称") @RequestParam(value = "group_name") String group_name,
+            @ApiParam("新组名称(唯一)") @RequestParam(value = "new_group_name") String new_group_name,
+            @ApiParam("请求来源玩家ID") @RequestParam(value = "from_player") String from_player
+    ) {
+        if (hasGroupAccess(group_name, from_player)) {
+            groupService.updateGroupName(group_name, new_group_name);
+        } else {
+            throw new APIException("no access");
+        }
+    }
+
+    @ApiOperation("修改组简介")
+    @PostMapping("updateGroupInformation")
+    public void updateGroupInformation(
+            @ApiParam("原组名称") @RequestParam(value = "group_name") String group_name,
+            @ApiParam("新组名称(唯一)") @RequestParam(value = "group_information") String group_information,
+            @ApiParam("请求来源玩家ID") @RequestParam(value = "from_player") String from_player
+    ) {
+        if (hasGroupAccess(group_name, from_player)) {
+            groupService.updateGroupInformation(group_name, group_information);
         } else {
             throw new APIException("no access");
         }
@@ -125,9 +153,7 @@ public class GroupController {
             if (requester != null) {
                 if (group.getAdmins().contains(requester.getId())) {
                     return true;
-                } else {
-                    return false;
-                }
+                } else return group.getOwner().equals(requester.getId());
             } else {
                 throw new APIException("wrong request");
             }

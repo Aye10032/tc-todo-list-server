@@ -4,9 +4,7 @@ import com.aye10032.tctodolist.tctodolistserver.dao.GroupMapper;
 import com.aye10032.tctodolist.tctodolistserver.data.APIException;
 import com.aye10032.tctodolist.tctodolistserver.pojo.Group;
 import com.aye10032.tctodolist.tctodolistserver.pojo.GroupExample;
-import com.aye10032.tctodolist.tctodolistserver.pojo.Player;
 import com.aye10032.tctodolist.tctodolistserver.service.GroupService;
-import com.aye10032.tctodolist.tctodolistserver.service.PlayerService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -61,12 +59,12 @@ public class GroupServiceImpl implements GroupService {
             groupMapper.insert(group);
             return group.getId();
         } else {
-            throw new APIException("group doesn't exists!");
+            throw new APIException("group already exists!");
         }
     }
 
     @Override
-    public void insertAdmin(Integer group_id, Integer admin_id) {
+    public void insertAdminById(Integer group_id, Integer admin_id) {
         Group group = getGroupById(group_id);
         List<Integer> admins = group.getAdmins();
         if (!admins.contains(admin_id)) {
@@ -81,7 +79,7 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
-    public void deleteAdmin(Integer group_id, Integer admin_id) {
+    public void deleteAdminById(Integer group_id, Integer admin_id) {
         Group group = getGroupById(group_id);
         List<Integer> admins = group.getAdmins();
         if (admins.contains(admin_id)) {
@@ -90,6 +88,38 @@ public class GroupServiceImpl implements GroupService {
             GroupExample example = new GroupExample();
             example.createCriteria().andIdEqualTo(group_id);
             groupMapper.updateByExample(group, example);
+        }
+    }
+
+    @Override
+    public void updateGroupName(String group_name, String name) {
+        Group group = getGroupByName(group_name);
+        if (group != null) {
+            GroupExample example = new GroupExample();
+            example.createCriteria().andNameEqualTo(name);
+            if (groupMapper.countByExample(example) == 0) {
+                group.setName(name);
+                example.clear();
+                example.createCriteria().andIdEqualTo(group.getId());
+                groupMapper.updateByExample(group, example);
+            } else {
+                throw new APIException("name already used!");
+            }
+        } else {
+            throw new APIException("group doesn't exists!");
+        }
+    }
+
+    @Override
+    public void updateGroupInformation(String group_name, String information) {
+        Group group = getGroupByName(group_name);
+        if (group != null) {
+            group.setInformation(information);
+            GroupExample example = new GroupExample();
+            example.createCriteria().andNameEqualTo(group_name);
+            groupMapper.updateByExample(group, example);
+        } else {
+            throw new APIException("group doesn't exists!");
         }
     }
 }
