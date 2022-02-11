@@ -43,7 +43,7 @@ public class PlayerController {
             @ApiParam("请求来源玩家") @RequestParam(value = "from_player") String from_player
     ) {
         if (playerService.isPlayerAdmin(from_player)) {
-            playerService.setPlayerAdmin(name, from_player);
+            playerService.setPlayerAdmin(name);
         }
     }
 

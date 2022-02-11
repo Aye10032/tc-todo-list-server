@@ -20,10 +20,13 @@ public interface PlayerService {
 
     int insertPlayer(String name);
 
-    void setPlayerAdmin(String name, String from_player);
+    void setPlayerAdmin(String name);
 
     boolean isPlayerAdmin(String name);
 
     Player getPlayByName(String name);
+
+    Player getPlayerByUuid(String uuid);
+
     int updatePlayerName(String name);
 }
