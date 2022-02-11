@@ -1,20 +1,30 @@
 package com.aye10032.tctodolist.tctodolistserver.pojo;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 import java.util.List;
 
 /**
  * @author Aye10032
  * @date 2022-02-11
  */
+@ApiModel("组信息")
 public class Group {
+
+    @ApiModelProperty(hidden = true)
     private Integer id;
 
+    @ApiModelProperty(value = "组创建人", required = true)
     private Integer owner;
 
+    @ApiModelProperty(value = "组名称(唯一)", required = true)
     private String name;
 
+    @ApiModelProperty(value = "组简介")
     private String information;
 
+    @ApiModelProperty(value = "组管理员列表")
     private List admins;
 
     public Group(Integer id, Integer owner, String name, String information, List admins) {

@@ -2,6 +2,7 @@ package com.aye10032.tctodolist.tctodolistserver.controller;
 
 import com.aye10032.tctodolist.tctodolistserver.data.APIException;
 import com.aye10032.tctodolist.tctodolistserver.data.ResultCode;
+import com.aye10032.tctodolist.tctodolistserver.pojo.Group;
 import com.aye10032.tctodolist.tctodolistserver.pojo.Player;
 import com.aye10032.tctodolist.tctodolistserver.service.GroupService;
 import com.aye10032.tctodolist.tctodolistserver.service.PlayerService;
@@ -11,10 +12,7 @@ import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @program: tc-todo-list-server
@@ -57,6 +55,18 @@ public class GroupController {
             playerService.addPlayerGroup(player_name, group_id);
         } else {
             throw new APIException(ResultCode.VALIDATE_FAILED.getCode(), ResultCode.VALIDATE_FAILED.getMsg());
+        }
+    }
+
+    @ApiOperation("获取组对象")
+    @GetMapping("getGroup")
+    public Group getGroup(
+            @ApiParam("组名称") @RequestParam(value = "group_name") String group_name){
+        Group group = groupService.getGroupByName(group_name);
+        if (group == null){
+            throw new APIException("group doesn't exist");
+        }else {
+            return group;
         }
     }
 

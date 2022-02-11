@@ -1,6 +1,9 @@
 package com.aye10032.tctodolist.tctodolistserver.controller;
 
+import com.aye10032.tctodolist.tctodolistserver.data.APIException;
+import com.aye10032.tctodolist.tctodolistserver.pojo.Group;
 import com.aye10032.tctodolist.tctodolistserver.pojo.Player;
+import com.aye10032.tctodolist.tctodolistserver.service.GroupService;
 import com.aye10032.tctodolist.tctodolistserver.service.PlayerService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -23,6 +26,8 @@ public class PlayerController {
 
     @Autowired
     private PlayerService playerService;
+    @Autowired
+    private GroupService groupService;
 
     @ApiOperation("添加玩家")
     @PostMapping("insertPlayer")
@@ -57,6 +62,19 @@ public class PlayerController {
             @ApiParam("玩家昵称") @RequestParam(value = "name") String name
     ) {
         return playerService.getPlayByName(name);
+    }
+
+    @ApiOperation("将玩家分配至组")
+    @PostMapping("addPlayerToGroup")
+    public void addPlayerToGroup(
+            @ApiParam("组名称") @RequestParam(value = "group_name") String group_name,
+            @ApiParam("玩家昵称") @RequestParam(value = "player_name") String player_name) {
+        Group group = groupService.getGroupByName(group_name);
+        if (group == null) {
+            throw new APIException("group doesn't exist");
+        } else {
+            playerService.addPlayerGroup(player_name, group.getId());
+        }
     }
 
 
