@@ -17,11 +17,11 @@ public class Message {
 
     private String msg;
 
-    private Integer hasRead;
+    private Boolean hasRead;
 
     private Integer fromTodo;
 
-    public Message(Integer id, Integer fromPlayer, Integer targetPlayer, Long sendTime, Long lastUpdateTime, String msg, Integer hasRead, Integer fromTodo) {
+    public Message(Integer id, Integer fromPlayer, Integer targetPlayer, Long sendTime, Long lastUpdateTime, String msg, Boolean hasRead, Integer fromTodo) {
         this.id = id;
         this.fromPlayer = fromPlayer;
         this.targetPlayer = targetPlayer;
@@ -84,11 +84,11 @@ public class Message {
         this.msg = msg;
     }
 
-    public Integer getHasRead() {
+    public Boolean getHasRead() {
         return hasRead;
     }
 
-    public void setHasRead(Integer hasRead) {
+    public void setHasRead(Boolean hasRead) {
         this.hasRead = hasRead;
     }
 

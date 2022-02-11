@@ -37,7 +37,7 @@ public class PlayerSqlProvider {
         }
         
         if (record.getAdmin() != null) {
-            sql.VALUES("admin", "#{admin,jdbcType=INTEGER}");
+            sql.VALUES("admin", "#{admin,jdbcType=BOOLEAN}");
         }
         
         if (record.getGroups() != null) {
@@ -88,7 +88,7 @@ public class PlayerSqlProvider {
         }
         
         if (record.getAdmin() != null) {
-            sql.SET("admin = #{record.admin,jdbcType=INTEGER}");
+            sql.SET("admin = #{record.admin,jdbcType=BOOLEAN}");
         }
         
         if (record.getGroups() != null) {
@@ -106,7 +106,7 @@ public class PlayerSqlProvider {
         sql.SET("id = #{record.id,jdbcType=INTEGER}");
         sql.SET("name = #{record.name,jdbcType=VARCHAR}");
         sql.SET("uuid = #{record.uuid,jdbcType=VARCHAR}");
-        sql.SET("admin = #{record.admin,jdbcType=INTEGER}");
+        sql.SET("admin = #{record.admin,jdbcType=BOOLEAN}");
         sql.SET("groups = #{record.groups,jdbcType=VARCHAR,typeHandler=com.aye10032.tctodolist.tctodolistserver.handler.ListToVarcharTypeHandler}");
         
         PlayerExample example = (PlayerExample) parameter.get("example");
@@ -127,7 +127,7 @@ public class PlayerSqlProvider {
         }
         
         if (record.getAdmin() != null) {
-            sql.SET("admin = #{admin,jdbcType=INTEGER}");
+            sql.SET("admin = #{admin,jdbcType=BOOLEAN}");
         }
         
         if (record.getGroups() != null) {

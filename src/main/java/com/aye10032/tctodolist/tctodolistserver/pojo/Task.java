@@ -19,11 +19,11 @@ public class Task {
 
     private Integer group;
 
-    private Integer status;
+    private Boolean status;
 
     private String undertakerList;
 
-    public Task(Integer id, String name, String pos, Integer owner, Long time, Long lastUpdateTime, Integer group, Integer status, String undertakerList) {
+    public Task(Integer id, String name, String pos, Integer owner, Long time, Long lastUpdateTime, Integer group, Boolean status, String undertakerList) {
         this.id = id;
         this.name = name;
         this.pos = pos;
@@ -95,11 +95,11 @@ public class Task {
         this.group = group;
     }
 
-    public Integer getStatus() {
+    public Boolean getStatus() {
         return status;
     }
 
-    public void setStatus(Integer status) {
+    public void setStatus(Boolean status) {
         this.status = status;
     }
 

@@ -352,52 +352,52 @@ public class PlayerExample {
             return (Criteria) this;
         }
 
-        public Criteria andAdminEqualTo(Integer value) {
+        public Criteria andAdminEqualTo(Boolean value) {
             addCriterion("admin =", value, "admin");
             return (Criteria) this;
         }
 
-        public Criteria andAdminNotEqualTo(Integer value) {
+        public Criteria andAdminNotEqualTo(Boolean value) {
             addCriterion("admin <>", value, "admin");
             return (Criteria) this;
         }
 
-        public Criteria andAdminGreaterThan(Integer value) {
+        public Criteria andAdminGreaterThan(Boolean value) {
             addCriterion("admin >", value, "admin");
             return (Criteria) this;
         }
 
-        public Criteria andAdminGreaterThanOrEqualTo(Integer value) {
+        public Criteria andAdminGreaterThanOrEqualTo(Boolean value) {
             addCriterion("admin >=", value, "admin");
             return (Criteria) this;
         }
 
-        public Criteria andAdminLessThan(Integer value) {
+        public Criteria andAdminLessThan(Boolean value) {
             addCriterion("admin <", value, "admin");
             return (Criteria) this;
         }
 
-        public Criteria andAdminLessThanOrEqualTo(Integer value) {
+        public Criteria andAdminLessThanOrEqualTo(Boolean value) {
             addCriterion("admin <=", value, "admin");
             return (Criteria) this;
         }
 
-        public Criteria andAdminIn(List<Integer> values) {
+        public Criteria andAdminIn(List<Boolean> values) {
             addCriterion("admin in", values, "admin");
             return (Criteria) this;
         }
 
-        public Criteria andAdminNotIn(List<Integer> values) {
+        public Criteria andAdminNotIn(List<Boolean> values) {
             addCriterion("admin not in", values, "admin");
             return (Criteria) this;
         }
 
-        public Criteria andAdminBetween(Integer value1, Integer value2) {
+        public Criteria andAdminBetween(Boolean value1, Boolean value2) {
             addCriterion("admin between", value1, value2, "admin");
             return (Criteria) this;
         }
 
-        public Criteria andAdminNotBetween(Integer value1, Integer value2) {
+        public Criteria andAdminNotBetween(Boolean value1, Boolean value2) {
             addCriterion("admin not between", value1, value2, "admin");
             return (Criteria) this;
         }

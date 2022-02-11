@@ -53,7 +53,7 @@ public class TaskSqlProvider {
         }
         
         if (record.getStatus() != null) {
-            sql.VALUES("status", "#{status,jdbcType=INTEGER}");
+            sql.VALUES("status", "#{status,jdbcType=BOOLEAN}");
         }
         
         if (record.getUndertakerList() != null) {
@@ -124,7 +124,7 @@ public class TaskSqlProvider {
         }
         
         if (record.getStatus() != null) {
-            sql.SET("status = #{record.status,jdbcType=INTEGER}");
+            sql.SET("status = #{record.status,jdbcType=BOOLEAN}");
         }
         
         if (record.getUndertakerList() != null) {
@@ -146,7 +146,7 @@ public class TaskSqlProvider {
         sql.SET("time = #{record.time,jdbcType=NUMERIC}");
         sql.SET("last_update_time = #{record.lastUpdateTime,jdbcType=NUMERIC}");
         sql.SET("group = #{record.group,jdbcType=INTEGER}");
-        sql.SET("status = #{record.status,jdbcType=INTEGER}");
+        sql.SET("status = #{record.status,jdbcType=BOOLEAN}");
         sql.SET("undertaker_list = #{record.undertakerList,jdbcType=VARCHAR}");
         
         TaskExample example = (TaskExample) parameter.get("example");
@@ -183,7 +183,7 @@ public class TaskSqlProvider {
         }
         
         if (record.getStatus() != null) {
-            sql.SET("status = #{status,jdbcType=INTEGER}");
+            sql.SET("status = #{status,jdbcType=BOOLEAN}");
         }
         
         if (record.getUndertakerList() != null) {

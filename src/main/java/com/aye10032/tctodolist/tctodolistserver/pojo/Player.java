@@ -13,11 +13,11 @@ public class Player {
 
     private String uuid;
 
-    private Integer admin;
+    private Boolean admin;
 
     private List groups;
 
-    public Player(Integer id, String name, String uuid, Integer admin, List groups) {
+    public Player(Integer id, String name, String uuid, Boolean admin, List groups) {
         this.id = id;
         this.name = name;
         this.uuid = uuid;
@@ -53,11 +53,11 @@ public class Player {
         this.uuid = uuid;
     }
 
-    public Integer getAdmin() {
+    public Boolean getAdmin() {
         return admin;
     }
 
-    public void setAdmin(Integer admin) {
+    public void setAdmin(Boolean admin) {
         this.admin = admin;
     }
 

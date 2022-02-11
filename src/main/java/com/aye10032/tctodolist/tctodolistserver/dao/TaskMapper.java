@@ -27,7 +27,7 @@ public interface TaskMapper {
         "group, status, undertaker_list)",
         "values (#{name,jdbcType=VARCHAR}, #{pos,jdbcType=VARCHAR}, ",
         "#{owner,jdbcType=INTEGER}, #{time,jdbcType=NUMERIC}, #{lastUpdateTime,jdbcType=NUMERIC}, ",
-        "#{group,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{undertakerList,jdbcType=VARCHAR})"
+        "#{group,jdbcType=INTEGER}, #{status,jdbcType=BOOLEAN}, #{undertakerList,jdbcType=VARCHAR})"
     })
     @SelectKey(statement="select last_insert_rowid()", keyProperty="id", before=false, resultType=Integer.class)
     int insert(Task record);
@@ -45,7 +45,7 @@ public interface TaskMapper {
         @Arg(column="time", javaType=Long.class, jdbcType=JdbcType.NUMERIC),
         @Arg(column="last_update_time", javaType=Long.class, jdbcType=JdbcType.NUMERIC),
         @Arg(column="group", javaType=Integer.class, jdbcType=JdbcType.INTEGER),
-        @Arg(column="status", javaType=Integer.class, jdbcType=JdbcType.INTEGER),
+        @Arg(column="status", javaType=Boolean.class, jdbcType=JdbcType.BOOLEAN),
         @Arg(column="undertaker_list", javaType=String.class, jdbcType=JdbcType.VARCHAR)
     })
     List<Task> selectByExample(TaskExample example);
@@ -64,7 +64,7 @@ public interface TaskMapper {
         @Arg(column="time", javaType=Long.class, jdbcType=JdbcType.NUMERIC),
         @Arg(column="last_update_time", javaType=Long.class, jdbcType=JdbcType.NUMERIC),
         @Arg(column="group", javaType=Integer.class, jdbcType=JdbcType.INTEGER),
-        @Arg(column="status", javaType=Integer.class, jdbcType=JdbcType.INTEGER),
+        @Arg(column="status", javaType=Boolean.class, jdbcType=JdbcType.BOOLEAN),
         @Arg(column="undertaker_list", javaType=String.class, jdbcType=JdbcType.VARCHAR)
     })
     Task selectByPrimaryKey(Integer id);
@@ -86,7 +86,7 @@ public interface TaskMapper {
           "time = #{time,jdbcType=NUMERIC},",
           "last_update_time = #{lastUpdateTime,jdbcType=NUMERIC},",
           "group = #{group,jdbcType=INTEGER},",
-          "status = #{status,jdbcType=INTEGER},",
+          "status = #{status,jdbcType=BOOLEAN},",
           "undertaker_list = #{undertakerList,jdbcType=VARCHAR}",
         "where id = #{id,jdbcType=INTEGER}"
     })

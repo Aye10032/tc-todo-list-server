@@ -49,7 +49,7 @@ public class MessageSqlProvider {
         }
         
         if (record.getHasRead() != null) {
-            sql.VALUES("has_read", "#{hasRead,jdbcType=INTEGER}");
+            sql.VALUES("has_read", "#{hasRead,jdbcType=BOOLEAN}");
         }
         
         if (record.getFromTodo() != null) {
@@ -115,7 +115,7 @@ public class MessageSqlProvider {
         }
         
         if (record.getHasRead() != null) {
-            sql.SET("has_read = #{record.hasRead,jdbcType=INTEGER}");
+            sql.SET("has_read = #{record.hasRead,jdbcType=BOOLEAN}");
         }
         
         if (record.getFromTodo() != null) {
@@ -136,7 +136,7 @@ public class MessageSqlProvider {
         sql.SET("send_time = #{record.sendTime,jdbcType=NUMERIC}");
         sql.SET("last_update_time = #{record.lastUpdateTime,jdbcType=NUMERIC}");
         sql.SET("msg = #{record.msg,jdbcType=VARCHAR}");
-        sql.SET("has_read = #{record.hasRead,jdbcType=INTEGER}");
+        sql.SET("has_read = #{record.hasRead,jdbcType=BOOLEAN}");
         sql.SET("from_todo = #{record.fromTodo,jdbcType=INTEGER}");
         
         MessageExample example = (MessageExample) parameter.get("example");
@@ -169,7 +169,7 @@ public class MessageSqlProvider {
         }
         
         if (record.getHasRead() != null) {
-            sql.SET("has_read = #{hasRead,jdbcType=INTEGER}");
+            sql.SET("has_read = #{hasRead,jdbcType=BOOLEAN}");
         }
         
         if (record.getFromTodo() != null) {

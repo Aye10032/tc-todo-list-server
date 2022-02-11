@@ -26,7 +26,7 @@ public interface PlayerMapper {
         "insert into todo_player (name, uuid, ",
         "admin, groups)",
         "values (#{name,jdbcType=VARCHAR}, #{uuid,jdbcType=VARCHAR}, ",
-        "#{admin,jdbcType=INTEGER}, #{groups,jdbcType=VARCHAR,typeHandler=com.aye10032.tctodolist.tctodolistserver.handler.ListToVarcharTypeHandler})"
+        "#{admin,jdbcType=BOOLEAN}, #{groups,jdbcType=VARCHAR,typeHandler=com.aye10032.tctodolist.tctodolistserver.handler.ListToVarcharTypeHandler})"
     })
     @SelectKey(statement="select last_insert_rowid()", keyProperty="id", before=false, resultType=Integer.class)
     int insert(Player record);
@@ -40,7 +40,7 @@ public interface PlayerMapper {
         @Arg(column="id", javaType=Integer.class, jdbcType=JdbcType.INTEGER, id=true),
         @Arg(column="name", javaType=String.class, jdbcType=JdbcType.VARCHAR),
         @Arg(column="uuid", javaType=String.class, jdbcType=JdbcType.VARCHAR),
-        @Arg(column="admin", javaType=Integer.class, jdbcType=JdbcType.INTEGER),
+        @Arg(column="admin", javaType=Boolean.class, jdbcType=JdbcType.BOOLEAN),
         @Arg(column="groups", javaType=List.class, typeHandler=ListToVarcharTypeHandler.class, jdbcType=JdbcType.VARCHAR)
     })
     List<Player> selectByExample(PlayerExample example);
@@ -55,7 +55,7 @@ public interface PlayerMapper {
         @Arg(column="id", javaType=Integer.class, jdbcType=JdbcType.INTEGER, id=true),
         @Arg(column="name", javaType=String.class, jdbcType=JdbcType.VARCHAR),
         @Arg(column="uuid", javaType=String.class, jdbcType=JdbcType.VARCHAR),
-        @Arg(column="admin", javaType=Integer.class, jdbcType=JdbcType.INTEGER),
+        @Arg(column="admin", javaType=Boolean.class, jdbcType=JdbcType.BOOLEAN),
         @Arg(column="groups", javaType=List.class, typeHandler=ListToVarcharTypeHandler.class, jdbcType=JdbcType.VARCHAR)
     })
     Player selectByPrimaryKey(Integer id);
@@ -73,7 +73,7 @@ public interface PlayerMapper {
         "update todo_player",
         "set name = #{name,jdbcType=VARCHAR},",
           "uuid = #{uuid,jdbcType=VARCHAR},",
-          "admin = #{admin,jdbcType=INTEGER},",
+          "admin = #{admin,jdbcType=BOOLEAN},",
           "groups = #{groups,jdbcType=VARCHAR,typeHandler=com.aye10032.tctodolist.tctodolistserver.handler.ListToVarcharTypeHandler}",
         "where id = #{id,jdbcType=INTEGER}"
     })
