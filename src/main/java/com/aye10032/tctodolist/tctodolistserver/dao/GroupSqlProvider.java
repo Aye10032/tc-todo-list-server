@@ -1,79 +1,54 @@
 package com.aye10032.tctodolist.tctodolistserver.dao;
 
-import com.aye10032.tctodolist.tctodolistserver.pojo.TodoList;
-import com.aye10032.tctodolist.tctodolistserver.pojo.TodoListExample;
-import com.aye10032.tctodolist.tctodolistserver.pojo.TodoListExample.Criteria;
-import com.aye10032.tctodolist.tctodolistserver.pojo.TodoListExample.Criterion;
+import com.aye10032.tctodolist.tctodolistserver.pojo.Group;
+import com.aye10032.tctodolist.tctodolistserver.pojo.GroupExample;
+import com.aye10032.tctodolist.tctodolistserver.pojo.GroupExample.Criteria;
+import com.aye10032.tctodolist.tctodolistserver.pojo.GroupExample.Criterion;
 import org.apache.ibatis.jdbc.SQL;
 
 import java.util.List;
 import java.util.Map;
 
-public class TodoListSqlProvider {
-    public String countByExample(TodoListExample example) {
+public class GroupSqlProvider {
+    public String countByExample(GroupExample example) {
         SQL sql = new SQL();
-        sql.SELECT("count(*)").FROM("todo_message");
+        sql.SELECT("count(*)").FROM("todo_group");
         applyWhere(sql, example, false);
         return sql.toString();
     }
 
-    public String deleteByExample(TodoListExample example) {
+    public String deleteByExample(GroupExample example) {
         SQL sql = new SQL();
-        sql.DELETE_FROM("todo_message");
+        sql.DELETE_FROM("todo_group");
         applyWhere(sql, example, false);
         return sql.toString();
     }
 
-    public String insertSelective(TodoList record) {
+    public String insertSelective(Group record) {
         SQL sql = new SQL();
-        sql.INSERT_INTO("todo_message");
+        sql.INSERT_INTO("todo_group");
         
-        if (record.getFromPlayer() != null) {
-            sql.VALUES("from_player", "#{fromPlayer,jdbcType=INTEGER}");
+        if (record.getOwner() != null) {
+            sql.VALUES("owner", "#{owner,jdbcType=INTEGER}");
         }
         
-        if (record.getTargetPlayer() != null) {
-            sql.VALUES("target_player", "#{targetPlayer,jdbcType=INTEGER}");
-        }
-        
-        if (record.getSendTime() != null) {
-            sql.VALUES("send_time", "#{sendTime,jdbcType=NUMERIC}");
-        }
-        
-        if (record.getLastUpdateTime() != null) {
-            sql.VALUES("last_update_time", "#{lastUpdateTime,jdbcType=NUMERIC}");
-        }
-        
-        if (record.getMsg() != null) {
-            sql.VALUES("msg", "#{msg,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getHasRead() != null) {
-            sql.VALUES("has_read", "#{hasRead,jdbcType=INTEGER}");
-        }
-        
-        if (record.getFromTodo() != null) {
-            sql.VALUES("from_todo", "#{fromTodo,jdbcType=INTEGER}");
+        if (record.getAdmins() != null) {
+            sql.VALUES("admins", "#{admins,jdbcType=VARCHAR,typeHandler=com.aye10032.tctodolist.tctodolistserver.handler.ListToVarcharTypeHandler}");
         }
         
         return sql.toString();
     }
 
-    public String selectByExample(TodoListExample example) {
+    public String selectByExample(GroupExample example) {
         SQL sql = new SQL();
         if (example != null && example.isDistinct()) {
             sql.SELECT_DISTINCT("id");
         } else {
             sql.SELECT("id");
         }
-        sql.SELECT("from_player");
-        sql.SELECT("target_player");
-        sql.SELECT("send_time");
-        sql.SELECT("last_update_time");
-        sql.SELECT("msg");
-        sql.SELECT("has_read");
-        sql.SELECT("from_todo");
-        sql.FROM("todo_message");
+        sql.SELECT("owner");
+        sql.SELECT("admins");
+        sql.FROM("todo_group");
         applyWhere(sql, example, false);
         
         if (example != null && example.getOrderByClause() != null) {
@@ -84,42 +59,22 @@ public class TodoListSqlProvider {
     }
 
     public String updateByExampleSelective(Map<String, Object> parameter) {
-        TodoList record = (TodoList) parameter.get("record");
-        TodoListExample example = (TodoListExample) parameter.get("example");
+        Group record = (Group) parameter.get("record");
+        GroupExample example = (GroupExample) parameter.get("example");
         
         SQL sql = new SQL();
-        sql.UPDATE("todo_message");
+        sql.UPDATE("todo_group");
         
         if (record.getId() != null) {
             sql.SET("id = #{record.id,jdbcType=INTEGER}");
         }
         
-        if (record.getFromPlayer() != null) {
-            sql.SET("from_player = #{record.fromPlayer,jdbcType=INTEGER}");
+        if (record.getOwner() != null) {
+            sql.SET("owner = #{record.owner,jdbcType=INTEGER}");
         }
         
-        if (record.getTargetPlayer() != null) {
-            sql.SET("target_player = #{record.targetPlayer,jdbcType=INTEGER}");
-        }
-        
-        if (record.getSendTime() != null) {
-            sql.SET("send_time = #{record.sendTime,jdbcType=NUMERIC}");
-        }
-        
-        if (record.getLastUpdateTime() != null) {
-            sql.SET("last_update_time = #{record.lastUpdateTime,jdbcType=NUMERIC}");
-        }
-        
-        if (record.getMsg() != null) {
-            sql.SET("msg = #{record.msg,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getHasRead() != null) {
-            sql.SET("has_read = #{record.hasRead,jdbcType=INTEGER}");
-        }
-        
-        if (record.getFromTodo() != null) {
-            sql.SET("from_todo = #{record.fromTodo,jdbcType=INTEGER}");
+        if (record.getAdmins() != null) {
+            sql.SET("admins = #{record.admins,jdbcType=VARCHAR,typeHandler=com.aye10032.tctodolist.tctodolistserver.handler.ListToVarcharTypeHandler}");
         }
         
         applyWhere(sql, example, true);
@@ -128,52 +83,27 @@ public class TodoListSqlProvider {
 
     public String updateByExample(Map<String, Object> parameter) {
         SQL sql = new SQL();
-        sql.UPDATE("todo_message");
+        sql.UPDATE("todo_group");
         
         sql.SET("id = #{record.id,jdbcType=INTEGER}");
-        sql.SET("from_player = #{record.fromPlayer,jdbcType=INTEGER}");
-        sql.SET("target_player = #{record.targetPlayer,jdbcType=INTEGER}");
-        sql.SET("send_time = #{record.sendTime,jdbcType=NUMERIC}");
-        sql.SET("last_update_time = #{record.lastUpdateTime,jdbcType=NUMERIC}");
-        sql.SET("msg = #{record.msg,jdbcType=VARCHAR}");
-        sql.SET("has_read = #{record.hasRead,jdbcType=INTEGER}");
-        sql.SET("from_todo = #{record.fromTodo,jdbcType=INTEGER}");
+        sql.SET("owner = #{record.owner,jdbcType=INTEGER}");
+        sql.SET("admins = #{record.admins,jdbcType=VARCHAR,typeHandler=com.aye10032.tctodolist.tctodolistserver.handler.ListToVarcharTypeHandler}");
         
-        TodoListExample example = (TodoListExample) parameter.get("example");
+        GroupExample example = (GroupExample) parameter.get("example");
         applyWhere(sql, example, true);
         return sql.toString();
     }
 
-    public String updateByPrimaryKeySelective(TodoList record) {
+    public String updateByPrimaryKeySelective(Group record) {
         SQL sql = new SQL();
-        sql.UPDATE("todo_message");
+        sql.UPDATE("todo_group");
         
-        if (record.getFromPlayer() != null) {
-            sql.SET("from_player = #{fromPlayer,jdbcType=INTEGER}");
+        if (record.getOwner() != null) {
+            sql.SET("owner = #{owner,jdbcType=INTEGER}");
         }
         
-        if (record.getTargetPlayer() != null) {
-            sql.SET("target_player = #{targetPlayer,jdbcType=INTEGER}");
-        }
-        
-        if (record.getSendTime() != null) {
-            sql.SET("send_time = #{sendTime,jdbcType=NUMERIC}");
-        }
-        
-        if (record.getLastUpdateTime() != null) {
-            sql.SET("last_update_time = #{lastUpdateTime,jdbcType=NUMERIC}");
-        }
-        
-        if (record.getMsg() != null) {
-            sql.SET("msg = #{msg,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getHasRead() != null) {
-            sql.SET("has_read = #{hasRead,jdbcType=INTEGER}");
-        }
-        
-        if (record.getFromTodo() != null) {
-            sql.SET("from_todo = #{fromTodo,jdbcType=INTEGER}");
+        if (record.getAdmins() != null) {
+            sql.SET("admins = #{admins,jdbcType=VARCHAR,typeHandler=com.aye10032.tctodolist.tctodolistserver.handler.ListToVarcharTypeHandler}");
         }
         
         sql.WHERE("id = #{id,jdbcType=INTEGER}");
@@ -181,7 +111,7 @@ public class TodoListSqlProvider {
         return sql.toString();
     }
 
-    protected void applyWhere(SQL sql, TodoListExample example, boolean includeExamplePhrase) {
+    protected void applyWhere(SQL sql, GroupExample example, boolean includeExamplePhrase) {
         if (example == null) {
             return;
         }

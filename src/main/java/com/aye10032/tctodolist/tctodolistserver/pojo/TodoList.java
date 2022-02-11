@@ -2,37 +2,34 @@ package com.aye10032.tctodolist.tctodolistserver.pojo;
 
 /**
  * @author dazo66
- * @date 2022-02-10
+ * @date 2022-02-11
  */
 public class TodoList {
     private Integer id;
 
-    private String name;
+    private Integer fromPlayer;
 
-    private String pos;
+    private Integer targetPlayer;
 
-    private Integer owner;
+    private Long sendTime;
 
-    private String time;
+    private Long lastUpdateTime;
 
-    private String lastUpdateTime;
+    private String msg;
 
-    private Integer group;
+    private Integer hasRead;
 
-    private String status;
+    private Integer fromTodo;
 
-    private String undertakerList;
-
-    public TodoList(Integer id, String name, String pos, Integer owner, String time, String lastUpdateTime, Integer group, String status, String undertakerList) {
+    public TodoList(Integer id, Integer fromPlayer, Integer targetPlayer, Long sendTime, Long lastUpdateTime, String msg, Integer hasRead, Integer fromTodo) {
         this.id = id;
-        this.name = name;
-        this.pos = pos;
-        this.owner = owner;
-        this.time = time;
+        this.fromPlayer = fromPlayer;
+        this.targetPlayer = targetPlayer;
+        this.sendTime = sendTime;
         this.lastUpdateTime = lastUpdateTime;
-        this.group = group;
-        this.status = status;
-        this.undertakerList = undertakerList;
+        this.msg = msg;
+        this.hasRead = hasRead;
+        this.fromTodo = fromTodo;
     }
 
     public TodoList() {
@@ -47,67 +44,59 @@ public class TodoList {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public Integer getFromPlayer() {
+        return fromPlayer;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFromPlayer(Integer fromPlayer) {
+        this.fromPlayer = fromPlayer;
     }
 
-    public String getPos() {
-        return pos;
+    public Integer getTargetPlayer() {
+        return targetPlayer;
     }
 
-    public void setPos(String pos) {
-        this.pos = pos;
+    public void setTargetPlayer(Integer targetPlayer) {
+        this.targetPlayer = targetPlayer;
     }
 
-    public Integer getOwner() {
-        return owner;
+    public Long getSendTime() {
+        return sendTime;
     }
 
-    public void setOwner(Integer owner) {
-        this.owner = owner;
+    public void setSendTime(Long sendTime) {
+        this.sendTime = sendTime;
     }
 
-    public String getTime() {
-        return time;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
-    }
-
-    public String getLastUpdateTime() {
+    public Long getLastUpdateTime() {
         return lastUpdateTime;
     }
 
-    public void setLastUpdateTime(String lastUpdateTime) {
+    public void setLastUpdateTime(Long lastUpdateTime) {
         this.lastUpdateTime = lastUpdateTime;
     }
 
-    public Integer getGroup() {
-        return group;
+    public String getMsg() {
+        return msg;
     }
 
-    public void setGroup(Integer group) {
-        this.group = group;
+    public void setMsg(String msg) {
+        this.msg = msg;
     }
 
-    public String getStatus() {
-        return status;
+    public Integer getHasRead() {
+        return hasRead;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setHasRead(Integer hasRead) {
+        this.hasRead = hasRead;
     }
 
-    public String getUndertakerList() {
-        return undertakerList;
+    public Integer getFromTodo() {
+        return fromTodo;
     }
 
-    public void setUndertakerList(String undertakerList) {
-        this.undertakerList = undertakerList;
+    public void setFromTodo(Integer fromTodo) {
+        this.fromTodo = fromTodo;
     }
 }

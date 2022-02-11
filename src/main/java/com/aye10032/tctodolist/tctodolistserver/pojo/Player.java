@@ -4,28 +4,28 @@ import java.util.List;
 
 /**
  * @author dazo66
- * @date 2022-02-10
+ * @date 2022-02-11
  */
-public class PlayerList {
+public class Player {
     private Integer id;
 
     private String name;
 
     private String uuid;
 
-    private String op;
+    private Integer admin;
 
     private List groups;
 
-    public PlayerList(Integer id, String name, String uuid, String op, List groups) {
+    public Player(Integer id, String name, String uuid, Integer admin, List groups) {
         this.id = id;
         this.name = name;
         this.uuid = uuid;
-        this.op = op;
+        this.admin = admin;
         this.groups = groups;
     }
 
-    public PlayerList() {
+    public Player() {
         super();
     }
 
@@ -53,12 +53,12 @@ public class PlayerList {
         this.uuid = uuid;
     }
 
-    public String getOp() {
-        return op;
+    public Integer getAdmin() {
+        return admin;
     }
 
-    public void setOp(String op) {
-        this.op = op;
+    public void setAdmin(Integer admin) {
+        this.admin = admin;
     }
 
     public List getGroups() {

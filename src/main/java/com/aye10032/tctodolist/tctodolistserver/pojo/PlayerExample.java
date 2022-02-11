@@ -3,14 +3,14 @@ package com.aye10032.tctodolist.tctodolistserver.pojo;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlayerListExample {
+public class PlayerExample {
     protected String orderByClause;
 
     protected boolean distinct;
 
     protected List<Criteria> oredCriteria;
 
-    public PlayerListExample() {
+    public PlayerExample() {
         oredCriteria = new ArrayList<>();
     }
 
@@ -65,7 +65,7 @@ public class PlayerListExample {
 
     /**
      * @author dazo66
-     * @date 2022-02-10
+     * @date 2022-02-11
      */
     protected abstract static class GeneratedCriteria {
         protected List<Criterion> groupsCriteria;
@@ -342,73 +342,63 @@ public class PlayerListExample {
             return (Criteria) this;
         }
 
-        public Criteria andOpIsNull() {
-            addCriterion("op is null");
+        public Criteria andAdminIsNull() {
+            addCriterion("admin is null");
             return (Criteria) this;
         }
 
-        public Criteria andOpIsNotNull() {
-            addCriterion("op is not null");
+        public Criteria andAdminIsNotNull() {
+            addCriterion("admin is not null");
             return (Criteria) this;
         }
 
-        public Criteria andOpEqualTo(String value) {
-            addCriterion("op =", value, "op");
+        public Criteria andAdminEqualTo(Integer value) {
+            addCriterion("admin =", value, "admin");
             return (Criteria) this;
         }
 
-        public Criteria andOpNotEqualTo(String value) {
-            addCriterion("op <>", value, "op");
+        public Criteria andAdminNotEqualTo(Integer value) {
+            addCriterion("admin <>", value, "admin");
             return (Criteria) this;
         }
 
-        public Criteria andOpGreaterThan(String value) {
-            addCriterion("op >", value, "op");
+        public Criteria andAdminGreaterThan(Integer value) {
+            addCriterion("admin >", value, "admin");
             return (Criteria) this;
         }
 
-        public Criteria andOpGreaterThanOrEqualTo(String value) {
-            addCriterion("op >=", value, "op");
+        public Criteria andAdminGreaterThanOrEqualTo(Integer value) {
+            addCriterion("admin >=", value, "admin");
             return (Criteria) this;
         }
 
-        public Criteria andOpLessThan(String value) {
-            addCriterion("op <", value, "op");
+        public Criteria andAdminLessThan(Integer value) {
+            addCriterion("admin <", value, "admin");
             return (Criteria) this;
         }
 
-        public Criteria andOpLessThanOrEqualTo(String value) {
-            addCriterion("op <=", value, "op");
+        public Criteria andAdminLessThanOrEqualTo(Integer value) {
+            addCriterion("admin <=", value, "admin");
             return (Criteria) this;
         }
 
-        public Criteria andOpLike(String value) {
-            addCriterion("op like", value, "op");
+        public Criteria andAdminIn(List<Integer> values) {
+            addCriterion("admin in", values, "admin");
             return (Criteria) this;
         }
 
-        public Criteria andOpNotLike(String value) {
-            addCriterion("op not like", value, "op");
+        public Criteria andAdminNotIn(List<Integer> values) {
+            addCriterion("admin not in", values, "admin");
             return (Criteria) this;
         }
 
-        public Criteria andOpIn(List<String> values) {
-            addCriterion("op in", values, "op");
+        public Criteria andAdminBetween(Integer value1, Integer value2) {
+            addCriterion("admin between", value1, value2, "admin");
             return (Criteria) this;
         }
 
-        public Criteria andOpNotIn(List<String> values) {
-            addCriterion("op not in", values, "op");
-            return (Criteria) this;
-        }
-
-        public Criteria andOpBetween(String value1, String value2) {
-            addCriterion("op between", value1, value2, "op");
-            return (Criteria) this;
-        }
-
-        public Criteria andOpNotBetween(String value1, String value2) {
-            addCriterion("op not between", value1, value2, "op");
+        public Criteria andAdminNotBetween(Integer value1, Integer value2) {
+            addCriterion("admin not between", value1, value2, "admin");
             return (Criteria) this;
         }
 
@@ -491,7 +481,7 @@ public class PlayerListExample {
 
     /**
      * @author dazo66
-     * @date 2022-02-10
+     * @date 2022-02-11
      */
     public static class Criterion {
         private String condition;

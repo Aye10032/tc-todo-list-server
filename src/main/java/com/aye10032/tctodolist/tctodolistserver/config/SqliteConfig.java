@@ -91,12 +91,8 @@ public class SqliteConfig {
         if (!admins.isEmpty()) {
             System.out.println("input: " + Arrays.toString(admins.toArray()));
             for (String name : admins) {
-                try {
-                    PlayerPojo player = new PlayerPojo(name, MinecraftUtil.getUUID(name), true);
-                    playerDao.insertPlayer(player);
-                } catch (IOException | APIException e) {
-                    log.error("skip player " + name + ", because of wrong uuid");
-                }
+                PlayerPojo player = new PlayerPojo(name, MinecraftUtil.getUUID(name), true);
+                playerDao.insertPlayer(player);
             }
         }
         scanner.close();

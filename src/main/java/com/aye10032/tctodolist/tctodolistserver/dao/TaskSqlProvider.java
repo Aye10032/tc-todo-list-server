@@ -1,52 +1,69 @@
 package com.aye10032.tctodolist.tctodolistserver.dao;
 
-import com.aye10032.tctodolist.tctodolistserver.pojo.PlayerList;
-import com.aye10032.tctodolist.tctodolistserver.pojo.PlayerListExample.Criteria;
-import com.aye10032.tctodolist.tctodolistserver.pojo.PlayerListExample.Criterion;
-import com.aye10032.tctodolist.tctodolistserver.pojo.PlayerListExample;
-import java.util.List;
-import java.util.Map;
+import com.aye10032.tctodolist.tctodolistserver.pojo.Task;
+import com.aye10032.tctodolist.tctodolistserver.pojo.TaskExample;
+import com.aye10032.tctodolist.tctodolistserver.pojo.TaskExample.Criteria;
+import com.aye10032.tctodolist.tctodolistserver.pojo.TaskExample.Criterion;
 import org.apache.ibatis.jdbc.SQL;
 
-public class PlayerListSqlProvider {
-    public String countByExample(PlayerListExample example) {
+import java.util.List;
+import java.util.Map;
+
+public class TaskSqlProvider {
+    public String countByExample(TaskExample example) {
         SQL sql = new SQL();
-        sql.SELECT("count(*)").FROM("player_list");
+        sql.SELECT("count(*)").FROM("todo_task");
         applyWhere(sql, example, false);
         return sql.toString();
     }
 
-    public String deleteByExample(PlayerListExample example) {
+    public String deleteByExample(TaskExample example) {
         SQL sql = new SQL();
-        sql.DELETE_FROM("player_list");
+        sql.DELETE_FROM("todo_task");
         applyWhere(sql, example, false);
         return sql.toString();
     }
 
-    public String insertSelective(PlayerList record) {
+    public String insertSelective(Task record) {
         SQL sql = new SQL();
-        sql.INSERT_INTO("player_list");
+        sql.INSERT_INTO("todo_task");
         
         if (record.getName() != null) {
             sql.VALUES("name", "#{name,jdbcType=VARCHAR}");
         }
         
-        if (record.getUuid() != null) {
-            sql.VALUES("uuid", "#{uuid,jdbcType=VARCHAR}");
+        if (record.getPos() != null) {
+            sql.VALUES("pos", "#{pos,jdbcType=VARCHAR}");
         }
         
-        if (record.getOp() != null) {
-            sql.VALUES("op", "#{op,jdbcType=VARCHAR}");
+        if (record.getOwner() != null) {
+            sql.VALUES("owner", "#{owner,jdbcType=INTEGER}");
         }
         
-        if (record.getGroups() != null) {
-            sql.VALUES("groups", "#{groups,jdbcType=VARCHAR,typeHandler=com.aye10032.tctodolist.tctodolistserver.handler.ListToVarcharTypeHandler}");
+        if (record.getTime() != null) {
+            sql.VALUES("time", "#{time,jdbcType=NUMERIC}");
+        }
+        
+        if (record.getLastUpdateTime() != null) {
+            sql.VALUES("last_update_time", "#{lastUpdateTime,jdbcType=NUMERIC}");
+        }
+        
+        if (record.getGroup() != null) {
+            sql.VALUES("group", "#{group,jdbcType=INTEGER}");
+        }
+        
+        if (record.getStatus() != null) {
+            sql.VALUES("status", "#{status,jdbcType=INTEGER}");
+        }
+        
+        if (record.getUndertakerList() != null) {
+            sql.VALUES("undertaker_list", "#{undertakerList,jdbcType=VARCHAR}");
         }
         
         return sql.toString();
     }
 
-    public String selectByExample(PlayerListExample example) {
+    public String selectByExample(TaskExample example) {
         SQL sql = new SQL();
         if (example != null && example.isDistinct()) {
             sql.SELECT_DISTINCT("id");
@@ -54,10 +71,14 @@ public class PlayerListSqlProvider {
             sql.SELECT("id");
         }
         sql.SELECT("name");
-        sql.SELECT("uuid");
-        sql.SELECT("op");
-        sql.SELECT("groups");
-        sql.FROM("player_list");
+        sql.SELECT("pos");
+        sql.SELECT("owner");
+        sql.SELECT("time");
+        sql.SELECT("last_update_time");
+        sql.SELECT("group");
+        sql.SELECT("status");
+        sql.SELECT("undertaker_list");
+        sql.FROM("todo_task");
         applyWhere(sql, example, false);
         
         if (example != null && example.getOrderByClause() != null) {
@@ -68,11 +89,11 @@ public class PlayerListSqlProvider {
     }
 
     public String updateByExampleSelective(Map<String, Object> parameter) {
-        PlayerList record = (PlayerList) parameter.get("record");
-        PlayerListExample example = (PlayerListExample) parameter.get("example");
+        Task record = (Task) parameter.get("record");
+        TaskExample example = (TaskExample) parameter.get("example");
         
         SQL sql = new SQL();
-        sql.UPDATE("player_list");
+        sql.UPDATE("todo_task");
         
         if (record.getId() != null) {
             sql.SET("id = #{record.id,jdbcType=INTEGER}");
@@ -82,16 +103,32 @@ public class PlayerListSqlProvider {
             sql.SET("name = #{record.name,jdbcType=VARCHAR}");
         }
         
-        if (record.getUuid() != null) {
-            sql.SET("uuid = #{record.uuid,jdbcType=VARCHAR}");
+        if (record.getPos() != null) {
+            sql.SET("pos = #{record.pos,jdbcType=VARCHAR}");
         }
         
-        if (record.getOp() != null) {
-            sql.SET("op = #{record.op,jdbcType=VARCHAR}");
+        if (record.getOwner() != null) {
+            sql.SET("owner = #{record.owner,jdbcType=INTEGER}");
         }
         
-        if (record.getGroups() != null) {
-            sql.SET("groups = #{record.groups,jdbcType=VARCHAR,typeHandler=com.aye10032.tctodolist.tctodolistserver.handler.ListToVarcharTypeHandler}");
+        if (record.getTime() != null) {
+            sql.SET("time = #{record.time,jdbcType=NUMERIC}");
+        }
+        
+        if (record.getLastUpdateTime() != null) {
+            sql.SET("last_update_time = #{record.lastUpdateTime,jdbcType=NUMERIC}");
+        }
+        
+        if (record.getGroup() != null) {
+            sql.SET("group = #{record.group,jdbcType=INTEGER}");
+        }
+        
+        if (record.getStatus() != null) {
+            sql.SET("status = #{record.status,jdbcType=INTEGER}");
+        }
+        
+        if (record.getUndertakerList() != null) {
+            sql.SET("undertaker_list = #{record.undertakerList,jdbcType=VARCHAR}");
         }
         
         applyWhere(sql, example, true);
@@ -100,37 +137,57 @@ public class PlayerListSqlProvider {
 
     public String updateByExample(Map<String, Object> parameter) {
         SQL sql = new SQL();
-        sql.UPDATE("player_list");
+        sql.UPDATE("todo_task");
         
         sql.SET("id = #{record.id,jdbcType=INTEGER}");
         sql.SET("name = #{record.name,jdbcType=VARCHAR}");
-        sql.SET("uuid = #{record.uuid,jdbcType=VARCHAR}");
-        sql.SET("op = #{record.op,jdbcType=VARCHAR}");
-        sql.SET("groups = #{record.groups,jdbcType=VARCHAR,typeHandler=com.aye10032.tctodolist.tctodolistserver.handler.ListToVarcharTypeHandler}");
+        sql.SET("pos = #{record.pos,jdbcType=VARCHAR}");
+        sql.SET("owner = #{record.owner,jdbcType=INTEGER}");
+        sql.SET("time = #{record.time,jdbcType=NUMERIC}");
+        sql.SET("last_update_time = #{record.lastUpdateTime,jdbcType=NUMERIC}");
+        sql.SET("group = #{record.group,jdbcType=INTEGER}");
+        sql.SET("status = #{record.status,jdbcType=INTEGER}");
+        sql.SET("undertaker_list = #{record.undertakerList,jdbcType=VARCHAR}");
         
-        PlayerListExample example = (PlayerListExample) parameter.get("example");
+        TaskExample example = (TaskExample) parameter.get("example");
         applyWhere(sql, example, true);
         return sql.toString();
     }
 
-    public String updateByPrimaryKeySelective(PlayerList record) {
+    public String updateByPrimaryKeySelective(Task record) {
         SQL sql = new SQL();
-        sql.UPDATE("player_list");
+        sql.UPDATE("todo_task");
         
         if (record.getName() != null) {
             sql.SET("name = #{name,jdbcType=VARCHAR}");
         }
         
-        if (record.getUuid() != null) {
-            sql.SET("uuid = #{uuid,jdbcType=VARCHAR}");
+        if (record.getPos() != null) {
+            sql.SET("pos = #{pos,jdbcType=VARCHAR}");
         }
         
-        if (record.getOp() != null) {
-            sql.SET("op = #{op,jdbcType=VARCHAR}");
+        if (record.getOwner() != null) {
+            sql.SET("owner = #{owner,jdbcType=INTEGER}");
         }
         
-        if (record.getGroups() != null) {
-            sql.SET("groups = #{groups,jdbcType=VARCHAR,typeHandler=com.aye10032.tctodolist.tctodolistserver.handler.ListToVarcharTypeHandler}");
+        if (record.getTime() != null) {
+            sql.SET("time = #{time,jdbcType=NUMERIC}");
+        }
+        
+        if (record.getLastUpdateTime() != null) {
+            sql.SET("last_update_time = #{lastUpdateTime,jdbcType=NUMERIC}");
+        }
+        
+        if (record.getGroup() != null) {
+            sql.SET("group = #{group,jdbcType=INTEGER}");
+        }
+        
+        if (record.getStatus() != null) {
+            sql.SET("status = #{status,jdbcType=INTEGER}");
+        }
+        
+        if (record.getUndertakerList() != null) {
+            sql.SET("undertaker_list = #{undertakerList,jdbcType=VARCHAR}");
         }
         
         sql.WHERE("id = #{id,jdbcType=INTEGER}");
@@ -138,7 +195,7 @@ public class PlayerListSqlProvider {
         return sql.toString();
     }
 
-    protected void applyWhere(SQL sql, PlayerListExample example, boolean includeExamplePhrase) {
+    protected void applyWhere(SQL sql, TaskExample example, boolean includeExamplePhrase) {
         if (example == null) {
             return;
         }
