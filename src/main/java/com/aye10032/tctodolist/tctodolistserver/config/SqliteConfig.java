@@ -1,7 +1,9 @@
 package com.aye10032.tctodolist.tctodolistserver.config;
 
 import com.aye10032.tctodolist.tctodolistserver.dao.*;
+import com.aye10032.tctodolist.tctodolistserver.data.APIException;
 import com.aye10032.tctodolist.tctodolistserver.pojo.Group;
+import com.aye10032.tctodolist.tctodolistserver.pojo.GroupExample;
 import com.aye10032.tctodolist.tctodolistserver.pojo.Player;
 import com.aye10032.tctodolist.tctodolistserver.util.MinecraftUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -42,9 +44,14 @@ public class SqliteConfig {
     @PostConstruct
     public void init() {
         if (!StringUtils.isEmpty(sqliteUrl)
-                && !new File(sqliteUrl.replace("jdbc:sqlite:", "")).exists()) {
-            GroupInit();
-            PlayerInit();
+                && new File(sqliteUrl.replace("jdbc:sqlite:", "")).exists()) {
+            GroupExample groupExample = new GroupExample();
+            groupExample.createCriteria();
+            if (groupMapper.countByExample(groupExample) == 0) {
+                GroupInit();
+                log.info("已添加默认组");
+                PlayerInit();
+            }
             log.info("表初始化成功");
         }
     }
@@ -63,12 +70,22 @@ public class SqliteConfig {
         if (!admins.isEmpty()) {
             System.out.println("input: " + Arrays.toString(admins.toArray()));
             for (String name : admins) {
-                Player player = new Player();
-                player.setName(name);
-                player.setUuid(MinecraftUtil.getUUID(name));
-                player.setAdmin(true);
+                String uuid;
+                try {
+                    uuid = MinecraftUtil.getUUID(name);
+                    Player player = new Player();
+                    player.setName(name);
+                    player.setUuid(uuid);
+                    player.setAdmin(true);
 
-                playerMapper.insert(player);
+                    List<Integer> groups = new ArrayList<>();
+                    groups.add(1);
+                    player.setGroups(groups);
+
+                    playerMapper.insert(player);
+                } catch (APIException e) {
+                    log.error("skip " + name + " because of wrong ID");
+                }
             }
         }
         scanner.close();

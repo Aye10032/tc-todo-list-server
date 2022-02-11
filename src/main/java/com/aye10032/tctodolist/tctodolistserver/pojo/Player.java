@@ -1,20 +1,31 @@
 package com.aye10032.tctodolist.tctodolistserver.pojo;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import springfox.documentation.annotations.ApiIgnore;
+
 import java.util.List;
 
 /**
  * @author Aye10032
  * @date 2022-02-11
  */
+@ApiModel("玩家信息")
 public class Player {
+
+    @ApiModelProperty(hidden = true)
     private Integer id;
 
+    @ApiModelProperty(value = "玩家ID", required = true)
     private String name;
 
+    @ApiModelProperty(value = "玩家UUID", required = true)
     private String uuid;
 
+    @ApiModelProperty(value = "玩家管理员权限")
     private Boolean admin;
 
+    @ApiModelProperty(value = "玩家所属组")
     private List groups;
 
     public Player(Integer id, String name, String uuid, Boolean admin, List groups) {
