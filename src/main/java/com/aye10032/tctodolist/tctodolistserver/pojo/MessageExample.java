@@ -3,14 +3,14 @@ package com.aye10032.tctodolist.tctodolistserver.pojo;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TodoListExample {
+public class MessageExample {
     protected String orderByClause;
 
     protected boolean distinct;
 
     protected List<Criteria> oredCriteria;
 
-    public TodoListExample() {
+    public MessageExample() {
         oredCriteria = new ArrayList<>();
     }
 
@@ -64,7 +64,7 @@ public class TodoListExample {
     }
 
     /**
-     * @author dazo66
+     * @author Aye10032
      * @date 2022-02-11
      */
     protected abstract static class GeneratedCriteria {
@@ -606,7 +606,7 @@ public class TodoListExample {
     }
 
     /**
-     * @author dazo66
+     * @author Aye10032
      * @date 2022-02-11
      */
     public static class Criterion {

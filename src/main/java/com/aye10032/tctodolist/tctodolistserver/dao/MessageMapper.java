@@ -1,19 +1,19 @@
 package com.aye10032.tctodolist.tctodolistserver.dao;
 
-import com.aye10032.tctodolist.tctodolistserver.pojo.TodoList;
-import com.aye10032.tctodolist.tctodolistserver.pojo.TodoListExample;
+import com.aye10032.tctodolist.tctodolistserver.pojo.Message;
+import com.aye10032.tctodolist.tctodolistserver.pojo.MessageExample;
 import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.type.JdbcType;
 
 import java.util.List;
 
 @Mapper
-public interface TodoListMapper {
-    @SelectProvider(type=TodoListSqlProvider.class, method="countByExample")
-    long countByExample(TodoListExample example);
+public interface MessageMapper {
+    @SelectProvider(type=MessageSqlProvider.class, method="countByExample")
+    long countByExample(MessageExample example);
 
-    @DeleteProvider(type=TodoListSqlProvider.class, method="deleteByExample")
-    int deleteByExample(TodoListExample example);
+    @DeleteProvider(type=MessageSqlProvider.class, method="deleteByExample")
+    int deleteByExample(MessageExample example);
 
     @Delete({
         "delete from todo_message",
@@ -30,13 +30,13 @@ public interface TodoListMapper {
         "#{msg,jdbcType=VARCHAR}, #{hasRead,jdbcType=INTEGER}, #{fromTodo,jdbcType=INTEGER})"
     })
     @SelectKey(statement="select last_insert_rowid()", keyProperty="id", before=false, resultType=Integer.class)
-    int insert(TodoList record);
+    int insert(Message record);
 
-    @InsertProvider(type=TodoListSqlProvider.class, method="insertSelective")
+    @InsertProvider(type=MessageSqlProvider.class, method="insertSelective")
     @SelectKey(statement="select last_insert_rowid()", keyProperty="id", before=false, resultType=Integer.class)
-    int insertSelective(TodoList record);
+    int insertSelective(Message record);
 
-    @SelectProvider(type=TodoListSqlProvider.class, method="selectByExample")
+    @SelectProvider(type=MessageSqlProvider.class, method="selectByExample")
     @ConstructorArgs({
         @Arg(column="id", javaType=Integer.class, jdbcType=JdbcType.INTEGER, id=true),
         @Arg(column="from_player", javaType=Integer.class, jdbcType=JdbcType.INTEGER),
@@ -47,7 +47,7 @@ public interface TodoListMapper {
         @Arg(column="has_read", javaType=Integer.class, jdbcType=JdbcType.INTEGER),
         @Arg(column="from_todo", javaType=Integer.class, jdbcType=JdbcType.INTEGER)
     })
-    List<TodoList> selectByExample(TodoListExample example);
+    List<Message> selectByExample(MessageExample example);
 
     @Select({
         "select",
@@ -66,16 +66,16 @@ public interface TodoListMapper {
         @Arg(column="has_read", javaType=Integer.class, jdbcType=JdbcType.INTEGER),
         @Arg(column="from_todo", javaType=Integer.class, jdbcType=JdbcType.INTEGER)
     })
-    TodoList selectByPrimaryKey(Integer id);
+    Message selectByPrimaryKey(Integer id);
 
-    @UpdateProvider(type=TodoListSqlProvider.class, method="updateByExampleSelective")
-    int updateByExampleSelective(@Param("record") TodoList record, @Param("example") TodoListExample example);
+    @UpdateProvider(type=MessageSqlProvider.class, method="updateByExampleSelective")
+    int updateByExampleSelective(@Param("record") Message record, @Param("example") MessageExample example);
 
-    @UpdateProvider(type=TodoListSqlProvider.class, method="updateByExample")
-    int updateByExample(@Param("record") TodoList record, @Param("example") TodoListExample example);
+    @UpdateProvider(type=MessageSqlProvider.class, method="updateByExample")
+    int updateByExample(@Param("record") Message record, @Param("example") MessageExample example);
 
-    @UpdateProvider(type=TodoListSqlProvider.class, method="updateByPrimaryKeySelective")
-    int updateByPrimaryKeySelective(TodoList record);
+    @UpdateProvider(type=MessageSqlProvider.class, method="updateByPrimaryKeySelective")
+    int updateByPrimaryKeySelective(Message record);
 
     @Update({
         "update todo_message",
@@ -88,5 +88,5 @@ public interface TodoListMapper {
           "from_todo = #{fromTodo,jdbcType=INTEGER}",
         "where id = #{id,jdbcType=INTEGER}"
     })
-    int updateByPrimaryKey(TodoList record);
+    int updateByPrimaryKey(Message record);
 }

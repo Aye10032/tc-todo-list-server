@@ -1,7 +1,7 @@
 package com.aye10032.tctodolist.tctodolistserver.pojo;
 
 /**
- * @author dazo66
+ * @author Aye10032
  * @date 2022-02-11
  */
 public class Undertake {

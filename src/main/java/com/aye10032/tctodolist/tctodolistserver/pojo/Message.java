@@ -1,10 +1,10 @@
 package com.aye10032.tctodolist.tctodolistserver.pojo;
 
 /**
- * @author dazo66
+ * @author Aye10032
  * @date 2022-02-11
  */
-public class TodoList {
+public class Message {
     private Integer id;
 
     private Integer fromPlayer;
@@ -21,7 +21,7 @@ public class TodoList {
 
     private Integer fromTodo;
 
-    public TodoList(Integer id, Integer fromPlayer, Integer targetPlayer, Long sendTime, Long lastUpdateTime, String msg, Integer hasRead, Integer fromTodo) {
+    public Message(Integer id, Integer fromPlayer, Integer targetPlayer, Long sendTime, Long lastUpdateTime, String msg, Integer hasRead, Integer fromTodo) {
         this.id = id;
         this.fromPlayer = fromPlayer;
         this.targetPlayer = targetPlayer;
@@ -32,7 +32,7 @@ public class TodoList {
         this.fromTodo = fromTodo;
     }
 
-    public TodoList() {
+    public Message() {
         super();
     }
 

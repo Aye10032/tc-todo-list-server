@@ -1,30 +1,30 @@
 package com.aye10032.tctodolist.tctodolistserver.dao;
 
-import com.aye10032.tctodolist.tctodolistserver.pojo.TodoList;
-import com.aye10032.tctodolist.tctodolistserver.pojo.TodoListExample;
-import com.aye10032.tctodolist.tctodolistserver.pojo.TodoListExample.Criteria;
-import com.aye10032.tctodolist.tctodolistserver.pojo.TodoListExample.Criterion;
+import com.aye10032.tctodolist.tctodolistserver.pojo.Message;
+import com.aye10032.tctodolist.tctodolistserver.pojo.MessageExample;
+import com.aye10032.tctodolist.tctodolistserver.pojo.MessageExample.Criteria;
+import com.aye10032.tctodolist.tctodolistserver.pojo.MessageExample.Criterion;
 import org.apache.ibatis.jdbc.SQL;
 
 import java.util.List;
 import java.util.Map;
 
-public class TodoListSqlProvider {
-    public String countByExample(TodoListExample example) {
+public class MessageSqlProvider {
+    public String countByExample(MessageExample example) {
         SQL sql = new SQL();
         sql.SELECT("count(*)").FROM("todo_message");
         applyWhere(sql, example, false);
         return sql.toString();
     }
 
-    public String deleteByExample(TodoListExample example) {
+    public String deleteByExample(MessageExample example) {
         SQL sql = new SQL();
         sql.DELETE_FROM("todo_message");
         applyWhere(sql, example, false);
         return sql.toString();
     }
 
-    public String insertSelective(TodoList record) {
+    public String insertSelective(Message record) {
         SQL sql = new SQL();
         sql.INSERT_INTO("todo_message");
         
@@ -59,7 +59,7 @@ public class TodoListSqlProvider {
         return sql.toString();
     }
 
-    public String selectByExample(TodoListExample example) {
+    public String selectByExample(MessageExample example) {
         SQL sql = new SQL();
         if (example != null && example.isDistinct()) {
             sql.SELECT_DISTINCT("id");
@@ -84,8 +84,8 @@ public class TodoListSqlProvider {
     }
 
     public String updateByExampleSelective(Map<String, Object> parameter) {
-        TodoList record = (TodoList) parameter.get("record");
-        TodoListExample example = (TodoListExample) parameter.get("example");
+        Message record = (Message) parameter.get("record");
+        MessageExample example = (MessageExample) parameter.get("example");
         
         SQL sql = new SQL();
         sql.UPDATE("todo_message");
@@ -139,12 +139,12 @@ public class TodoListSqlProvider {
         sql.SET("has_read = #{record.hasRead,jdbcType=INTEGER}");
         sql.SET("from_todo = #{record.fromTodo,jdbcType=INTEGER}");
         
-        TodoListExample example = (TodoListExample) parameter.get("example");
+        MessageExample example = (MessageExample) parameter.get("example");
         applyWhere(sql, example, true);
         return sql.toString();
     }
 
-    public String updateByPrimaryKeySelective(TodoList record) {
+    public String updateByPrimaryKeySelective(Message record) {
         SQL sql = new SQL();
         sql.UPDATE("todo_message");
         
@@ -181,7 +181,7 @@ public class TodoListSqlProvider {
         return sql.toString();
     }
 
-    protected void applyWhere(SQL sql, TodoListExample example, boolean includeExamplePhrase) {
+    protected void applyWhere(SQL sql, MessageExample example, boolean includeExamplePhrase) {
         if (example == null) {
             return;
         }

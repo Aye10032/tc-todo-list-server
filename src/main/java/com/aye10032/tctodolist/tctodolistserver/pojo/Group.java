@@ -3,7 +3,7 @@ package com.aye10032.tctodolist.tctodolistserver.pojo;
 import java.util.List;
 
 /**
- * @author dazo66
+ * @author Aye10032
  * @date 2022-02-11
  */
 public class Group {

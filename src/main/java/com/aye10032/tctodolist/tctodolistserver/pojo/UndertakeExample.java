@@ -64,7 +64,7 @@ public class UndertakeExample {
     }
 
     /**
-     * @author dazo66
+     * @author Aye10032
      * @date 2022-02-11
      */
     protected abstract static class GeneratedCriteria {
@@ -426,7 +426,7 @@ public class UndertakeExample {
     }
 
     /**
-     * @author dazo66
+     * @author Aye10032
      * @date 2022-02-11
      */
     public static class Criterion {
