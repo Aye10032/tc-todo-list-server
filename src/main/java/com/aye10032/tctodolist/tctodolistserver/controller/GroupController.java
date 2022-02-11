@@ -153,7 +153,9 @@ public class GroupController {
             if (requester != null) {
                 if (group.getAdmins().contains(requester.getId())) {
                     return true;
-                } else return group.getOwner().equals(requester.getId());
+                } else if (group.getOwner().equals(requester.getId())) {
+                    return true;
+                } else return playerService.isPlayerAdmin(player_name);
             } else {
                 throw new APIException("wrong request");
             }
