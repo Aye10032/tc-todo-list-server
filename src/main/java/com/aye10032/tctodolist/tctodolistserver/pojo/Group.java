@@ -11,11 +11,17 @@ public class Group {
 
     private Integer owner;
 
+    private String name;
+
+    private String information;
+
     private List admins;
 
-    public Group(Integer id, Integer owner, List admins) {
+    public Group(Integer id, Integer owner, String name, String information, List admins) {
         this.id = id;
         this.owner = owner;
+        this.name = name;
+        this.information = information;
         this.admins = admins;
     }
 
@@ -37,6 +43,22 @@ public class Group {
 
     public void setOwner(Integer owner) {
         this.owner = owner;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getInformation() {
+        return information;
+    }
+
+    public void setInformation(String information) {
+        this.information = information;
     }
 
     public List getAdmins() {

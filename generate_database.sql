@@ -1,10 +1,12 @@
 create table todo_group
 (
-    id     INTEGER not null
+    id          INTEGER not null
         constraint todo_group_pk
             primary key autoincrement,
-    owner  INTEGER not null,
-    admins BLOB
+    owner       INTEGER not null,
+    name        TEXT    not null,
+    information TEXT,
+    admins      BLOB
 );
 
 create table todo_message
@@ -14,10 +16,10 @@ create table todo_message
             primary key autoincrement,
     from_player      INTEGER not null,
     target_player    INTEGER not null,
-    send_time        NUMERIC    not null,
-    last_update_time NUMERIC    not null,
+    send_time        NUMERIC not null,
+    last_update_time NUMERIC not null,
     msg              TEXT    not null,
-    has_read         BOOLEAN    not null,
+    has_read         BOOLEAN not null,
     from_todo        INTEGER
 );
 
@@ -28,7 +30,7 @@ create table todo_player
             primary key autoincrement,
     name   TEXT    not null,
     uuid   TEXT    not null,
-    admin  BOOLEAN    not null,
+    admin  BOOLEAN not null,
     groups BLOB
 );
 
@@ -40,10 +42,10 @@ create table todo_task
     name             TEXT    not null,
     pos              TEXT,
     owner            INTEGER not null,
-    time             NUMERIC    not null,
-    last_update_time NUMERIC    not null,
+    time             NUMERIC not null,
+    last_update_time NUMERIC not null,
     "group"          INTEGER not null,
-    status           BOOLEAN    not null,
+    status           BOOLEAN not null,
     undertaker_list  BLOB    not null
 );
 
@@ -54,6 +56,6 @@ create table todo_undertake
             primary key autoincrement,
     player_id        INTEGER not null,
     msg              TEXT,
-    time             NUMERIC    not null,
+    time             NUMERIC not null,
     last_update_time NUMERIC
 );
