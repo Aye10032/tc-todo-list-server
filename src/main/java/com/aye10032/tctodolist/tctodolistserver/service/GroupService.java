@@ -18,6 +18,6 @@ public interface GroupService {
 
     Integer insertGroup(Integer owner_id, String name, String information);
 
-    void insertAdmin(Integer admin_id);
+    void insertAdmin(Integer group_id, Integer admin_id);
 
 }

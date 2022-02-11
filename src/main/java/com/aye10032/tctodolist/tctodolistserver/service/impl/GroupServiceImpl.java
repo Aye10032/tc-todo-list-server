@@ -4,7 +4,9 @@ import com.aye10032.tctodolist.tctodolistserver.dao.GroupMapper;
 import com.aye10032.tctodolist.tctodolistserver.data.APIException;
 import com.aye10032.tctodolist.tctodolistserver.pojo.Group;
 import com.aye10032.tctodolist.tctodolistserver.pojo.GroupExample;
+import com.aye10032.tctodolist.tctodolistserver.pojo.Player;
 import com.aye10032.tctodolist.tctodolistserver.service.GroupService;
+import com.aye10032.tctodolist.tctodolistserver.service.PlayerService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -59,12 +61,22 @@ public class GroupServiceImpl implements GroupService {
             groupMapper.insert(group);
             return group.getId();
         } else {
-            throw new APIException("group exists!");
+            throw new APIException("group doesn't exists!");
         }
     }
 
     @Override
-    public void insertAdmin(Integer admin_id) {
-
+    public void insertAdmin(Integer group_id, Integer admin_id) {
+        Group group = getGroupById(group_id);
+        List<Integer> admins = group.getAdmins();
+        if (!admins.contains(admin_id)) {
+            admins.add(admin_id);
+            group.setAdmins(admins);
+            GroupExample example = new GroupExample();
+            example.createCriteria().andIdEqualTo(group_id);
+            groupMapper.updateByExample(group, example);
+        } else {
+            throw new APIException("player is already an administrator");
+        }
     }
 }
