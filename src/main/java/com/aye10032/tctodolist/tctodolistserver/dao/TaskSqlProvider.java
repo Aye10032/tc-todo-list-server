@@ -27,39 +27,39 @@ public class TaskSqlProvider {
     public String insertSelective(Task record) {
         SQL sql = new SQL();
         sql.INSERT_INTO("todo_task");
-
+        
         if (record.getName() != null) {
             sql.VALUES("name", "#{name,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getPos() != null) {
             sql.VALUES("pos", "#{pos,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getOwner() != null) {
             sql.VALUES("owner", "#{owner,jdbcType=INTEGER}");
         }
-
+        
         if (record.getTime() != null) {
             sql.VALUES("time", "#{time,jdbcType=NUMERIC}");
         }
-
+        
         if (record.getLastUpdateTime() != null) {
             sql.VALUES("last_update_time", "#{lastUpdateTime,jdbcType=NUMERIC}");
         }
-
-        if (record.getGroup() != null) {
-            sql.VALUES("group", "#{group,jdbcType=INTEGER}");
+        
+        if (record.getGroups() != null) {
+            sql.VALUES("groups", "#{groups,jdbcType=INTEGER}");
         }
-
+        
         if (record.getStatus() != null) {
             sql.VALUES("status", "#{status,jdbcType=BOOLEAN}");
         }
-
+        
         if (record.getUndertakerList() != null) {
-            sql.VALUES("undertaker_list", "#{undertakerList,jdbcType=VARCHAR}");
+            sql.VALUES("undertaker_list", "#{undertakerList,jdbcType=VARCHAR,typeHandler=com.aye10032.tctodolist.tctodolistserver.handler.ListToVarcharTypeHandler}");
         }
-
+        
         return sql.toString();
     }
 
@@ -75,62 +75,62 @@ public class TaskSqlProvider {
         sql.SELECT("owner");
         sql.SELECT("time");
         sql.SELECT("last_update_time");
-        sql.SELECT("group");
+        sql.SELECT("groups");
         sql.SELECT("status");
         sql.SELECT("undertaker_list");
         sql.FROM("todo_task");
         applyWhere(sql, example, false);
-
+        
         if (example != null && example.getOrderByClause() != null) {
             sql.ORDER_BY(example.getOrderByClause());
         }
-
+        
         return sql.toString();
     }
 
     public String updateByExampleSelective(Map<String, Object> parameter) {
         Task record = (Task) parameter.get("record");
         TaskExample example = (TaskExample) parameter.get("example");
-
+        
         SQL sql = new SQL();
         sql.UPDATE("todo_task");
-
+        
         if (record.getId() != null) {
             sql.SET("id = #{record.id,jdbcType=INTEGER}");
         }
-
+        
         if (record.getName() != null) {
             sql.SET("name = #{record.name,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getPos() != null) {
             sql.SET("pos = #{record.pos,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getOwner() != null) {
             sql.SET("owner = #{record.owner,jdbcType=INTEGER}");
         }
-
+        
         if (record.getTime() != null) {
             sql.SET("time = #{record.time,jdbcType=NUMERIC}");
         }
-
+        
         if (record.getLastUpdateTime() != null) {
             sql.SET("last_update_time = #{record.lastUpdateTime,jdbcType=NUMERIC}");
         }
-
-        if (record.getGroup() != null) {
-            sql.SET("group = #{record.group,jdbcType=INTEGER}");
+        
+        if (record.getGroups() != null) {
+            sql.SET("groups = #{record.groups,jdbcType=INTEGER}");
         }
-
+        
         if (record.getStatus() != null) {
             sql.SET("status = #{record.status,jdbcType=BOOLEAN}");
         }
-
+        
         if (record.getUndertakerList() != null) {
-            sql.SET("undertaker_list = #{record.undertakerList,jdbcType=VARCHAR}");
+            sql.SET("undertaker_list = #{record.undertakerList,jdbcType=VARCHAR,typeHandler=com.aye10032.tctodolist.tctodolistserver.handler.ListToVarcharTypeHandler}");
         }
-
+        
         applyWhere(sql, example, true);
         return sql.toString();
     }
@@ -138,17 +138,17 @@ public class TaskSqlProvider {
     public String updateByExample(Map<String, Object> parameter) {
         SQL sql = new SQL();
         sql.UPDATE("todo_task");
-
+        
         sql.SET("id = #{record.id,jdbcType=INTEGER}");
         sql.SET("name = #{record.name,jdbcType=VARCHAR}");
         sql.SET("pos = #{record.pos,jdbcType=VARCHAR}");
         sql.SET("owner = #{record.owner,jdbcType=INTEGER}");
         sql.SET("time = #{record.time,jdbcType=NUMERIC}");
         sql.SET("last_update_time = #{record.lastUpdateTime,jdbcType=NUMERIC}");
-        sql.SET("group = #{record.group,jdbcType=INTEGER}");
+        sql.SET("groups = #{record.groups,jdbcType=INTEGER}");
         sql.SET("status = #{record.status,jdbcType=BOOLEAN}");
-        sql.SET("undertaker_list = #{record.undertakerList,jdbcType=VARCHAR}");
-
+        sql.SET("undertaker_list = #{record.undertakerList,jdbcType=VARCHAR,typeHandler=com.aye10032.tctodolist.tctodolistserver.handler.ListToVarcharTypeHandler}");
+        
         TaskExample example = (TaskExample) parameter.get("example");
         applyWhere(sql, example, true);
         return sql.toString();
@@ -157,41 +157,41 @@ public class TaskSqlProvider {
     public String updateByPrimaryKeySelective(Task record) {
         SQL sql = new SQL();
         sql.UPDATE("todo_task");
-
+        
         if (record.getName() != null) {
             sql.SET("name = #{name,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getPos() != null) {
             sql.SET("pos = #{pos,jdbcType=VARCHAR}");
         }
-
+        
         if (record.getOwner() != null) {
             sql.SET("owner = #{owner,jdbcType=INTEGER}");
         }
-
+        
         if (record.getTime() != null) {
             sql.SET("time = #{time,jdbcType=NUMERIC}");
         }
-
+        
         if (record.getLastUpdateTime() != null) {
             sql.SET("last_update_time = #{lastUpdateTime,jdbcType=NUMERIC}");
         }
-
-        if (record.getGroup() != null) {
-            sql.SET("group = #{group,jdbcType=INTEGER}");
+        
+        if (record.getGroups() != null) {
+            sql.SET("groups = #{groups,jdbcType=INTEGER}");
         }
-
+        
         if (record.getStatus() != null) {
             sql.SET("status = #{status,jdbcType=BOOLEAN}");
         }
-
+        
         if (record.getUndertakerList() != null) {
-            sql.SET("undertaker_list = #{undertakerList,jdbcType=VARCHAR}");
+            sql.SET("undertaker_list = #{undertakerList,jdbcType=VARCHAR,typeHandler=com.aye10032.tctodolist.tctodolistserver.handler.ListToVarcharTypeHandler}");
         }
-
+        
         sql.WHERE("id = #{id,jdbcType=INTEGER}");
-
+        
         return sql.toString();
     }
 
@@ -199,7 +199,7 @@ public class TaskSqlProvider {
         if (example == null) {
             return;
         }
-
+        
         String parmPhrase1;
         String parmPhrase1_th;
         String parmPhrase2;
@@ -221,7 +221,7 @@ public class TaskSqlProvider {
             parmPhrase3 = "#{oredCriteria[%d].allCriteria[%d].value[%d]}";
             parmPhrase3_th = "#{oredCriteria[%d].allCriteria[%d].value[%d],typeHandler=%s}";
         }
-
+        
         StringBuilder sb = new StringBuilder();
         List<Criteria> oredCriteria = example.getOredCriteria();
         boolean firstCriteria = true;
@@ -233,7 +233,7 @@ public class TaskSqlProvider {
                 } else {
                     sb.append(" or ");
                 }
-
+                
                 sb.append('(');
                 List<Criterion> criterions = criteria.getAllCriteria();
                 boolean firstCriterion = true;
@@ -244,14 +244,14 @@ public class TaskSqlProvider {
                     } else {
                         sb.append(" and ");
                     }
-
+                    
                     if (criterion.isNoValue()) {
                         sb.append(criterion.getCondition());
                     } else if (criterion.isSingleValue()) {
                         if (criterion.getTypeHandler() == null) {
                             sb.append(String.format(parmPhrase1, criterion.getCondition(), i, j));
                         } else {
-                            sb.append(String.format(parmPhrase1_th, criterion.getCondition(), i, j, criterion.getTypeHandler()));
+                            sb.append(String.format(parmPhrase1_th, criterion.getCondition(), i, j,criterion.getTypeHandler()));
                         }
                     } else if (criterion.isBetweenValue()) {
                         if (criterion.getTypeHandler() == null) {
@@ -282,7 +282,7 @@ public class TaskSqlProvider {
                 sb.append(')');
             }
         }
-
+        
         if (sb.length() > 0) {
             sql.WHERE(sb.toString());
         }

@@ -44,7 +44,7 @@ create table todo_task
     owner            INTEGER not null,
     time             NUMERIC not null,
     last_update_time NUMERIC not null,
-    "group"          INTEGER not null,
+    groups           INTEGER not null,
     status           BOOLEAN not null,
     undertaker_list  BLOB    not null
 );

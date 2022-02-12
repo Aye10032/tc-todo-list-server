@@ -1,36 +1,52 @@
 package com.aye10032.tctodolist.tctodolistserver.pojo;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
+import java.util.List;
+
 /**
  * @author Aye10032
- * @date 2022-02-11
+ * @date 2022-02-12
  */
+@ApiModel("任务信息")
 public class Task {
+
+    @ApiModelProperty(hidden = true)
     private Integer id;
 
+    @ApiModelProperty(value = "任务名称", required = true)
     private String name;
 
+    @ApiModelProperty(value = "任务关键点坐标", required = true)
     private String pos;
 
+    @ApiModelProperty(value = "任务创建人", required = true)
     private Integer owner;
 
+    @ApiModelProperty(value = "任务创建时间", required = true)
     private Long time;
 
+    @ApiModelProperty(value = "任务最后留言更新时间", required = true)
     private Long lastUpdateTime;
 
-    private Integer group;
+    @ApiModelProperty(value = "任务所属组(留空则默认为服务器组)")
+    private Integer groups;
 
+    @ApiModelProperty(value = "任务完成状态")
     private Boolean status;
 
-    private String undertakerList;
+    @ApiModelProperty(value = "任务承接玩家列表")
+    private List undertakerList;
 
-    public Task(Integer id, String name, String pos, Integer owner, Long time, Long lastUpdateTime, Integer group, Boolean status, String undertakerList) {
+    public Task(Integer id, String name, String pos, Integer owner, Long time, Long lastUpdateTime, Integer groups, Boolean status, List undertakerList) {
         this.id = id;
         this.name = name;
         this.pos = pos;
         this.owner = owner;
         this.time = time;
         this.lastUpdateTime = lastUpdateTime;
-        this.group = group;
+        this.groups = groups;
         this.status = status;
         this.undertakerList = undertakerList;
     }
@@ -87,12 +103,12 @@ public class Task {
         this.lastUpdateTime = lastUpdateTime;
     }
 
-    public Integer getGroup() {
-        return group;
+    public Integer getGroups() {
+        return groups;
     }
 
-    public void setGroup(Integer group) {
-        this.group = group;
+    public void setGroups(Integer groups) {
+        this.groups = groups;
     }
 
     public Boolean getStatus() {
@@ -103,11 +119,11 @@ public class Task {
         this.status = status;
     }
 
-    public String getUndertakerList() {
+    public List getUndertakerList() {
         return undertakerList;
     }
 
-    public void setUndertakerList(String undertakerList) {
+    public void setUndertakerList(List undertakerList) {
         this.undertakerList = undertakerList;
     }
 }

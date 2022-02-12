@@ -65,22 +65,53 @@ public class TaskExample {
 
     /**
      * @author Aye10032
-     * @date 2022-02-11
+     * @date 2022-02-12
      */
     protected abstract static class GeneratedCriteria {
+        protected List<Criterion> undertakerListCriteria;
+
+        protected List<Criterion> allCriteria;
+
         protected List<Criterion> criteria;
 
         protected GeneratedCriteria() {
             super();
             criteria = new ArrayList<>();
+            undertakerListCriteria = new ArrayList<>();
+        }
+
+        public List<Criterion> getUndertakerListCriteria() {
+            return undertakerListCriteria;
+        }
+
+        protected void addUndertakerListCriterion(String condition, Object value, String property) {
+            if (value == null) {
+                throw new RuntimeException("Value for " + property + " cannot be null");
+            }
+            undertakerListCriteria.add(new Criterion(condition, value, "com.aye10032.tctodolist.tctodolistserver.handler.ListToVarcharTypeHandler"));
+            allCriteria = null;
+        }
+
+        protected void addUndertakerListCriterion(String condition, List value1, List value2, String property) {
+            if (value1 == null || value2 == null) {
+                throw new RuntimeException("Between values for " + property + " cannot be null");
+            }
+            undertakerListCriteria.add(new Criterion(condition, value1, value2, "com.aye10032.tctodolist.tctodolistserver.handler.ListToVarcharTypeHandler"));
+            allCriteria = null;
         }
 
         public boolean isValid() {
-            return criteria.size() > 0;
+            return criteria.size() > 0
+                || undertakerListCriteria.size() > 0;
         }
 
         public List<Criterion> getAllCriteria() {
-            return criteria;
+            if (allCriteria == null) {
+                allCriteria = new ArrayList<>();
+                allCriteria.addAll(criteria);
+                allCriteria.addAll(undertakerListCriteria);
+            }
+            return allCriteria;
         }
 
         public List<Criterion> getCriteria() {
@@ -92,6 +123,7 @@ public class TaskExample {
                 throw new RuntimeException("Value for condition cannot be null");
             }
             criteria.add(new Criterion(condition));
+            allCriteria = null;
         }
 
         protected void addCriterion(String condition, Object value, String property) {
@@ -99,6 +131,7 @@ public class TaskExample {
                 throw new RuntimeException("Value for " + property + " cannot be null");
             }
             criteria.add(new Criterion(condition, value));
+            allCriteria = null;
         }
 
         protected void addCriterion(String condition, Object value1, Object value2, String property) {
@@ -106,6 +139,7 @@ public class TaskExample {
                 throw new RuntimeException("Between values for " + property + " cannot be null");
             }
             criteria.add(new Criterion(condition, value1, value2));
+            allCriteria = null;
         }
 
         public Criteria andIdIsNull() {
@@ -488,63 +522,63 @@ public class TaskExample {
             return (Criteria) this;
         }
 
-        public Criteria andGroupIsNull() {
-            addCriterion("group is null");
+        public Criteria andGroupsIsNull() {
+            addCriterion("groups is null");
             return (Criteria) this;
         }
 
-        public Criteria andGroupIsNotNull() {
-            addCriterion("group is not null");
+        public Criteria andGroupsIsNotNull() {
+            addCriterion("groups is not null");
             return (Criteria) this;
         }
 
-        public Criteria andGroupEqualTo(Integer value) {
-            addCriterion("group =", value, "group");
+        public Criteria andGroupsEqualTo(Integer value) {
+            addCriterion("groups =", value, "groups");
             return (Criteria) this;
         }
 
-        public Criteria andGroupNotEqualTo(Integer value) {
-            addCriterion("group <>", value, "group");
+        public Criteria andGroupsNotEqualTo(Integer value) {
+            addCriterion("groups <>", value, "groups");
             return (Criteria) this;
         }
 
-        public Criteria andGroupGreaterThan(Integer value) {
-            addCriterion("group >", value, "group");
+        public Criteria andGroupsGreaterThan(Integer value) {
+            addCriterion("groups >", value, "groups");
             return (Criteria) this;
         }
 
-        public Criteria andGroupGreaterThanOrEqualTo(Integer value) {
-            addCriterion("group >=", value, "group");
+        public Criteria andGroupsGreaterThanOrEqualTo(Integer value) {
+            addCriterion("groups >=", value, "groups");
             return (Criteria) this;
         }
 
-        public Criteria andGroupLessThan(Integer value) {
-            addCriterion("group <", value, "group");
+        public Criteria andGroupsLessThan(Integer value) {
+            addCriterion("groups <", value, "groups");
             return (Criteria) this;
         }
 
-        public Criteria andGroupLessThanOrEqualTo(Integer value) {
-            addCriterion("group <=", value, "group");
+        public Criteria andGroupsLessThanOrEqualTo(Integer value) {
+            addCriterion("groups <=", value, "groups");
             return (Criteria) this;
         }
 
-        public Criteria andGroupIn(List<Integer> values) {
-            addCriterion("group in", values, "group");
+        public Criteria andGroupsIn(List<Integer> values) {
+            addCriterion("groups in", values, "groups");
             return (Criteria) this;
         }
 
-        public Criteria andGroupNotIn(List<Integer> values) {
-            addCriterion("group not in", values, "group");
+        public Criteria andGroupsNotIn(List<Integer> values) {
+            addCriterion("groups not in", values, "groups");
             return (Criteria) this;
         }
 
-        public Criteria andGroupBetween(Integer value1, Integer value2) {
-            addCriterion("group between", value1, value2, "group");
+        public Criteria andGroupsBetween(Integer value1, Integer value2) {
+            addCriterion("groups between", value1, value2, "groups");
             return (Criteria) this;
         }
 
-        public Criteria andGroupNotBetween(Integer value1, Integer value2) {
-            addCriterion("group not between", value1, value2, "group");
+        public Criteria andGroupsNotBetween(Integer value1, Integer value2) {
+            addCriterion("groups not between", value1, value2, "groups");
             return (Criteria) this;
         }
 
@@ -618,63 +652,63 @@ public class TaskExample {
             return (Criteria) this;
         }
 
-        public Criteria andUndertakerListEqualTo(String value) {
-            addCriterion("undertaker_list =", value, "undertakerList");
+        public Criteria andUndertakerListEqualTo(List value) {
+            addUndertakerListCriterion("undertaker_list =", value, "undertakerList");
             return (Criteria) this;
         }
 
-        public Criteria andUndertakerListNotEqualTo(String value) {
-            addCriterion("undertaker_list <>", value, "undertakerList");
+        public Criteria andUndertakerListNotEqualTo(List value) {
+            addUndertakerListCriterion("undertaker_list <>", value, "undertakerList");
             return (Criteria) this;
         }
 
-        public Criteria andUndertakerListGreaterThan(String value) {
-            addCriterion("undertaker_list >", value, "undertakerList");
+        public Criteria andUndertakerListGreaterThan(List value) {
+            addUndertakerListCriterion("undertaker_list >", value, "undertakerList");
             return (Criteria) this;
         }
 
-        public Criteria andUndertakerListGreaterThanOrEqualTo(String value) {
-            addCriterion("undertaker_list >=", value, "undertakerList");
+        public Criteria andUndertakerListGreaterThanOrEqualTo(List value) {
+            addUndertakerListCriterion("undertaker_list >=", value, "undertakerList");
             return (Criteria) this;
         }
 
-        public Criteria andUndertakerListLessThan(String value) {
-            addCriterion("undertaker_list <", value, "undertakerList");
+        public Criteria andUndertakerListLessThan(List value) {
+            addUndertakerListCriterion("undertaker_list <", value, "undertakerList");
             return (Criteria) this;
         }
 
-        public Criteria andUndertakerListLessThanOrEqualTo(String value) {
-            addCriterion("undertaker_list <=", value, "undertakerList");
+        public Criteria andUndertakerListLessThanOrEqualTo(List value) {
+            addUndertakerListCriterion("undertaker_list <=", value, "undertakerList");
             return (Criteria) this;
         }
 
-        public Criteria andUndertakerListLike(String value) {
-            addCriterion("undertaker_list like", value, "undertakerList");
+        public Criteria andUndertakerListLike(List value) {
+            addUndertakerListCriterion("undertaker_list like", value, "undertakerList");
             return (Criteria) this;
         }
 
-        public Criteria andUndertakerListNotLike(String value) {
-            addCriterion("undertaker_list not like", value, "undertakerList");
+        public Criteria andUndertakerListNotLike(List value) {
+            addUndertakerListCriterion("undertaker_list not like", value, "undertakerList");
             return (Criteria) this;
         }
 
-        public Criteria andUndertakerListIn(List<String> values) {
-            addCriterion("undertaker_list in", values, "undertakerList");
+        public Criteria andUndertakerListIn(List<List> values) {
+            addUndertakerListCriterion("undertaker_list in", values, "undertakerList");
             return (Criteria) this;
         }
 
-        public Criteria andUndertakerListNotIn(List<String> values) {
-            addCriterion("undertaker_list not in", values, "undertakerList");
+        public Criteria andUndertakerListNotIn(List<List> values) {
+            addUndertakerListCriterion("undertaker_list not in", values, "undertakerList");
             return (Criteria) this;
         }
 
-        public Criteria andUndertakerListBetween(String value1, String value2) {
-            addCriterion("undertaker_list between", value1, value2, "undertakerList");
+        public Criteria andUndertakerListBetween(List value1, List value2) {
+            addUndertakerListCriterion("undertaker_list between", value1, value2, "undertakerList");
             return (Criteria) this;
         }
 
-        public Criteria andUndertakerListNotBetween(String value1, String value2) {
-            addCriterion("undertaker_list not between", value1, value2, "undertakerList");
+        public Criteria andUndertakerListNotBetween(List value1, List value2) {
+            addUndertakerListCriterion("undertaker_list not between", value1, value2, "undertakerList");
             return (Criteria) this;
         }
     }
@@ -687,7 +721,7 @@ public class TaskExample {
 
     /**
      * @author Aye10032
-     * @date 2022-02-11
+     * @date 2022-02-12
      */
     public static class Criterion {
         private String condition;
