@@ -19,7 +19,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
  * @author: Aye10032
  * @date: 2022/2/9 下午 11:29
  */
-@RestControllerAdvice(basePackages = {"com.aye10032.tctodolist.tctodolistserver.controller"})
+@RestControllerAdvice
 public class ResponseControllerAdvice implements ResponseBodyAdvice {
 
     @Override

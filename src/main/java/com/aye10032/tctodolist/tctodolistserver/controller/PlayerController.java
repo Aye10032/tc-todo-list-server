@@ -11,6 +11,8 @@ import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.NotBlank;
+
 /**
  * @program: tc-todo-list-server
  * @className: PlayerController
@@ -32,7 +34,7 @@ public class PlayerController {
     @ApiOperation("添加玩家")
     @PostMapping("insertPlayer")
     public Integer insertPlayer(
-            @ApiParam("玩家昵称") @RequestParam(value = "name") String name
+            @ApiParam("玩家昵称") @NotBlank(message = "玩家名称不能为空") @RequestParam(value = "name") String name
     ) {
         return playerService.insertPlayer(name);
     }
@@ -40,7 +42,7 @@ public class PlayerController {
     @ApiOperation("设置玩家管理员权限")
     @PostMapping("setPlayerAdmin")
     public void setPlayerAdmin(
-            @ApiParam("更改权限对象") @RequestParam(value = "name") String name,
+            @ApiParam("更改权限对象") @NotBlank(message = "玩家名称不能为空") @RequestParam(value = "name") String name,
             @ApiParam("请求来源玩家") @RequestParam(value = "from_player") String from_player
     ) {
         if (playerService.isPlayerAdmin(from_player)) {
@@ -51,7 +53,7 @@ public class PlayerController {
     @ApiOperation("更新玩家ID（改名时）")
     @PostMapping("updatePlayerName")
     public Integer updatePlayerName(
-            @ApiParam("玩家现在的ID") @RequestParam(value = "name") String name
+            @ApiParam("玩家现在的ID") @NotBlank(message = "玩家名称不能为空") @RequestParam(value = "name") String name
     ) {
         return playerService.updatePlayerName(name);
     }
@@ -59,7 +61,7 @@ public class PlayerController {
     @ApiOperation("获取玩家信息")
     @GetMapping("getPlayer")
     public Player getPlayer(
-            @ApiParam("玩家昵称") @RequestParam(value = "name") String name
+            @ApiParam("玩家昵称") @NotBlank(message = "玩家名称不能为空") @RequestParam(value = "name") String name
     ) {
         return playerService.getPlayByName(name);
     }
@@ -67,8 +69,8 @@ public class PlayerController {
     @ApiOperation("将玩家分配至组")
     @PostMapping("addPlayerToGroup")
     public void addPlayerToGroup(
-            @ApiParam("组名称") @RequestParam(value = "group_name") String group_name,
-            @ApiParam("玩家昵称") @RequestParam(value = "player_name") String player_name) {
+            @ApiParam("组名称") @NotBlank(message = "组名称不能为空") @RequestParam(value = "group_name") String group_name,
+            @ApiParam("玩家昵称") @NotBlank(message = "玩家名称不能为空") @RequestParam(value = "player_name") String player_name) {
         Group group = groupService.getGroupByName(group_name);
         if (group == null) {
             throw new APIException("group doesn't exist");

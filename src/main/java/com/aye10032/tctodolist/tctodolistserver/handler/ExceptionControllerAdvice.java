@@ -8,6 +8,8 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import javax.validation.ConstraintViolationException;
+
 /**
  * @program: tc-todo-list-server
  * @className: ExceptionControllerAdvice
@@ -25,6 +27,11 @@ public class ExceptionControllerAdvice {
         ObjectError objectError = e.getBindingResult().getAllErrors().get(0);
 
         return new ResultVO<>(ResultCode.VALIDATE_FAILED, objectError.getDefaultMessage());
+    }
+
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResultVO<String> ConstraintViolationExceptionHandler(ConstraintViolationException e){
+        return new ResultVO<>(ResultCode.VALIDATE_FAILED, e.getMessage());
     }
 
     @ExceptionHandler(APIException.class)
