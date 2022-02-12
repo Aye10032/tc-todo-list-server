@@ -1,5 +1,7 @@
 package com.aye10032.tctodolist.tctodolistserver.service;
 
+import com.aye10032.tctodolist.tctodolistserver.pojo.Task;
+
 /**
  * @program: tc-todo-list-server
  * @className: TaskService
@@ -13,5 +15,7 @@ public interface TaskService {
     Integer insertTask(String task_name, String pos, Integer owner_id);
 
     Integer insertTask(String task_name, String pos, Integer owner_id, Integer group_id);
+
+    Task getTaskByName(String task_name);
 
 }

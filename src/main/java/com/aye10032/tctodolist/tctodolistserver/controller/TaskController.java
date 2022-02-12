@@ -3,6 +3,7 @@ package com.aye10032.tctodolist.tctodolistserver.controller;
 import com.aye10032.tctodolist.tctodolistserver.data.APIException;
 import com.aye10032.tctodolist.tctodolistserver.pojo.Group;
 import com.aye10032.tctodolist.tctodolistserver.pojo.Player;
+import com.aye10032.tctodolist.tctodolistserver.pojo.Task;
 import com.aye10032.tctodolist.tctodolistserver.service.GroupService;
 import com.aye10032.tctodolist.tctodolistserver.service.PlayerService;
 import com.aye10032.tctodolist.tctodolistserver.service.TaskService;
@@ -12,10 +13,7 @@ import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
@@ -65,6 +63,14 @@ public class TaskController {
             log.info("add task " + task_name);
         }
         return result;
+    }
+
+    @ApiOperation("获取任务对象")
+    @GetMapping("getTask")
+    public Task getTask(
+            @ApiParam("任务名称") @NotBlank(message = "任务名称不能为空") @RequestParam(value = "task_name") String task_name
+    ){
+        return taskService.getTaskByName(task_name);
     }
 
 }

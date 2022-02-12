@@ -60,4 +60,15 @@ public class TaskServiceImpl implements TaskService {
             throw new APIException("task name already exists!");
         }
     }
+
+    @Override
+    public Task getTaskByName(String task_name) {
+        TaskExample example = new TaskExample();
+        example.createCriteria().andNameEqualTo(task_name);
+        List<Task> taskList = taskMapper.selectByExample(example);
+        if (taskList.isEmpty()) {
+            throw new APIException("task doesn't exist!");
+        }
+        return taskList.get(0);
+    }
 }
