@@ -2,6 +2,8 @@ package com.aye10032.tctodolist.tctodolistserver.service;
 
 import com.aye10032.tctodolist.tctodolistserver.pojo.Task;
 
+import java.util.List;
+
 /**
  * @program: tc-todo-list-server
  * @className: TaskService
@@ -17,5 +19,9 @@ public interface TaskService {
     Integer insertTask(String task_name, String pos, Integer owner_id, Integer group_id);
 
     Task getTaskByName(String task_name);
+
+    List<Task> getTaskByGroup(List<Integer> groupList);
+
+    List<Task> getUnfinishedTaskByGroup(List<Integer> groupList);
 
 }

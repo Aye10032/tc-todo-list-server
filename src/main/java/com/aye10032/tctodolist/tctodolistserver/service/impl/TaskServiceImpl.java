@@ -71,4 +71,22 @@ public class TaskServiceImpl implements TaskService {
         }
         return taskList.get(0);
     }
+
+    @Override
+    public List<Task> getTaskByGroup(List<Integer> groupList) {
+        TaskExample example = new TaskExample();
+        for (Integer group_id:groupList){
+            example.or(new TaskExample().createCriteria().andGroupsEqualTo(group_id));
+        }
+        return taskMapper.selectByExample(example);
+    }
+
+    @Override
+    public List<Task> getUnfinishedTaskByGroup(List<Integer> groupList) {
+        TaskExample example = new TaskExample();
+        for (Integer group_id:groupList){
+            example.or(new TaskExample().createCriteria().andGroupsEqualTo(group_id).andStatusEqualTo(false));
+        }
+        return taskMapper.selectByExample(example);
+    }
 }

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
+import java.util.List;
 
 /**
  * @program: tc-todo-list-server
@@ -45,20 +46,20 @@ public class TaskController {
             @ApiParam("任务名称") @NotBlank(message = "任务名称不能为空") @RequestParam(value = "task_name") String task_name,
             @ApiParam("任务关键点坐标") @Pattern(regexp = "^-?[0-9]+ +-?[0-9]+$", message = "格式必须为\"x z\"") @RequestParam(value = "pos") String pos,
             @ApiParam("任务创建人") @NotBlank(message = "创建人不能为空") @RequestParam(value = "owner_name") String owner_name,
-            @ApiParam("任务所属组(留空则默认为服务器组)") @RequestParam(value = "group_name", required = false) String group_name){
+            @ApiParam("任务所属组(留空则默认为服务器组)") @RequestParam(value = "group_name", required = false) String group_name) {
         Player player = playerService.getPlayByName(owner_name);
-        if (player == null){
+        if (player == null) {
             throw new APIException("player doesn't exists!");
         }
         int result = -1;
-        if (StringUtils.isNotBlank(group_name)){
+        if (StringUtils.isNotBlank(group_name)) {
             Group group = groupService.getGroupByName(group_name);
-            if (group == null){
+            if (group == null) {
                 throw new APIException("group doesn't exists!");
             }
             result = taskService.insertTask(task_name, pos, player.getId(), group.getId());
             log.info("add task " + task_name + " to group " + group_name);
-        }else {
+        } else {
             result = taskService.insertTask(task_name, pos, player.getId());
             log.info("add task " + task_name);
         }
@@ -69,8 +70,28 @@ public class TaskController {
     @GetMapping("getTask")
     public Task getTask(
             @ApiParam("任务名称") @NotBlank(message = "任务名称不能为空") @RequestParam(value = "task_name") String task_name
-    ){
+    ) {
         return taskService.getTaskByName(task_name);
+    }
+
+    @ApiOperation("获取可访问任务列表")
+    @GetMapping("getAvailableTasks")
+    public List<Task> getAvailableTasks(
+            @ApiParam("玩家昵称") @NotBlank(message = "玩家名称不能为空") @RequestParam(value = "player_name") String player_name
+    ) {
+        Player player = playerService.getPlayByName(player_name);
+        List<Integer> player_group = player.getGroups();
+        return taskService.getTaskByGroup(player_group);
+    }
+
+    @ApiOperation("获取未完成的可访问任务列表")
+    @GetMapping("getUnfinishedTask")
+    public List<Task> getUnfinishedTask(
+            @ApiParam("玩家昵称") @NotBlank(message = "玩家名称不能为空") @RequestParam(value = "player_name") String player_name
+    ) {
+        Player player = playerService.getPlayByName(player_name);
+        List<Integer> player_group = player.getGroups();
+        return taskService.getUnfinishedTaskByGroup(player_group);
     }
 
 }
