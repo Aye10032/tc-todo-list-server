@@ -1,6 +1,5 @@
 package com.aye10032.tctodolist.tctodolistserver.controller;
 
-import com.aye10032.tctodolist.tctodolistserver.data.APIException;
 import com.aye10032.tctodolist.tctodolistserver.pojo.Group;
 import com.aye10032.tctodolist.tctodolistserver.pojo.Player;
 import com.aye10032.tctodolist.tctodolistserver.service.GroupService;
@@ -8,6 +7,7 @@ import com.aye10032.tctodolist.tctodolistserver.service.PlayerService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,6 +24,7 @@ import javax.validation.constraints.NotBlank;
 @Api(tags = "玩家管理")
 @RestController
 @RequestMapping("player")
+@Slf4j
 public class PlayerController {
 
     @Autowired
@@ -36,6 +37,7 @@ public class PlayerController {
     public Integer insertPlayer(
             @ApiParam("玩家昵称") @NotBlank(message = "玩家名称不能为空") @RequestParam(value = "name") String name
     ) {
+        log.info("insert player " + name);
         return playerService.insertPlayer(name);
     }
 
@@ -46,6 +48,7 @@ public class PlayerController {
             @ApiParam("请求来源玩家") @RequestParam(value = "from_player") String from_player
     ) {
         if (playerService.isPlayerAdmin(from_player)) {
+            log.info("set player " + name + "as admin by " + from_player);
             playerService.setPlayerAdmin(name);
         }
     }
@@ -72,11 +75,9 @@ public class PlayerController {
             @ApiParam("组名称") @NotBlank(message = "组名称不能为空") @RequestParam(value = "group_name") String group_name,
             @ApiParam("玩家昵称") @NotBlank(message = "玩家名称不能为空") @RequestParam(value = "player_name") String player_name) {
         Group group = groupService.getGroupByName(group_name);
-        if (group == null) {
-            throw new APIException("group doesn't exist");
-        } else {
-            playerService.addPlayerGroup(player_name, group.getId());
-        }
+        playerService.addPlayerGroup(player_name, group.getId());
+
+        log.info("add player " + player_name + " to group " + group_name);
     }
 
 

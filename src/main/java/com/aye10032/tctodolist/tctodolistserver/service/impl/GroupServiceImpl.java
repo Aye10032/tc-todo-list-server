@@ -32,7 +32,10 @@ public class GroupServiceImpl implements GroupService {
         GroupExample example = new GroupExample();
         example.createCriteria().andIdEqualTo(id);
         List<Group> groupList = groupMapper.selectByExample(example);
-        return groupList.isEmpty() ? null : groupList.get(0);
+        if (groupList.isEmpty()) {
+            throw new APIException("group doesn't exist!");
+        }
+        return groupList.get(0);
     }
 
     @Override
@@ -40,7 +43,10 @@ public class GroupServiceImpl implements GroupService {
         GroupExample example = new GroupExample();
         example.createCriteria().andNameEqualTo(name);
         List<Group> groupList = groupMapper.selectByExample(example);
-        return groupList.isEmpty() ? null : groupList.get(0);
+        if (groupList.isEmpty()) {
+            throw new APIException("group doesn't exist!");
+        }
+        return groupList.get(0);
     }
 
     @Override
@@ -101,32 +107,24 @@ public class GroupServiceImpl implements GroupService {
     @Override
     public void updateGroupName(String group_name, String name) {
         Group group = getGroupByName(group_name);
-        if (group != null) {
-            GroupExample example = new GroupExample();
-            example.createCriteria().andNameEqualTo(name);
-            if (groupMapper.countByExample(example) == 0) {
-                group.setName(name);
-                example.clear();
-                example.createCriteria().andIdEqualTo(group.getId());
-                groupMapper.updateByExample(group, example);
-            } else {
-                throw new APIException("name already used!");
-            }
+        GroupExample example = new GroupExample();
+        example.createCriteria().andNameEqualTo(name);
+        if (groupMapper.countByExample(example) == 0) {
+            group.setName(name);
+            example.clear();
+            example.createCriteria().andIdEqualTo(group.getId());
+            groupMapper.updateByExample(group, example);
         } else {
-            throw new APIException("group doesn't exists!");
+            throw new APIException("name already used!");
         }
     }
 
     @Override
     public void updateGroupInformation(String group_name, String information) {
         Group group = getGroupByName(group_name);
-        if (group != null) {
-            group.setInformation(information);
-            GroupExample example = new GroupExample();
-            example.createCriteria().andNameEqualTo(group_name);
-            groupMapper.updateByExample(group, example);
-        } else {
-            throw new APIException("group doesn't exists!");
-        }
+        group.setInformation(information);
+        GroupExample example = new GroupExample();
+        example.createCriteria().andNameEqualTo(group_name);
+        groupMapper.updateByExample(group, example);
     }
 }

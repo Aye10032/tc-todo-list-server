@@ -1,7 +1,6 @@
 package com.aye10032.tctodolist.tctodolistserver.controller;
 
 import com.aye10032.tctodolist.tctodolistserver.data.APIException;
-import com.aye10032.tctodolist.tctodolistserver.data.ResultCode;
 import com.aye10032.tctodolist.tctodolistserver.pojo.Group;
 import com.aye10032.tctodolist.tctodolistserver.pojo.Player;
 import com.aye10032.tctodolist.tctodolistserver.service.GroupService;
@@ -43,33 +42,18 @@ public class GroupController {
             @ApiParam("相关信息") @RequestParam(value = "information", required = false) String information
     ) {
         Player player = playerService.getPlayByName(player_name);
-        if (StringUtils.isNotBlank(group_name)) {
-            Integer group_id;
-            if (player != null) {
-                group_id = groupService.insertGroup(
-                        player.getId(), group_name, StringUtils.isNotBlank(information) ? information : "");
-            } else {
-                group_id = groupService.insertGroup(
-                        playerService.insertPlayer(player_name),
-                        group_name, StringUtils.isNotBlank(information) ? information : "");
-            }
-            log.info("add group " + group_id + " " + group_name + " by " + player_name);
-            playerService.addPlayerGroup(player_name, group_id);
-        } else {
-            throw new APIException(ResultCode.VALIDATE_FAILED.getCode(), ResultCode.VALIDATE_FAILED.getMsg());
-        }
+        Integer group_id = groupService.insertGroup(
+                player.getId(), group_name, StringUtils.isNotBlank(information) ? information : "");
+
+        log.info("insert group " + group_id + " " + group_name + " by " + player_name);
+        playerService.addPlayerGroup(player_name, group_id);
     }
 
     @ApiOperation("获取组对象")
     @GetMapping("getGroup")
     public Group getGroup(
             @ApiParam("组名称") @RequestParam(value = "group_name") String group_name) {
-        Group group = groupService.getGroupByName(group_name);
-        if (group == null) {
-            throw new APIException("group doesn't exist");
-        } else {
-            return group;
-        }
+        return groupService.getGroupByName(group_name);
     }
 
     @ApiOperation("添加组管理员")
@@ -82,17 +66,10 @@ public class GroupController {
         if (hasGroupAccess(group_name, from_player)) {
             Group group = groupService.getGroupByName(group_name);
             Player target = playerService.getPlayByName(player_name);
-            int target_id;
-            if (target == null) {
-                target_id = playerService.insertPlayer(player_name);
-                playerService.addPlayerGroup(player_name, group.getId());
-            } else {
-                target_id = target.getId();
-                if (!target.getGroups().contains(group.getId())) {
-                    playerService.addPlayerGroup(player_name, group.getId());
-                }
-            }
-            groupService.insertAdminById(group.getId(), target_id);
+            groupService.insertAdminById(group.getId(), target.getId());
+            playerService.addPlayerGroup(player_name, group.getId());
+
+            log.info("add group \"" + group_name + "\" admin " + player_name);
         } else {
             throw new APIException("no access");
         }
@@ -108,13 +85,9 @@ public class GroupController {
         if (hasGroupAccess(group_name, from_player)) {
             Group group = groupService.getGroupByName(group_name);
             Player target = playerService.getPlayByName(player_name);
-            int target_id;
-            if (target == null) {
-                target_id = playerService.insertPlayer(player_name);
-            } else {
-                target_id = target.getId();
-            }
-            groupService.deleteAdminById(group.getId(), target_id);
+            groupService.deleteAdminById(group.getId(), target.getId());
+
+            log.info("delete group \"" + group_name + "\" admin " + player_name);
         } else {
             throw new APIException("no access");
         }
@@ -129,6 +102,8 @@ public class GroupController {
     ) {
         if (hasGroupAccess(group_name, from_player)) {
             groupService.updateGroupName(group_name, new_group_name);
+
+            log.info("update group \"" + group_name + "\" name to \"" + new_group_name +"\"");
         } else {
             throw new APIException("no access");
         }
@@ -143,6 +118,8 @@ public class GroupController {
     ) {
         if (hasGroupAccess(group_name, from_player)) {
             groupService.updateGroupInformation(group_name, group_information);
+
+            log.info("update group \"" + group_name + "\" information to \"" + group_information +"\"");
         } else {
             throw new APIException("no access");
         }
@@ -156,6 +133,8 @@ public class GroupController {
     ) {
         if (hasGroupFinalAccess(group_name, from_player)) {
             groupService.deleteGroupByName(group_name);
+
+            log.info("delete group "  + group_name);
         } else {
             throw new APIException("no access");
         }
@@ -163,36 +142,22 @@ public class GroupController {
 
     private Boolean hasGroupFinalAccess(String group_name, String player_name) {
         Group group = groupService.getGroupByName(group_name);
-        if (group != null) {
-            Player requester = playerService.getPlayByName(player_name);
-            if (requester != null) {
-                if (group.getOwner().equals(requester.getId())) {
-                    return true;
-                } else return playerService.isPlayerAdmin(player_name);
-            } else {
-                throw new APIException("wrong request");
-            }
-        } else {
-            throw new APIException("group doesn't exist");
-        }
+        Player requester = playerService.getPlayByName(player_name);
+
+        if (group.getOwner().equals(requester.getId())) {
+            return true;
+        } else return playerService.isPlayerAdmin(player_name);
     }
 
     private Boolean hasGroupAccess(String group_name, String player_name) {
         Group group = groupService.getGroupByName(group_name);
-        if (group != null) {
-            Player requester = playerService.getPlayByName(player_name);
-            if (requester != null) {
-                if (group.getAdmins().contains(requester.getId())) {
-                    return true;
-                } else if (group.getOwner().equals(requester.getId())) {
-                    return true;
-                } else return playerService.isPlayerAdmin(player_name);
-            } else {
-                throw new APIException("wrong request");
-            }
-        } else {
-            throw new APIException("group doesn't exist");
-        }
+        Player requester = playerService.getPlayByName(player_name);
+
+        if (group.getAdmins().contains(requester.getId())) {
+            return true;
+        } else if (group.getOwner().equals(requester.getId())) {
+            return true;
+        } else return playerService.isPlayerAdmin(player_name);
     }
 
 }

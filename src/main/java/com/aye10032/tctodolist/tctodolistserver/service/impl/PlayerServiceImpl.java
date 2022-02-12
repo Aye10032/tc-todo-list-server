@@ -40,7 +40,6 @@ public class PlayerServiceImpl implements PlayerService {
         List<Integer> group = new ArrayList<>();
         group.add(1);
         player.setGroups(group);
-
         playerMapper.insert(player);
 
         return player.getId();
@@ -74,7 +73,10 @@ public class PlayerServiceImpl implements PlayerService {
         PlayerExample example = new PlayerExample();
         example.createCriteria().andNameEqualTo(name);
         List<Player> playerLists = playerMapper.selectByExample(example);
-        return playerLists.isEmpty() ? null : playerLists.get(0);
+        if (playerLists.isEmpty()) {
+            throw new APIException("player doesn't exist");
+        }
+        return playerLists.get(0);
     }
 
     @Override
@@ -82,7 +84,10 @@ public class PlayerServiceImpl implements PlayerService {
         PlayerExample example = new PlayerExample();
         example.createCriteria().andUuidEqualTo(uuid);
         List<Player> playerList = playerMapper.selectByExample(example);
-        return playerList.isEmpty() ? null : playerList.get(0);
+        if (playerList.isEmpty()) {
+            throw new APIException("player doesn't exist");
+        }
+        return playerList.get(0);
     }
 
 
@@ -90,15 +95,11 @@ public class PlayerServiceImpl implements PlayerService {
     public int updatePlayerName(String name) {
         String uuid = MinecraftUtil.getUUID(name);
         Player player = getPlayerByUuid(uuid);
-        if (player != null) {
-            player.setName(name);
-            PlayerExample example = new PlayerExample();
-            example.createCriteria().andUuidEqualTo(uuid);
-            playerMapper.updateByExample(player, example);
-            return player.getId();
-        } else {
-            throw new APIException("player doesn't exist");
-        }
+        player.setName(name);
+        PlayerExample example = new PlayerExample();
+        example.createCriteria().andUuidEqualTo(uuid);
+        playerMapper.updateByExample(player, example);
+        return player.getId();
     }
 
     @Override
@@ -106,18 +107,12 @@ public class PlayerServiceImpl implements PlayerService {
         PlayerExample example = new PlayerExample();
         example.createCriteria().andNameEqualTo(name);
         List<Player> playerList = playerMapper.selectByExample(example);
-        if (!playerList.isEmpty()){
-            Player player = playerList.get(0);
-            List<Integer> groups = player.getGroups();
-            if (!groups.contains(group_id)){
-                groups.add(group_id);
-                player.setGroups(groups);
-                playerMapper.updateByExample(player, example);
-            }else {
-                throw new APIException("player already in group");
-            }
-        }else {
-            throw new APIException("player doesn't exist");
+        Player player = playerList.get(0);
+        List<Integer> groups = player.getGroups();
+        if (!groups.contains(group_id)) {
+            groups.add(group_id);
+            player.setGroups(groups);
+            playerMapper.updateByExample(player, example);
         }
     }
 
