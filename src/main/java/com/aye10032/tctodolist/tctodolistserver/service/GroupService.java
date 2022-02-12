@@ -18,6 +18,8 @@ public interface GroupService {
 
     Integer insertGroup(Integer owner_id, String name, String information);
 
+    void deleteGroupByName(String group_name);
+
     void insertAdminById(Integer group_id, Integer admin_id);
 
     void deleteAdminById(Integer group_id, Integer admin_id);

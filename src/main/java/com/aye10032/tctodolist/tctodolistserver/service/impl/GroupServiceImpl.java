@@ -64,6 +64,13 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
+    public void deleteGroupByName(String group_name) {
+        GroupExample example = new GroupExample();
+        example.createCriteria().andNameEqualTo(group_name);
+        groupMapper.deleteByExample(example);
+    }
+
+    @Override
     public void insertAdminById(Integer group_id, Integer admin_id) {
         Group group = getGroupById(group_id);
         List<Integer> admins = group.getAdmins();

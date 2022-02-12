@@ -146,6 +146,35 @@ public class GroupController {
         }
     }
 
+    @ApiOperation("删除组")
+    @PostMapping("deleteGroup")
+    public void deleteGroup(
+            @ApiParam("组名称") @RequestParam(value = "group_name") String group_name,
+            @ApiParam("请求来源玩家ID") @RequestParam(value = "from_player") String from_player
+    ) {
+        if (hasGroupFinalAccess(group_name, from_player)) {
+            groupService.deleteGroupByName(group_name);
+        } else {
+            throw new APIException("no access");
+        }
+    }
+
+    private Boolean hasGroupFinalAccess(String group_name, String player_name) {
+        Group group = groupService.getGroupByName(group_name);
+        if (group != null) {
+            Player requester = playerService.getPlayByName(player_name);
+            if (requester != null) {
+                if (group.getOwner().equals(requester.getId())) {
+                    return true;
+                } else return playerService.isPlayerAdmin(player_name);
+            } else {
+                throw new APIException("wrong request");
+            }
+        } else {
+            throw new APIException("group doesn't exist");
+        }
+    }
+
     private Boolean hasGroupAccess(String group_name, String player_name) {
         Group group = groupService.getGroupByName(group_name);
         if (group != null) {
