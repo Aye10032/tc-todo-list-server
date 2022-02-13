@@ -108,6 +108,18 @@ public class TaskController {
         }
     }
 
+    @ApiOperation("删除任务")
+    @PostMapping("deleteTask")
+    public void deleteTask(
+            @ApiParam("任务名称") @NotBlank(message = "任务名称不能为空") @RequestParam(value = "task_name") String task_name,
+            @ApiParam("请求来源玩家ID") @NotBlank(message = "请求人不能为空") @RequestParam(value = "from_name") String from_name
+    ) {
+        if (hasTaskFinalAccess(task_name, from_name)) {
+            taskService.deleteTask(task_name);
+            log.info("delete task " + task_name + " by player " + from_name);
+        }
+    }
+
     private boolean hasTaskFinalAccess(String task_name, String player_name) {
         Task task = taskService.getTaskByName(task_name);
         Player player = playerService.getPlayByName(player_name);

@@ -5,6 +5,7 @@ import com.aye10032.tctodolist.tctodolistserver.data.APIException;
 import com.aye10032.tctodolist.tctodolistserver.pojo.Task;
 import com.aye10032.tctodolist.tctodolistserver.pojo.TaskExample;
 import com.aye10032.tctodolist.tctodolistserver.service.TaskService;
+import io.swagger.annotations.Example;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -99,5 +100,12 @@ public class TaskServiceImpl implements TaskService {
         TaskExample example = new TaskExample();
         example.createCriteria().andNameEqualTo(task_name);
         taskMapper.updateByExample(task, example);
+    }
+
+    @Override
+    public void deleteTask(String task_name) {
+        TaskExample example = new TaskExample();
+        example.createCriteria().andNameEqualTo(task_name);
+        taskMapper.deleteByExample(example);
     }
 }
