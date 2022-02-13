@@ -61,7 +61,7 @@ public class GroupController {
     public void insertGroupAdmin(
             @ApiParam("组名称") @NotBlank(message = "组名称不能为空") @RequestParam(value = "group_name") String group_name,
             @ApiParam("玩家ID") @NotBlank(message = "玩家ID不能为空") @RequestParam(value = "player_name") String player_name,
-            @ApiParam("请求来源玩家ID") @RequestParam(value = "from_player") String from_player
+            @ApiParam("请求来源玩家ID") @NotBlank(message = "请求人不能为空") @RequestParam(value = "from_player") String from_player
     ) {
         if (hasGroupAccess(group_name, from_player)) {
             Group group = groupService.getGroupByName(group_name);
@@ -80,7 +80,7 @@ public class GroupController {
     public void deleteGroupAdmin(
             @ApiParam("组名称") @NotBlank(message = "组名称不能为空") @RequestParam(value = "group_name") String group_name,
             @ApiParam("玩家ID") @NotBlank(message = "玩家ID不能为空") @RequestParam(value = "player_name") String player_name,
-            @ApiParam("请求来源玩家ID") @RequestParam(value = "from_player") String from_player
+            @ApiParam("请求来源玩家ID") @NotBlank(message = "请求人不能为空") @RequestParam(value = "from_player") String from_player
     ) {
         if (hasGroupAccess(group_name, from_player)) {
             Group group = groupService.getGroupByName(group_name);
@@ -98,7 +98,7 @@ public class GroupController {
     public void updateGroupName(
             @ApiParam("原组名称") @NotBlank(message = "原组名称不能为空") @RequestParam(value = "group_name") String group_name,
             @ApiParam("新组名称(唯一)") @NotBlank(message = "新组名称不能为空") @RequestParam(value = "new_group_name") String new_group_name,
-            @ApiParam("请求来源玩家ID") @RequestParam(value = "from_player") String from_player
+            @ApiParam("请求来源玩家ID") @NotBlank(message = "请求人不能为空") @RequestParam(value = "from_player") String from_player
     ) {
         if (hasGroupAccess(group_name, from_player)) {
             groupService.updateGroupName(group_name, new_group_name);
@@ -114,7 +114,7 @@ public class GroupController {
     public void updateGroupInformation(
             @ApiParam("组名称") @NotBlank(message = "组名称不能为空") @RequestParam(value = "group_name") String group_name,
             @ApiParam("组简介") @RequestParam(value = "group_information") String group_information,
-            @ApiParam("请求来源玩家ID") @RequestParam(value = "from_player") String from_player
+            @ApiParam("请求来源玩家ID") @NotBlank(message = "请求人不能为空") @RequestParam(value = "from_player") String from_player
     ) {
         if (hasGroupAccess(group_name, from_player)) {
             groupService.updateGroupInformation(group_name, group_information);

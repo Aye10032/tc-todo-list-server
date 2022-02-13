@@ -45,7 +45,7 @@ public class PlayerController {
     @PostMapping("setPlayerAdmin")
     public void setPlayerAdmin(
             @ApiParam("更改权限对象") @NotBlank(message = "玩家名称不能为空") @RequestParam(value = "name") String name,
-            @ApiParam("请求来源玩家") @RequestParam(value = "from_player") String from_player
+            @ApiParam("请求来源玩家") @NotBlank(message = "请求人不能为空") @RequestParam(value = "from_player") String from_player
     ) {
         if (playerService.isPlayerAdmin(from_player)) {
             log.info("set player " + name + "as admin by " + from_player);
@@ -73,12 +73,16 @@ public class PlayerController {
     @PostMapping("addPlayerToGroup")
     public void addPlayerToGroup(
             @ApiParam("组名称") @NotBlank(message = "组名称不能为空") @RequestParam(value = "group_name") String group_name,
-            @ApiParam("玩家昵称") @NotBlank(message = "玩家名称不能为空") @RequestParam(value = "player_name") String player_name) {
+            @ApiParam("玩家昵称") @NotBlank(message = "玩家名称不能为空") @RequestParam(value = "player_name") String player_name,
+            @ApiParam("请求来源玩家") @NotBlank(message = "请求人不能为空") @RequestParam(value = "from_player") String from_player) {
         Group group = groupService.getGroupByName(group_name);
-        playerService.addPlayerGroup(player_name, group.getId());
-
-        log.info("add player " + player_name + " to group " + group_name);
+        Player target = playerService.getPlayByName(from_player);
+        if (group.getAdmins().contains(target.getId())
+                ||group.getOwner().equals(target.getId())
+                ||playerService.isPlayerAdmin(from_player)) {
+            playerService.addPlayerGroup(player_name, group.getId());
+            log.info("add player " + player_name + " to group " + group_name);
+        }
     }
-
 
 }
