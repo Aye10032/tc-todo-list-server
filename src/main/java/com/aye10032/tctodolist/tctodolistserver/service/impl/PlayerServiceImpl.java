@@ -1,7 +1,10 @@
 package com.aye10032.tctodolist.tctodolistserver.service.impl;
 
+import com.aye10032.tctodolist.tctodolistserver.dao.GroupMapper;
 import com.aye10032.tctodolist.tctodolistserver.dao.PlayerMapper;
 import com.aye10032.tctodolist.tctodolistserver.data.APIException;
+import com.aye10032.tctodolist.tctodolistserver.pojo.Group;
+import com.aye10032.tctodolist.tctodolistserver.pojo.GroupExample;
 import com.aye10032.tctodolist.tctodolistserver.pojo.Player;
 import com.aye10032.tctodolist.tctodolistserver.pojo.PlayerExample;
 import com.aye10032.tctodolist.tctodolistserver.service.PlayerService;
@@ -27,6 +30,8 @@ public class PlayerServiceImpl implements PlayerService {
 
     @Autowired
     private PlayerMapper playerMapper;
+    @Autowired
+    private GroupMapper groupMapper;
 
 
     @Override
@@ -48,14 +53,19 @@ public class PlayerServiceImpl implements PlayerService {
     @Override
     public void setPlayerAdmin(String name) {
         Player player = getPlayByName(name);
+        player.setAdmin(true);
+        PlayerExample example = new PlayerExample();
+        example.createCriteria().andNameEqualTo(name);
+        playerMapper.updateByExample(player, example);
 
-        if (player != null) {
-            player.setAdmin(true);
-            PlayerExample example = new PlayerExample();
-            example.createCriteria().andNameEqualTo(name);
-            playerMapper.updateByExample(player, example);
-        } else {
-            throw new APIException("wrong ID");
+        GroupExample groupExample = new GroupExample();
+        groupExample.createCriteria().andIdEqualTo(1);
+        Group group = groupMapper.selectByPrimaryKey(1);
+        List<Integer> admins = group.getAdmins();
+        if (!admins.contains(player.getId())) {
+            admins.add(player.getId());
+            group.setAdmins(admins);
+            groupMapper.updateByExample(group, groupExample);
         }
     }
 

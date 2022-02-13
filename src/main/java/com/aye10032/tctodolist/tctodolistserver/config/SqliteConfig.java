@@ -83,6 +83,16 @@ public class SqliteConfig {
                     player.setGroups(groups);
 
                     playerMapper.insert(player);
+
+                    Group server = groupMapper.selectByPrimaryKey(1);
+                    List<Integer> group_admins = server.getAdmins();
+                    if (!group_admins.contains(player.getId())) {
+                        group_admins.add(player.getId());
+                        server.setAdmins(group_admins);
+                        GroupExample example = new GroupExample();
+                        example.createCriteria().andIdEqualTo(1);
+                        groupMapper.updateByExample(server, example);
+                    }
                 } catch (APIException e) {
                     log.error("skip " + name + " because of wrong ID");
                 }
@@ -101,6 +111,7 @@ public class SqliteConfig {
         group.setInformation("this is server group");
 
         List<Integer> admins = new ArrayList<>();
+        admins.add(-1);
         group.setAdmins(admins);
 
         groupMapper.insert(group);
