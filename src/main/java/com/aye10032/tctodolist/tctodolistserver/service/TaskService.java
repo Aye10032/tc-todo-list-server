@@ -24,4 +24,6 @@ public interface TaskService {
 
     List<Task> getUnfinishedTaskByGroup(List<Integer> groupList);
 
+    void updateTaskStatus(String task_name, boolean status);
+
 }

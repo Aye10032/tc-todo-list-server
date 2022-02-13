@@ -89,4 +89,15 @@ public class TaskServiceImpl implements TaskService {
         }
         return taskMapper.selectByExample(example);
     }
+
+    @Override
+    public void updateTaskStatus(String task_name, boolean status) {
+        Task task = getTaskByName(task_name);
+        task.setStatus(status);
+        task.setLastUpdateTime(new Date().getTime());
+
+        TaskExample example = new TaskExample();
+        example.createCriteria().andNameEqualTo(task_name);
+        taskMapper.updateByExample(task, example);
+    }
 }

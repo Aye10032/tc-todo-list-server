@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.util.List;
 
@@ -94,4 +95,38 @@ public class TaskController {
         return taskService.getUnfinishedTaskByGroup(player_group);
     }
 
+    @ApiOperation("更新任务状态")
+    @PostMapping("updateTaskStatus")
+    public void updateTaskStatus(
+            @ApiParam("任务名称") @NotBlank(message = "任务名称不能为空") @RequestParam(value = "task_name") String task_name,
+            @ApiParam("任务状态") @NotNull(message = "任务状态不能为空") @RequestParam(value = "status") Boolean status,
+            @ApiParam("请求来源玩家ID") @NotBlank(message = "请求人不能为空") @RequestParam(value = "from_name") String from_name
+    ) {
+        if (hasTaskAccess(task_name, from_name)) {
+            taskService.updateTaskStatus(task_name, status);
+            log.info("update task " + task_name + " status to " + status);
+        }
+    }
+
+    private boolean hasTaskFinalAccess(String task_name, String player_name) {
+        Task task = taskService.getTaskByName(task_name);
+        Player player = playerService.getPlayByName(player_name);
+
+        if (player.getAdmin()) {
+            return true;
+        }
+        Group group = groupService.getGroupById(task.getGroups());
+        return group.getOwner().equals(player.getId());
+    }
+
+    private boolean hasTaskAccess(String task_name, String player_name) {
+        Task task = taskService.getTaskByName(task_name);
+        Player player = playerService.getPlayByName(player_name);
+
+        if (player.getAdmin()) {
+            return true;
+        }
+        Group group = groupService.getGroupById(task.getGroups());
+        return group.getAdmins().contains(player.getId());
+    }
 }
