@@ -26,6 +26,8 @@ public interface TaskService {
 
     void updateTaskStatus(String task_name, boolean status);
 
+    void updateTaskInformation(String task_name, String new_task_name, String pos, Integer group_id);
+
     void deleteTask(String task_name);
 
 }

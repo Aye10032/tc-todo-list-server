@@ -108,6 +108,25 @@ public class TaskController {
         }
     }
 
+    @ApiOperation("更新任务信息")
+    @PostMapping("updateTaskInformation")
+    public void updateTaskInformation(
+            @ApiParam("任务名称") @NotBlank(message = "任务名称不能为空") @RequestParam(value = "task_name") String task_name,
+            @ApiParam("新任务名称") @RequestParam(value = "new_task_name", required = false) String new_task_name,
+            @ApiParam("新任务关键点坐标") @Pattern(regexp = "^-?[0-9]+ +-?[0-9]+$", message = "格式必须为\"x z\"") @RequestParam(value = "pos", required = false) String pos,
+            @ApiParam("新任务所属组") @RequestParam(value = "group_name", required = false) String group_name,
+            @ApiParam("请求来源玩家ID") @NotBlank(message = "请求人不能为空") @RequestParam(value = "from_name") String from_name
+    ) {
+        if (hasTaskAccess(task_name, from_name)) {
+            Integer group_id = -1;
+            if (StringUtils.isNotBlank(group_name)){
+                Group group = groupService.getGroupByName(group_name);
+                group_id = group.getId();
+            }
+            taskService.updateTaskInformation(task_name, new_task_name, pos, group_id);
+        }
+    }
+
     @ApiOperation("删除任务")
     @PostMapping("deleteTask")
     public void deleteTask(

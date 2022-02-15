@@ -5,8 +5,8 @@ import com.aye10032.tctodolist.tctodolistserver.data.APIException;
 import com.aye10032.tctodolist.tctodolistserver.pojo.Task;
 import com.aye10032.tctodolist.tctodolistserver.pojo.TaskExample;
 import com.aye10032.tctodolist.tctodolistserver.service.TaskService;
-import io.swagger.annotations.Example;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -76,7 +76,7 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public List<Task> getTaskByGroup(List<Integer> groupList) {
         TaskExample example = new TaskExample();
-        for (Integer group_id:groupList){
+        for (Integer group_id : groupList) {
             example.or(new TaskExample().createCriteria().andGroupsEqualTo(group_id));
         }
         return taskMapper.selectByExample(example);
@@ -85,7 +85,7 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public List<Task> getUnfinishedTaskByGroup(List<Integer> groupList) {
         TaskExample example = new TaskExample();
-        for (Integer group_id:groupList){
+        for (Integer group_id : groupList) {
             example.or(new TaskExample().createCriteria().andGroupsEqualTo(group_id).andStatusEqualTo(false));
         }
         return taskMapper.selectByExample(example);
@@ -100,6 +100,25 @@ public class TaskServiceImpl implements TaskService {
         TaskExample example = new TaskExample();
         example.createCriteria().andNameEqualTo(task_name);
         taskMapper.updateByExample(task, example);
+    }
+
+    @Override
+    public void updateTaskInformation(String task_name, String new_task_name, String pos, Integer group_id) {
+        Task task = getTaskByName(task_name);
+        if (StringUtils.isNotBlank(new_task_name)) {
+            TaskExample example = new TaskExample();
+            example.createCriteria().andNameEqualTo(new_task_name);
+            if (taskMapper.countByExample(example) == 0) {
+                task.setName(new_task_name);
+            }
+        }
+        if (StringUtils.isNotBlank(pos)) {
+            task.setPos(pos);
+        }
+        if (group_id != null) {
+            task.setGroups(group_id);
+        }
+        taskMapper.updateByPrimaryKey(task);
     }
 
     @Override
