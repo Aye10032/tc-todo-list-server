@@ -2,7 +2,7 @@ package com.aye10032.tctodolist.tctodolistserver.pojo;
 
 /**
  * @author Aye10032
- * @date 2022-02-11
+ * @date 2022-02-15
  */
 public class Undertake {
     private Integer id;
@@ -15,12 +15,15 @@ public class Undertake {
 
     private Long lastUpdateTime;
 
-    public Undertake(Integer id, Integer playerId, String msg, Long time, Long lastUpdateTime) {
+    private Integer fromTask;
+
+    public Undertake(Integer id, Integer playerId, String msg, Long time, Long lastUpdateTime, Integer fromTask) {
         this.id = id;
         this.playerId = playerId;
         this.msg = msg;
         this.time = time;
         this.lastUpdateTime = lastUpdateTime;
+        this.fromTask = fromTask;
     }
 
     public Undertake() {
@@ -65,5 +68,13 @@ public class Undertake {
 
     public void setLastUpdateTime(Long lastUpdateTime) {
         this.lastUpdateTime = lastUpdateTime;
+    }
+
+    public Integer getFromTask() {
+        return fromTask;
+    }
+
+    public void setFromTask(Integer fromTask) {
+        this.fromTask = fromTask;
     }
 }

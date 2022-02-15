@@ -20,7 +20,7 @@ create table todo_message
     last_update_time NUMERIC not null,
     msg              TEXT    not null,
     has_read         BOOLEAN not null,
-    from_todo        INTEGER
+    from_task        INTEGER
 );
 
 create table todo_player
@@ -57,5 +57,6 @@ create table todo_undertake
     player_id        INTEGER not null,
     msg              TEXT,
     time             NUMERIC not null,
-    last_update_time NUMERIC
+    last_update_time NUMERIC,
+    from_task        INTEGER not null
 );

@@ -65,7 +65,7 @@ public class MessageExample {
 
     /**
      * @author Aye10032
-     * @date 2022-02-11
+     * @date 2022-02-15
      */
     protected abstract static class GeneratedCriteria {
         protected List<Criterion> criteria;
@@ -538,63 +538,63 @@ public class MessageExample {
             return (Criteria) this;
         }
 
-        public Criteria andFromTodoIsNull() {
-            addCriterion("from_todo is null");
+        public Criteria andFromTaskIsNull() {
+            addCriterion("from_task is null");
             return (Criteria) this;
         }
 
-        public Criteria andFromTodoIsNotNull() {
-            addCriterion("from_todo is not null");
+        public Criteria andFromTaskIsNotNull() {
+            addCriterion("from_task is not null");
             return (Criteria) this;
         }
 
-        public Criteria andFromTodoEqualTo(Integer value) {
-            addCriterion("from_todo =", value, "fromTodo");
+        public Criteria andFromTaskEqualTo(Integer value) {
+            addCriterion("from_task =", value, "fromTask");
             return (Criteria) this;
         }
 
-        public Criteria andFromTodoNotEqualTo(Integer value) {
-            addCriterion("from_todo <>", value, "fromTodo");
+        public Criteria andFromTaskNotEqualTo(Integer value) {
+            addCriterion("from_task <>", value, "fromTask");
             return (Criteria) this;
         }
 
-        public Criteria andFromTodoGreaterThan(Integer value) {
-            addCriterion("from_todo >", value, "fromTodo");
+        public Criteria andFromTaskGreaterThan(Integer value) {
+            addCriterion("from_task >", value, "fromTask");
             return (Criteria) this;
         }
 
-        public Criteria andFromTodoGreaterThanOrEqualTo(Integer value) {
-            addCriterion("from_todo >=", value, "fromTodo");
+        public Criteria andFromTaskGreaterThanOrEqualTo(Integer value) {
+            addCriterion("from_task >=", value, "fromTask");
             return (Criteria) this;
         }
 
-        public Criteria andFromTodoLessThan(Integer value) {
-            addCriterion("from_todo <", value, "fromTodo");
+        public Criteria andFromTaskLessThan(Integer value) {
+            addCriterion("from_task <", value, "fromTask");
             return (Criteria) this;
         }
 
-        public Criteria andFromTodoLessThanOrEqualTo(Integer value) {
-            addCriterion("from_todo <=", value, "fromTodo");
+        public Criteria andFromTaskLessThanOrEqualTo(Integer value) {
+            addCriterion("from_task <=", value, "fromTask");
             return (Criteria) this;
         }
 
-        public Criteria andFromTodoIn(List<Integer> values) {
-            addCriterion("from_todo in", values, "fromTodo");
+        public Criteria andFromTaskIn(List<Integer> values) {
+            addCriterion("from_task in", values, "fromTask");
             return (Criteria) this;
         }
 
-        public Criteria andFromTodoNotIn(List<Integer> values) {
-            addCriterion("from_todo not in", values, "fromTodo");
+        public Criteria andFromTaskNotIn(List<Integer> values) {
+            addCriterion("from_task not in", values, "fromTask");
             return (Criteria) this;
         }
 
-        public Criteria andFromTodoBetween(Integer value1, Integer value2) {
-            addCriterion("from_todo between", value1, value2, "fromTodo");
+        public Criteria andFromTaskBetween(Integer value1, Integer value2) {
+            addCriterion("from_task between", value1, value2, "fromTask");
             return (Criteria) this;
         }
 
-        public Criteria andFromTodoNotBetween(Integer value1, Integer value2) {
-            addCriterion("from_todo not between", value1, value2, "fromTodo");
+        public Criteria andFromTaskNotBetween(Integer value1, Integer value2) {
+            addCriterion("from_task not between", value1, value2, "fromTask");
             return (Criteria) this;
         }
     }
@@ -607,7 +607,7 @@ public class MessageExample {
 
     /**
      * @author Aye10032
-     * @date 2022-02-11
+     * @date 2022-02-15
      */
     public static class Criterion {
         private String condition;

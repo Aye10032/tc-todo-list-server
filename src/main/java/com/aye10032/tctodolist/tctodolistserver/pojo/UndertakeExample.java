@@ -65,7 +65,7 @@ public class UndertakeExample {
 
     /**
      * @author Aye10032
-     * @date 2022-02-11
+     * @date 2022-02-15
      */
     protected abstract static class GeneratedCriteria {
         protected List<Criterion> criteria;
@@ -417,6 +417,66 @@ public class UndertakeExample {
             addCriterion("last_update_time not between", value1, value2, "lastUpdateTime");
             return (Criteria) this;
         }
+
+        public Criteria andFromTaskIsNull() {
+            addCriterion("from_task is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFromTaskIsNotNull() {
+            addCriterion("from_task is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFromTaskEqualTo(Integer value) {
+            addCriterion("from_task =", value, "fromTask");
+            return (Criteria) this;
+        }
+
+        public Criteria andFromTaskNotEqualTo(Integer value) {
+            addCriterion("from_task <>", value, "fromTask");
+            return (Criteria) this;
+        }
+
+        public Criteria andFromTaskGreaterThan(Integer value) {
+            addCriterion("from_task >", value, "fromTask");
+            return (Criteria) this;
+        }
+
+        public Criteria andFromTaskGreaterThanOrEqualTo(Integer value) {
+            addCriterion("from_task >=", value, "fromTask");
+            return (Criteria) this;
+        }
+
+        public Criteria andFromTaskLessThan(Integer value) {
+            addCriterion("from_task <", value, "fromTask");
+            return (Criteria) this;
+        }
+
+        public Criteria andFromTaskLessThanOrEqualTo(Integer value) {
+            addCriterion("from_task <=", value, "fromTask");
+            return (Criteria) this;
+        }
+
+        public Criteria andFromTaskIn(List<Integer> values) {
+            addCriterion("from_task in", values, "fromTask");
+            return (Criteria) this;
+        }
+
+        public Criteria andFromTaskNotIn(List<Integer> values) {
+            addCriterion("from_task not in", values, "fromTask");
+            return (Criteria) this;
+        }
+
+        public Criteria andFromTaskBetween(Integer value1, Integer value2) {
+            addCriterion("from_task between", value1, value2, "fromTask");
+            return (Criteria) this;
+        }
+
+        public Criteria andFromTaskNotBetween(Integer value1, Integer value2) {
+            addCriterion("from_task not between", value1, value2, "fromTask");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {
@@ -427,7 +487,7 @@ public class UndertakeExample {
 
     /**
      * @author Aye10032
-     * @date 2022-02-11
+     * @date 2022-02-15
      */
     public static class Criterion {
         private String condition;

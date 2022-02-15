@@ -2,7 +2,7 @@ package com.aye10032.tctodolist.tctodolistserver.pojo;
 
 /**
  * @author Aye10032
- * @date 2022-02-11
+ * @date 2022-02-15
  */
 public class Message {
     private Integer id;
@@ -19,9 +19,9 @@ public class Message {
 
     private Boolean hasRead;
 
-    private Integer fromTodo;
+    private Integer fromTask;
 
-    public Message(Integer id, Integer fromPlayer, Integer targetPlayer, Long sendTime, Long lastUpdateTime, String msg, Boolean hasRead, Integer fromTodo) {
+    public Message(Integer id, Integer fromPlayer, Integer targetPlayer, Long sendTime, Long lastUpdateTime, String msg, Boolean hasRead, Integer fromTask) {
         this.id = id;
         this.fromPlayer = fromPlayer;
         this.targetPlayer = targetPlayer;
@@ -29,7 +29,7 @@ public class Message {
         this.lastUpdateTime = lastUpdateTime;
         this.msg = msg;
         this.hasRead = hasRead;
-        this.fromTodo = fromTodo;
+        this.fromTask = fromTask;
     }
 
     public Message() {
@@ -92,11 +92,11 @@ public class Message {
         this.hasRead = hasRead;
     }
 
-    public Integer getFromTodo() {
-        return fromTodo;
+    public Integer getFromTask() {
+        return fromTask;
     }
 
-    public void setFromTodo(Integer fromTodo) {
-        this.fromTodo = fromTodo;
+    public void setFromTask(Integer fromTask) {
+        this.fromTask = fromTask;
     }
 }
