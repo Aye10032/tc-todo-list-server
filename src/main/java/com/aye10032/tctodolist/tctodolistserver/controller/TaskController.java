@@ -64,6 +64,7 @@ public class TaskController {
             result = taskService.insertTask(task_name, pos, player.getId());
             log.info("add task " + task_name);
         }
+        taskService.undertakeTask(task_name, player.getId());
         return result;
     }
 
@@ -119,12 +120,24 @@ public class TaskController {
     ) {
         if (hasTaskAccess(task_name, from_name)) {
             Integer group_id = -1;
-            if (StringUtils.isNotBlank(group_name)){
+            if (StringUtils.isNotBlank(group_name)) {
                 Group group = groupService.getGroupByName(group_name);
                 group_id = group.getId();
             }
             taskService.updateTaskInformation(task_name, new_task_name, pos, group_id);
+            log.info("update task " + task_name + " information");
         }
+    }
+
+    @ApiOperation("承接任务")
+    @PostMapping("undertakeTask")
+    public void undertakeTask(
+            @ApiParam("任务名称") @NotBlank(message = "任务名称不能为空") @RequestParam(value = "task_name") String task_name,
+            @ApiParam("承接人ID") @NotBlank(message = "承接人不能为空") @RequestParam(value = "from_name") String player_name
+    ) {
+        Player player = playerService.getPlayByName(player_name);
+        taskService.undertakeTask(task_name, player.getId());
+        log.info("player " + player_name + " undertake task " + task_name);
     }
 
     @ApiOperation("删除任务")

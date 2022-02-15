@@ -1,7 +1,9 @@
 package com.aye10032.tctodolist.tctodolistserver.service.impl;
 
+import com.aye10032.tctodolist.tctodolistserver.dao.PlayerMapper;
 import com.aye10032.tctodolist.tctodolistserver.dao.TaskMapper;
 import com.aye10032.tctodolist.tctodolistserver.data.APIException;
+import com.aye10032.tctodolist.tctodolistserver.pojo.Player;
 import com.aye10032.tctodolist.tctodolistserver.pojo.Task;
 import com.aye10032.tctodolist.tctodolistserver.pojo.TaskExample;
 import com.aye10032.tctodolist.tctodolistserver.service.TaskService;
@@ -118,7 +120,19 @@ public class TaskServiceImpl implements TaskService {
         if (group_id != null) {
             task.setGroups(group_id);
         }
+        task.setLastUpdateTime(new Date().getTime());
         taskMapper.updateByPrimaryKey(task);
+    }
+
+    @Override
+    public void undertakeTask(String task_name, Integer player_id) {
+        Task task = getTaskByName(task_name);
+        List<Integer> undertake_list = task.getUndertakerList();
+        if (!undertake_list.contains(player_id)){
+            undertake_list.add(player_id);
+        }
+        task.setUndertakerList(undertake_list);
+        task.setLastUpdateTime(new Date().getTime());
     }
 
     @Override
