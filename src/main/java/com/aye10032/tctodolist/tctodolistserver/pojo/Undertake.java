@@ -1,20 +1,31 @@
 package com.aye10032.tctodolist.tctodolistserver.pojo;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 /**
  * @author Aye10032
  * @date 2022-02-15
  */
+@ApiModel("承接信息")
 public class Undertake {
+
+    @ApiModelProperty(hidden = true)
     private Integer id;
 
+    @ApiModelProperty(value = "玩家ID")
     private Integer playerId;
 
+    @ApiModelProperty(value = "玩家留言")
     private String msg;
 
+    @ApiModelProperty(value = "承接时间")
     private Long time;
 
+    @ApiModelProperty(value = "最后更新时间")
     private Long lastUpdateTime;
 
+    @ApiModelProperty(value = "承接任务ID")
     private Integer fromTask;
 
     public Undertake(Integer id, Integer playerId, String msg, Long time, Long lastUpdateTime, Integer fromTask) {

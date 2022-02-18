@@ -125,14 +125,15 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public void undertakeTask(String task_name, Integer player_id) {
+    public void addTaskUndertake(String task_name, Integer undertake_id) {
         Task task = getTaskByName(task_name);
         List<Integer> undertake_list = task.getUndertakerList();
-        if (!undertake_list.contains(player_id)){
-            undertake_list.add(player_id);
+        if (!undertake_list.contains(undertake_id)){
+            undertake_list.add(undertake_id);
         }
         task.setUndertakerList(undertake_list);
         task.setLastUpdateTime(new Date().getTime());
+        taskMapper.updateByPrimaryKey(task);
     }
 
     @Override

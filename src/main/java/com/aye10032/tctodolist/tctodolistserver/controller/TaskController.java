@@ -7,6 +7,7 @@ import com.aye10032.tctodolist.tctodolistserver.pojo.Task;
 import com.aye10032.tctodolist.tctodolistserver.service.GroupService;
 import com.aye10032.tctodolist.tctodolistserver.service.PlayerService;
 import com.aye10032.tctodolist.tctodolistserver.service.TaskService;
+import com.aye10032.tctodolist.tctodolistserver.service.UndertakeService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -40,6 +41,8 @@ public class TaskController {
     PlayerService playerService;
     @Autowired
     GroupService groupService;
+    @Autowired
+    UndertakeService undertakeService;
 
     @ApiOperation("添加任务")
     @PostMapping("insertTask")
@@ -47,7 +50,8 @@ public class TaskController {
             @ApiParam("任务名称") @NotBlank(message = "任务名称不能为空") @RequestParam(value = "task_name") String task_name,
             @ApiParam("任务关键点坐标") @Pattern(regexp = "^-?[0-9]+ +-?[0-9]+$", message = "格式必须为\"x z\"") @RequestParam(value = "pos") String pos,
             @ApiParam("任务创建人") @NotBlank(message = "创建人不能为空") @RequestParam(value = "owner_name") String owner_name,
-            @ApiParam("任务所属组(留空则默认为服务器组)") @RequestParam(value = "group_name", required = false) String group_name) {
+            @ApiParam("任务所属组(留空则默认为服务器组)") @RequestParam(value = "group_name", required = false) String group_name,
+            @ApiParam("承接留言") @RequestParam(value = "msg", required = false) String msg) {
         Player player = playerService.getPlayByName(owner_name);
         if (player == null) {
             throw new APIException("player doesn't exists!");
@@ -64,7 +68,8 @@ public class TaskController {
             result = taskService.insertTask(task_name, pos, player.getId());
             log.info("add task " + task_name);
         }
-        taskService.undertakeTask(task_name, player.getId());
+        Integer undertake_id = undertakeService.insertUndertake(result, player.getId(), msg);
+        taskService.addTaskUndertake(task_name, undertake_id);
         return result;
     }
 
@@ -127,17 +132,6 @@ public class TaskController {
             taskService.updateTaskInformation(task_name, new_task_name, pos, group_id);
             log.info("update task " + task_name + " information");
         }
-    }
-
-    @ApiOperation("承接任务")
-    @PostMapping("undertakeTask")
-    public void undertakeTask(
-            @ApiParam("任务名称") @NotBlank(message = "任务名称不能为空") @RequestParam(value = "task_name") String task_name,
-            @ApiParam("承接人ID") @NotBlank(message = "承接人不能为空") @RequestParam(value = "from_name") String player_name
-    ) {
-        Player player = playerService.getPlayByName(player_name);
-        taskService.undertakeTask(task_name, player.getId());
-        log.info("player " + player_name + " undertake task " + task_name);
     }
 
     @ApiOperation("删除任务")

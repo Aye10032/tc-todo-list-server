@@ -28,7 +28,7 @@ public interface TaskService {
 
     void updateTaskInformation(String task_name, String new_task_name, String pos, Integer group_id);
 
-    void undertakeTask(String task_name, Integer player_name);
+    void addTaskUndertake(String task_name, Integer undertake_id);
 
     void deleteTask(String task_name);
 
